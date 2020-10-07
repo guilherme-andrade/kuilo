@@ -7,6 +7,7 @@ ruby '2.6.5'
 
 gem 'active_link_to'
 gem 'activerecord-multi-tenant'
+gem 'activerecord-session_store'
 gem 'acts_as_living'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'cloudinary'

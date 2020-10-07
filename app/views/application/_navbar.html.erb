@@ -7,29 +7,40 @@
             <%= image_tag current_organization.logo, height: 50 %>
           <% end %>
         </li>
+        <li class="nav-item">
+          <%= active_link_to 'Propriedades', properties_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= active_link_to 'Empreendimentos', enterprises_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= active_link_to 'Contractos', contracts_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= active_link_to 'Rendas', rents_path, class: 'nav-link' %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= active_link_to root_path, class: 'navbar-brand' do %>
+            Kuilo
+          <% end %>
+        </li>
       <% end %>
-
-      <li class="nav-item">
-        <%= active_link_to 'Propriedades', properties_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= active_link_to 'Empreendimentos', enterprises_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= active_link_to 'Contractos', contracts_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= active_link_to 'Rendas', rents_path, class: 'nav-link' %>
-      </li>
     </ul>
 
     <ul class="navbar-nav flex-row">
-      <li class="nav-item">
-        <%= active_link_to 'Login', new_user_session_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= active_link_to 'Sign up', new_user_registration_path, class: 'nav-link nav-link-dark font-weight-bold' %>
-      </li>
+
+      <% if user_signed_in? %>
+        <li class="nav-item">
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= active_link_to 'Login', new_user_session_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= active_link_to 'Sign up', new_user_registration_path, class: 'nav-link nav-link-dark font-weight-bold' %>
+        </li>
+      <% end %>
     </ul>
   </div>
 </nav>
