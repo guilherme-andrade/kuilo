@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_07_191918) do
+ActiveRecord::Schema.define(version: 2020_10_07_233619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -71,10 +71,10 @@ ActiveRecord::Schema.define(version: 2020_10_07_191918) do
     t.string "number"
     t.string "bank_name"
     t.boolean "primary", default: false
-    t.string "account_holder_type", null: false
-    t.uuid "account_holder_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "account_holder_type"
+    t.bigint "account_holder_id"
     t.index ["account_holder_id", "account_holder_type"], name: "index_bank_accounts_on_account_holder"
   end
 

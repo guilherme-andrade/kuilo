@@ -7,11 +7,10 @@ class CreateBankAccounts < ActiveRecord::Migration[6.0]
       t.string :number
       t.string :bank_name
       t.boolean :primary, default: false
-      t.references :account_holder, polymorphic: true, null: false, type: :uuid, index: false
+      t.references :owner, polymorphic: true, null: false, type: :uuid
+      t.references :organization, null: false, foreign_key: true, type: :uuid
 
       t.timestamps
     end
-
-    add_index :bank_accounts, %i[account_holder_id account_holder_type], name: :index_bank_accounts_on_account_holder
   end
 end
