@@ -19,7 +19,11 @@ return if @env == 'test'
 
 @logger.debug '**** ADDING DEMO DATA ****'
 
+Transaction.destroy_all
+Rent.destroy_all
 Contract.destroy_all
+Property.destroy_all
+Enterprise.destroy_all
 Customer.destroy_all
 Organization.destroy_all
 User.destroy_all

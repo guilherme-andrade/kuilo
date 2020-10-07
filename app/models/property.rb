@@ -4,6 +4,8 @@ class Property < ApplicationRecord
   include HasAddress
   include ActiveSupport::NumberHelper
 
+  multi_tenant :organization
+
   TYPES           = %w[Apartment House Garage Office Room Warehouse].freeze
   STATUSES        = %i[available occupied ooo].freeze
   TYPOLOGIES      = %i[property].freeze

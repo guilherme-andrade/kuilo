@@ -19,7 +19,7 @@ class Enterprise < ApplicationRecord
   has_one_attached :cover_photo
   has_many_attached :photos
   has_rich_text :description
-  has_many :properties
+  has_many :properties, dependent: :nullify
 
   monetize :properties_market_value_sum_cents
   monetize :properties_default_rents_sum_cents
