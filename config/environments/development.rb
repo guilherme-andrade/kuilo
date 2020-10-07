@@ -41,7 +41,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
 
-  config.action_mailer.default_url_options = { host: ENV['APP_DOMAIN'], port: ENV['APP_PORT'] }
+  config.action_mailer.default_url_options = { host: ENV['APP_DOMAIN'], port: ENV['PORT'] }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
