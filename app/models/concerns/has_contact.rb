@@ -5,6 +5,7 @@ module HasContact
 
   included do
     include HasAddress
+    include HasBankAccounts
 
     has_one :contact, as: :entity, dependent: :destroy
     accepts_nested_attributes_for :contact

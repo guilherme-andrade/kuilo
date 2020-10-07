@@ -11,6 +11,7 @@ class CreateOrganizations < ActiveRecord::Migration[6.0]
       t.integer :enterprises_count, default: 0
       t.integer :members_count, default: 0
       t.integer :default_rent_due_day, default: 1
+      t.integer :default_rent_issuing_day, default: ENV['RENT_ISSUE_DAY']
 
       t.timestamps
     end

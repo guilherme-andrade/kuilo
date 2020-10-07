@@ -1,0 +1,26 @@
+<ul class="nav flex-column list-group">
+  <li class="list-group-item">
+    <%= active_link_to current_query_url(status_eq: property_statuses[:brand_new], anchor: 'properties-table'), class: 'list-group-link' do %>
+      <span class="signal signal-muted mr-1"></span>
+      Todas
+    <% end %>
+  </li>
+  <li class="list-group-item">
+    <%= active_link_to current_query_url(status_eq: property_statuses[:available], anchor: 'properties-table'), class: 'list-group-link' do %>
+      <span class="signal signal-success mr-1"></span>
+      Paga
+    <% end %>
+  </li>
+  <li class="list-group-item">
+    <%= active_link_to current_query_url(status_eq: property_statuses[:occupied], anchor: 'properties-table'), class: 'list-group-link' do %>
+      <span class="signal signal-danger mr-1"></span>
+      Não paga
+    <% end %>
+  </li>
+  <li class="list-group-item">
+    <%= active_link_to current_query_url(status_eq: property_statuses[:ooo], anchor: 'properties-table'), class: 'list-group-link' do %>
+      <span class="signal signal-medium mr-1"></span>
+      Emitida
+    <% end %>
+  </li>
+</ul>

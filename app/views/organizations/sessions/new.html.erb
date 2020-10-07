@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="cell cell-transparent">
+    <div class="flexbox flexbox-between-center">
+      <h1>Organizações</h1>
+      <%= render 'nav' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <% @organizations.each do |organization| %>
+      <div class="col-4">
+        <article class="card border-0 rounded-lg">
+          <%= image_tag organization.logo, class: 'card-img-top fit-cover rounded-lg rounded-top rounded-0' %>
+          <div class="card-body">
+            <div class="flexbox flexbox-between-center mb-3">
+              <h1 class="h6 mb-0"><%= organization.name %></h1>
+              <small class="font-weight-bold">
+                <%= organization.properties_count %> propriedades
+              </small>
+            </div>
+            <p><%= organization.full_address %></p>
+          </div>
+          <%= link_to '', organization_session_path(id: organization.id), method: :post, class: 'stretched-link' %>
+        </article>
+      </div>
+    <% end %>
+  </div>
+</div>

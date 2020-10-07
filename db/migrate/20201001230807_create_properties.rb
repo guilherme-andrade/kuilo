@@ -12,8 +12,8 @@ class CreateProperties < ActiveRecord::Migration[6.0]
       t.string :manager_id
       t.integer :status, default: 0
       t.monetize :market_value, amount: { null: true, default: nil, limit: 8 }
-      t.monetize :default_rent
-      t.monetize :default_charges
+      t.monetize :default_rent, amount: { null: true, default: nil, limit: 8 }
+      t.monetize :default_charges, amount: { null: true, default: nil, limit: 8 }
       t.string :type
       t.integer :typology
       t.jsonb :characteristics

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Organization < ApplicationRecord
-  include HasAddress
+  include HasContact
 
   has_many :memberships, class_name: 'OrganizationMember', dependent: :destroy
   has_many :members, through: :memberships, class_name: 'User', source: :user

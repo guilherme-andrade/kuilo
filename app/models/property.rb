@@ -36,9 +36,6 @@ class Property < ApplicationRecord
 
   default :status,                  (proc { 0 })
   default :organization_id,         (proc { |p| p.enterprise.organization_id if p.owner })
-  default :market_value_cents,      (proc { |p| 0 if p.market_value_currency })
-  default :default_rent_cents,      (proc { |p| 0 if p.default_rent_currency })
-  default :default_charges_cents,   (proc { |p| 0 if p.default_charges_currency })
   default :manager_id,              (proc { |p| p.creator_id })
   default :owner_type,              (proc { 'Organization' })
   default :owner_id,                (proc { |p| p.organization_id if p.owner_type = 'Organization' })
@@ -75,14 +72,20 @@ class Property < ApplicationRecord
   end
 
   def market_value_humanized
+    return unless market_value_cents
+
     number_to_delimited(market_value_cents / 100, locale: :fr, delimiter: '')
   end
 
   def default_rent_humanized
+    return unless default_rent_cents
+
     number_to_delimited(default_rent_cents / 100, locale: :fr, delimiter: '')
   end
 
   def default_charges_humanized
+    return unless default_charges_cents
+
     number_to_delimited(default_charges_cents / 100, locale: :fr, delimiter: '')
   end
 

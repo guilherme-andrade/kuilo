@@ -10,6 +10,8 @@ class CreateRents < ActiveRecord::Migration[6.0]
       t.monetize :charges
       t.date :issue_date
       t.date :due_date
+      t.date :incidence_period_start
+      t.date :incidence_period_end
       t.string :invoice_number
       t.integer :status
 

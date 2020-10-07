@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_06_225441) do
+ActiveRecord::Schema.define(version: 2020_10_07_125023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -62,6 +62,22 @@ ActiveRecord::Schema.define(version: 2020_10_06_225441) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
+  end
+
+  create_table "bank_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "IBAN"
+    t.string "SWIFT"
+    t.string "name"
+    t.string "number"
+    t.string "bank_name"
+    t.boolean "primary", default: false
+    t.string "owner_type", null: false
+    t.uuid "owner_id", null: false
+    t.uuid "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_bank_accounts_on_organization_id"
+    t.index ["owner_type", "owner_id"], name: "index_bank_accounts_on_owner_type_and_owner_id"
   end
 
   create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -172,6 +188,7 @@ ActiveRecord::Schema.define(version: 2020_10_06_225441) do
     t.integer "enterprises_count", default: 0
     t.integer "members_count", default: 0
     t.integer "default_rent_due_day", default: 1
+    t.integer "default_rent_issuing_day", default: 15
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["owner_id"], name: "index_organizations_on_owner_id"
@@ -189,9 +206,9 @@ ActiveRecord::Schema.define(version: 2020_10_06_225441) do
     t.integer "status", default: 0
     t.bigint "market_value_cents"
     t.string "market_value_currency", default: "EUR", null: false
-    t.integer "default_rent_cents", default: 0, null: false
+    t.bigint "default_rent_cents"
     t.string "default_rent_currency", default: "EUR", null: false
-    t.integer "default_charges_cents", default: 0, null: false
+    t.bigint "default_charges_cents"
     t.string "default_charges_currency", default: "EUR", null: false
     t.string "type"
     t.integer "typology"
@@ -214,6 +231,7 @@ ActiveRecord::Schema.define(version: 2020_10_06_225441) do
 
   create_table "rents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "contract_id", null: false
+    t.uuid "organization_id", null: false
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "EUR", null: false
     t.integer "discount_cents", default: 0, null: false
@@ -222,11 +240,29 @@ ActiveRecord::Schema.define(version: 2020_10_06_225441) do
     t.string "charges_currency", default: "EUR", null: false
     t.date "issue_date"
     t.date "due_date"
+    t.date "incidence_period_start"
+    t.date "incidence_period_end"
     t.string "invoice_number"
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["contract_id"], name: "index_rents_on_contract_id"
+    t.index ["organization_id"], name: "index_rents_on_organization_id"
+  end
+
+  create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "type"
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "EUR", null: false
+    t.uuid "rent_id", null: false
+    t.date "date"
+    t.uuid "bank_account_id", null: false
+    t.uuid "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bank_account_id"], name: "index_transactions_on_bank_account_id"
+    t.index ["organization_id"], name: "index_transactions_on_organization_id"
+    t.index ["rent_id"], name: "index_transactions_on_rent_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -279,6 +315,7 @@ ActiveRecord::Schema.define(version: 2020_10_06_225441) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bank_accounts", "organizations"
   add_foreign_key "comments", "users"
   add_foreign_key "contracts", "customers"
   add_foreign_key "contracts", "organizations"
@@ -290,4 +327,8 @@ ActiveRecord::Schema.define(version: 2020_10_06_225441) do
   add_foreign_key "properties", "enterprises"
   add_foreign_key "properties", "organizations"
   add_foreign_key "rents", "contracts"
+  add_foreign_key "rents", "organizations"
+  add_foreign_key "transactions", "bank_accounts"
+  add_foreign_key "transactions", "organizations"
+  add_foreign_key "transactions", "rents"
 end
