@@ -1,27 +1,30 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root to: 'static#home'
+  get 'profiles/show'
   devise_for :users
-
-  resources :organizations do
-    scope module: 'organizations' do
-      resources :enterprises, only: %i[new create]
-      resources :organization_members, path: 'members'
-    end
-  end
-
-  scope module: 'organizations', path: '/organizations' do
-    post '/sessions', to: 'sessions#create', as: :organization_session
-    get '/sessions/new', to: 'sessions#new', as: :new_organization_session
-    delete '/sessions', to: 'sessions#new', as: :destroy_organization_session
-  end
 
   resources :enterprises do
     scope module: 'enterprises' do
       resources :properties, only: %i[new create]
     end
   end
+
+  resource :profile, only: %i[show update]
+
+  scope module: 'organizations', path: '/organizations' do
+    resource :sessions, as: :organization_session, only: %i[create new destroy]
+    resource :current, as: :current_organization, only: %i[show edit update destroy]
+    resources :enterprises, only: %i[new create], as: :organization_enterprises
+  end
+
+  resources :organizations, only: %i[new create]
+
+  authenticated :user do
+    get '/', to: 'organizations/sessions#new', as: :authenticated_root
+  end
+
+  root to: 'static#home'
 
   resources :properties do
     scope module: 'properties' do

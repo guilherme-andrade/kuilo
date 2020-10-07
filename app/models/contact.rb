@@ -7,10 +7,19 @@ class Contact < ApplicationRecord
 
   has_one_attached :avatar
 
-  validates :name, presence: true
-  validates :email, :phone_number, :name, uniqueness: true
+  validates :email, :phone_number, :name, uniqueness: true, presence: true
   validates :vat_number, uniqueness: true, if: :vat_number
   validates :government_id, uniqueness: true, if: :vat_number
+
+  before_validation :set_email
+
+  default :name, (proc { |c| c.entity.name if c.entity.respond_to?(:name) })
+
+  def set_email
+    return unless entity_type == 'User'
+
+    self.email = entity.email
+  end
 
   def phone
     "(#{calling_country_code}) #{phone_number}"

@@ -11,6 +11,8 @@
     </p>
   </div>
 
+
+  <% if @enterprises.any? %>
   <div class="row">
     <% @enterprises.each do |enterprise| %>
       <div class="col-4">
@@ -37,4 +39,7 @@
     <% end %>
   </div>
   <%= will_paginate @enterprises, list_classes: %w(pagination justify-content-end) %>
+  <% else %>
+    <p class="font-italic lead">Ainda não adicionou nenhum empreendimento.</p>
+  <% end %>
 </div>

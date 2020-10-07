@@ -39,4 +39,12 @@ module ApplicationHelper
   def markers_for(records)
     records.map(&:coordinates).to_json
   end
+
+  def phone_country_codes
+    label_method = ->(code) { "#{IsoCountryCodes.find(code).name} (#{IsoCountryCodes.find(code).calling})"}
+    value_method = ->(code) { "#{IsoCountryCodes.find(code).calling}" }
+    IsoCountryCodes.for_select.map do |(_, code)|
+      [label_method.call(code), code, { label: value_method.call(code) }]
+    end
+  end
 end

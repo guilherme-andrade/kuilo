@@ -12,5 +12,5 @@ users_params.each do |user_params|
   user        = User.create!(user_params)
   avatar      = URI.open(avatar_url)
 
-  user.contact.avatar.attach(io: avatar, filename: "#{user.name}_avatar")
+  user.contact.avatar.attach(io: avatar, filename: "#{user.contact_name}_avatar")
 end

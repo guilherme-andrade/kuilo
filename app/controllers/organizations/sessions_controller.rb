@@ -16,5 +16,11 @@ class Organizations::SessionsController < OrganizationController
   end
 
   def destroy
+    @organization = current_organization
+    if session[:current_organization_id]
+      redirect_to new_organization_session_path, success: "Successfully logged out of #{current_organization.name}!"
+    else
+      redirect_back fallback_location: session[:user_return_to], error: 'Could not log out.'
+    end
   end
 end

@@ -1,0 +1,84 @@
+<%= component_controller do %>
+  <div class="cell pb-3 h-100">
+    <div class="flexbox flexbox-between-center">
+      <h2 class="h6 mb-0">Membros</h2>
+      <%= reflex_tag :toggle_member_form, :a, 'Adicionar membro', class: 'btn btn-sm btn-light' %>
+    </div>
+    <hr>
+    <div id="memberships-table">
+      <% @memberships.each do |membership| %>
+        <article class="flexbox flexbox-between-center" id="<%= membership.id %>">
+          <div class="flexbox flexbox-start-center flex-grow-1">
+            <%= avatar_image_tag(membership.user) %>
+            <div class="ml-3 py-3 flex-grow-1">
+              <p class="h6 mb-0">
+                <%= membership.user_name %>
+                <% if membership.user == @organization.owner %>
+                  <span class="badge bg-primary ml-2">owner</span>
+                <% end %>
+              </p>
+              <p class="small text-muted mb-0 font-weight-normal"><%= membership.user_email %></p>
+            </div>
+
+
+            <% if membership.user != @organization.owner %>
+              <div class="dropdown">
+                <a class="btn btn-sm btn-light dropdown-toggle" href="#" role="button" id="role-<%= membership.id %>" data-toggle="dropdown" aria-expanded="false">
+                  <span class="small"><%= membership.role %></span>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="role-<%= membership.id %>">
+                  <% OrganizationMember.roles.each do |role, role_value| %>
+                    <% next if role == membership.role %>
+                    <li>
+                      <%= reflex_tag :change_role, :a, role, class: 'dropdown-item', data: { id: membership.id, role: role } %>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            <% else %>
+              <a class="btn btn-sm btn-light disabled" disabled href="#" role="button" id="role-<%= membership.id %>" data-toggle="dropdown" aria-expanded="false">
+                <span class="small"><%= membership.role %></span>
+              </a>
+            <% end %>
+          </div>
+        </article>
+      <% end %>
+
+      <% if show_member_form? %>
+        <div class="modal fade d-block show" tabindex="-1" data-backdrop="static">
+          <%= reflex_tag 'click->toggle_member_form', :div, '', class: 'modal-backdrop', style: 'z-index: 0; opacity: .5;' %>
+          <%= simple_form_for @new_member, url: user_invitation_path, method: :post, html: { class: 'modal-dialog modal-dialog-centered' } do |f| %>
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Convidar Membro</h5>
+                <%= reflex_tag :toggle_member_form, :a, '', class: 'btn-close' %>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                    <div class="col-6">
+                      <%= f.simple_fields_for :contact do |cf| %>
+                        <%= cf.input :name, label: 'Nome' %>
+                      <% end %>
+                    </div>
+                    <div class="col-6">
+                      <%= f.simple_fields_for :memberships do |mf| %>
+                        <%= mf.hidden_field :organization_id %>
+                        <%= mf.input :role, as: :select, collection: OrganizationMember.roles.keys, label: 'Permissões' %>
+                      <% end %>
+                    </div>
+                  </div>
+                  <%= f.input :email, label: 'Email' %>
+              </div>
+              <div class="modal-footer">
+                <%= reflex_tag 'click->toggle_member_form', :burron, 'cancelar', class: 'btn btn-secondary' %>
+                <%= f.submit 'Convidar', class: 'btn btn-primary' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+

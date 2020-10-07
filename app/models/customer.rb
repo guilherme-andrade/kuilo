@@ -2,7 +2,7 @@
 
 class Customer < ApplicationRecord
   include PropertyOwner
-  include HasContact
+  include HasProfile
 
   multi_tenant :organization
 

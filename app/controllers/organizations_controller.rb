@@ -1,53 +1,32 @@
 # frozen_string_literal: true
 
 class OrganizationsController < PrivateController
-  before_action :find_organization, except: %i[index new create]
-
-  def index
-    @organizations = Organization.all
-  end
-
-  def show; end
-
   def new
-    @organization = Organization.new
+    @organization = current_user.owned_organizations.new
   end
-
-  def edit; end
 
   def create
-    @organization = Organization.new(params[:organization])
+    @organization = Organization.new(organization_params)
+    @organization.owner = current_user
+
     if @organization.save
-      flash[:success] = 'User successfully created'
-      redirect_to @organization
+      flash[:success] = 'Organization created!'
+      session[:current_organization_id] = @organization.id
+      redirect_to current_organization_path
     else
       flash[:error] = 'Something went wrong'
       render 'new'
     end
   end
 
-  def update
-    if @organization.update_attributes(params[:organization])
-      flash[:success] = 'User was successfully updated'
-      redirect_to @organization
-    else
-      flash[:error] = 'Something went wrong'
-      render 'edit'
-    end
-  end
-
-  def destroy
-    if @organization.destroy
-      flash[:success] = 'User was successfully deleted'
-    else
-      flash[:error] = 'Something went wrong'
-    end
-    redirect_to @organizations_path
-  end
-
   private
 
-  def find_organization
-    @organization = Organization.find(params[:id])
+  def organization_params
+    params.require(:organization).permit(
+      :name, :logo, :default_rent_due_day, :default_rent_issuing_day,
+      bank_accounts_attributes: %i[name number bank_name IBAN SWIFT],
+      contact_attributes: %i[name vat_number government_id email phone_number phone_country_code],
+      address_attributes: %i[street door floor city country zip_code]
+    )
   end
 end

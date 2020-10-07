@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_07_150423) do
+ActiveRecord::Schema.define(version: 2020_10_07_191918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -71,13 +71,11 @@ ActiveRecord::Schema.define(version: 2020_10_07_150423) do
     t.string "number"
     t.string "bank_name"
     t.boolean "primary", default: false
-    t.string "owner_type", null: false
-    t.uuid "owner_id", null: false
-    t.uuid "organization_id", null: false
+    t.string "account_holder_type", null: false
+    t.uuid "account_holder_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["organization_id"], name: "index_bank_accounts_on_organization_id"
-    t.index ["owner_type", "owner_id"], name: "index_bank_accounts_on_owner_type_and_owner_id"
+    t.index ["account_holder_id", "account_holder_type"], name: "index_bank_accounts_on_account_holder"
   end
 
   create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -182,7 +180,6 @@ ActiveRecord::Schema.define(version: 2020_10_07_150423) do
   create_table "organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "slug"
-    t.text "description"
     t.string "owner_id"
     t.integer "properties_count", default: 0
     t.integer "enterprises_count", default: 0
@@ -324,7 +321,6 @@ ActiveRecord::Schema.define(version: 2020_10_07_150423) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "bank_accounts", "organizations"
   add_foreign_key "comments", "users"
   add_foreign_key "contracts", "customers"
   add_foreign_key "contracts", "organizations"

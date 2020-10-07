@@ -1,5 +1,6 @@
 class OrganizationController < PrivateController
   before_action :select_organization!
+  before_action :set_customer_as_tenant
   set_current_tenant_through_filter
 
   def select_organization!
@@ -23,6 +24,6 @@ class OrganizationController < PrivateController
   end
 
   def after_new_organization_session_path
-    session[:user_return_to] || root_path
+    session[:user_return_to] || current_organization_path ||root_path
   end
 end

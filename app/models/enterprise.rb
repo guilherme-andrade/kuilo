@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Enterprise < ApplicationRecord
-  include HasContact
+  include HasProfile
   include Commentable
 
   multi_tenant :organization

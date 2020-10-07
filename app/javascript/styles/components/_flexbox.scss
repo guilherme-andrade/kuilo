@@ -16,6 +16,11 @@
     align-items: center;
   }
 
+  &-center-center {
+    justify-content: center;
+    align-items: center;
+  }
+
   &-50-50 {
     & > * {
       flex: 1 1 50%;

@@ -2,7 +2,7 @@ $icon-sizes: (
   xs: .5rem,
   sm: .8rem,
   md: 1rem,
-  lg: 1.5rem,
+  lg: 1.25rem,
   xl: 2rem,
 );
 
@@ -13,6 +13,12 @@ $icon-sizes: (
     &-#{$size-unit} {
       height: $size-value;
       width: $size-value;
+    }
+  }
+
+  @each $color-name, $color-value in $theme-colors {
+    &-#{$color-name} {
+      fill: $color-value;
     }
   }
 }
