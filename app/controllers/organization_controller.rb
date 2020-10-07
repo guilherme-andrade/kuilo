@@ -5,7 +5,7 @@ class OrganizationController < PrivateController
   def select_organization!
     return if current_organization
 
-    session[:user_return_to] = request.referer
+    session[:user_return_to] = request.original_url
 
     if current_user.memberships.any?
       redirect_to new_organization_session_path, error: 'You need to select an organization before continuing.'

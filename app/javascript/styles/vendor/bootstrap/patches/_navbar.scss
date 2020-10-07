@@ -2,7 +2,10 @@
   font-family: $headings-font-family;
 
   &-brand {
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 ($spacer / 2);
   }
 
   .nav-link {

@@ -1,4 +1,4 @@
-class RentsController < ApplicationController
+class RentsController < OrganizationController
   before_action :find_rent, except: [:index, :new, :create]
 
   def index

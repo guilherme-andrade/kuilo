@@ -1,11 +1,14 @@
 <nav class="navbar navbar-light shadow bg-white w-100">
   <div class="container-fluid">
     <ul class="navbar-nav flex-row">
-      <li class="nav-item">
-        <%= active_link_to current_organization, class: 'navbar-brand' %>
-          <%= image_tag current_organization.logo %>
-        <% end %>
-      </li>
+      <% if organization_selected? %>
+        <li class="nav-item">
+          <%= active_link_to current_organization, class: 'navbar-brand' do %>
+            <%= image_tag current_organization.logo, height: 50 %>
+          <% end %>
+        </li>
+      <% end %>
+
       <li class="nav-item">
         <%= active_link_to 'Propriedades', properties_path, class: 'nav-link' %>
       </li>
