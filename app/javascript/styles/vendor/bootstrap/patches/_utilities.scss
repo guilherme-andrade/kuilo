@@ -1,0 +1,9 @@
+@each $spacer-unit, $spacer in $spacers {
+  .w-#{$spacer-unit} {
+    width: $spacer * 2;
+  }
+
+  .h-#{$spacer-unit} {
+    height: $spacer * 2;
+  }
+}

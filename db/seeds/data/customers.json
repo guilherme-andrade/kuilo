@@ -1,0 +1,23 @@
+[
+  {
+    "type": "Customers::Individual",
+    "organization_name": "Siccal",
+    "organization_owner_email": "miguel.andrade@siccal.com",
+    "creator_email": "miguel.andrade@siccal.com",
+    "account_manager_email": "miguel.andrade@siccal.com",
+    "name": "Sianga",
+    "contact_attributes": {
+      "name": "Sianga",
+      "phone_number": "935435379",
+      "phone_country_code": "PT",
+      "email": "sianga@sonangol.com"
+    },
+    "address_attributes": {
+      "street": "Rue de Cureghem 43",
+      "city": "Brussels",
+      "state": "Brussels",
+      "country_code": "BE",
+      "zip_code": "1000"
+    }
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Siccal",
+    "description": "Uma construtora com mais de 60 anos de atividade em Angola.",
+    "owner_email": "miguel.andrade@siccal.com",
+    "default_rent_due_day": 15,
+    "address_attributes": {
+      "street": "Rua Rainha Njinga 87",
+      "city": "Luanda",
+      "state": "Luanda",
+      "country_code": "AO",
+      "zip_code": "1000"
+    },
+    "members_emails": [ "guilherme.andrade.ao@gmail.com" ],
+    "logo_url": "https://siccal.com/wp-content/uploads/2018/11/siccal_logo@2x.png"
+  }
+]

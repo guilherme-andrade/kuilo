@@ -1,0 +1,14 @@
+<div class="container mt-6">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-6">
+      <%= link_to properties_path, class: 'link text-muted mb-3' do %>
+        <%= inline_svg_pack_tag 'media/icons/arrow-left.svg', class: 'mr-2' %>
+        cancelar
+      <% end %>
+      <div class="cell">
+        <h1 class="h3 mb-5">Editar propriedade</h1>
+        <%= render Properties::FormComponent.new(property: @property) %>
+      </div>
+    </div>
+  </div>
+</div>

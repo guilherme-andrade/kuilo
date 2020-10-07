@@ -1,0 +1,15 @@
+[
+  {
+    "organization_owner_email": "miguel.andrade@siccal.com",
+    "organization_name": "Siccal",
+    "customer_name": "Sianga",
+    "property_code": "Kuilo10D",
+    "start_date": "05/10/2020",
+    "end_date": "05/10/2021",
+    "renegotiation_period_start_date": "05/06/2021",
+    "renegotiation_period_end_date": "05/08/2021",
+    "taxation_type": "retained",
+    "invoicing_frequency_value": 1,
+    "invoicing_frequency_unit": "month"
+  }
+]

@@ -1,0 +1,28 @@
+<div class="border-bottom font-weight-normal px-3 py-2 mb-2">
+  <div class="row">
+    <div class="col-2">
+      <%= sort_link(@query, :property_code, 'Propriedade') %>
+    </div>
+    <div class="col-2">
+      <%= sort_link(@query, :customer_name, 'Cliente') %>
+    </div>
+    <div class="col-2">
+      <%= sort_link(@query, :status, 'Estado') %>
+    </div>
+    <div class="col-2">
+      <%= sort_link(@query, :start_date, 'Início') %>
+    </div>
+    <div class="col-2">
+      <%= sort_link(@query, :end_date, 'Fim') %>
+    </div>
+    <div class="col-2">
+      <%= sort_link(@query, :rent_amount_cents, 'Renda') %>
+    </div>
+  </div>
+</div>
+
+<% if @contracts.empty? %>
+  <p>No contracts found.</p>
+<% else %>
+  <%= render partial: 'table-card', collection: @contracts, as: :contract %>
+<% end %>

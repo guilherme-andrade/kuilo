@@ -1,0 +1,51 @@
+.form-group-valid {
+  .choices__inner {
+    @extend .is-valid, .border-success;
+  }
+}
+
+.choices {
+  margin-bottom: 0;
+  min-width: 100px;
+
+  &::after {
+    display: none;
+  }
+
+  &__inner {
+    @extend .form-select;
+
+    font-size: $font-size-base !important;
+  }
+
+  &__list {
+    &--single {
+      padding: 0px !important;
+    }
+
+    &--dropdown {
+      @extend .border, .border-medium;
+
+      border-top-right-radius: $border-radius;
+      min-width: 200px;
+    }
+  }
+
+  &__item {
+    font-size: $font-size-base !important;
+
+    &--selectable {
+      padding-right: 1rem !important;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+.input-group {
+  .choices {
+
+  }
+}

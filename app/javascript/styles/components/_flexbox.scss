@@ -1,0 +1,24 @@
+.flexbox {
+  display: flex;
+
+  &-between-center {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-between-stretch {
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  &-start-center {
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &-50-50 {
+    & > * {
+      flex: 1 1 50%;
+    }
+  }
+}

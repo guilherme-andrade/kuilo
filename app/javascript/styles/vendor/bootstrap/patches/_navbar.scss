@@ -1,0 +1,47 @@
+.navbar {
+  font-family: $headings-font-family;
+
+  &-brand {
+    font-weight: 600;
+  }
+
+  .nav-link {
+    margin-left: $spacer / 2;
+    margin-right: $spacer / 2;
+    padding: $spacer * 2 $spacer / 2;
+    position: relative;
+
+    &.nav-link-dark {
+      background: $black;
+      color: $body-bg;
+      padding-left: $spacer;
+      padding-right: $spacer;
+
+      &:hover, &.active {
+        background: $orange;
+        color: $body-bg;
+
+        &::after {
+          background: transparent;
+        }
+      }
+    }
+
+    &::after {
+      content: '';
+      height: $border-width * 2;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    &:hover, &.active {
+      background: rgba($gray-100, .5);
+
+      &::after {
+        background: $black;
+      }
+    }
+  }
+}

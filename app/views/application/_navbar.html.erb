@@ -1,0 +1,27 @@
+<nav class="navbar navbar-light shadow bg-white w-100">
+  <div class="container-fluid">
+    <ul class="navbar-nav flex-row">
+      <li class="nav-item">
+        <%= active_link_to 'Propriedades', properties_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= active_link_to 'Empreendimentos', enterprises_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= active_link_to 'Contractos', contracts_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= active_link_to 'Rendas', rents_path, class: 'nav-link' %>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav flex-row">
+      <li class="nav-item">
+        <%= active_link_to 'Login', new_user_session_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= active_link_to 'Sign up', new_user_registration_path, class: 'nav-link nav-link-dark font-weight-bold' %>
+      </li>
+    </ul>
+  </div>
+</nav>

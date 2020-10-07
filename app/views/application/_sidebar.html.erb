@@ -1,0 +1,22 @@
+<ul class="nav flex-column border-right h-100">
+  <li class="nav-item py-3">
+    <%= active_link_to '#', active: :active, title: 'properties', class: 'nav-link', data: { toggle: 'tooltip', placement: 'right' } do %>
+      <%= inline_svg_pack_tag 'media/icons/building.svg', class: 'icon icon-lg' %>
+    <% end %>
+  </li>
+  <li class="nav-item py-3">
+    <%= active_link_to '#', active: :active, title: 'contracts', class: 'nav-link', data: { toggle: 'tooltip', placement: 'right' } do %>
+      <%= inline_svg_pack_tag 'media/icons/file-earmark-check.svg', class: 'icon icon-lg' %>
+    <% end %>
+  </li>
+  <li class="nav-item py-3">
+    <%= active_link_to '#', active: :active, title: 'clients', class: 'nav-link', data: { toggle: 'tooltip', placement: 'right' } do %>
+      <%= inline_svg_pack_tag 'media/icons/person-lines-fill.svg', class: 'icon icon-lg' %>
+    <% end %>
+  </li>
+  <li class="nav-item py-3">
+    <%= active_link_to '#', active: :active, title: 'properties', class: 'nav-link', data: { toggle: 'tooltip', placement: 'right' } do %>
+      <%= inline_svg_pack_tag 'media/icons/people.svg', class: 'icon icon-lg' %>
+    <% end %>
+  </li>
+</ul>

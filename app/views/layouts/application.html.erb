@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'head' %>
+
+  <body class="dashboard">
+    <header class="dashboard-header">
+      <%= render 'navbar' %>
+    </header>
+    <section class="dashboard-body">
+      <main class="dashboard-main">
+        <%= render 'flashes' %>
+        <%= yield %>
+      </main>
+    </section>
+    </div>
+  </body>
+</html>

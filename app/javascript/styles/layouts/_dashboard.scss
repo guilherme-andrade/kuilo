@@ -1,0 +1,24 @@
+.dashboard {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &-header {
+    flex: 0 0 auto;
+  }
+
+  &-body {
+    display: flex;
+    flex-grow: 1;
+    align-items: stretch;
+  }
+
+  &-aside {
+  }
+
+  &-main {
+    background: $gray-100;
+    flex-grow: 1;
+    padding: 0 0 $spacer * 4;
+  }
+}

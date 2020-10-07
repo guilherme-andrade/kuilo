@@ -1,0 +1,26 @@
+$directions: (
+  t: 'top',
+  r: 'right',
+  l: 'left',
+  b: 'bottom',
+) !default;
+
+$reverse-directions: (
+  t: 'bottom',
+  r: 'left',
+  l: 'right',
+  b: 'top',
+) !default;
+
+$axes: (
+  y: ('top', 'bottom'),
+  x: ('right', 'left')
+) !default;
+
+$object-fits: (
+  contain: 'contain',
+  cover: 'cover',
+  fill: 'fill',
+  none: 'none',
+  'scale-down': 'scale-down'
+) !default;

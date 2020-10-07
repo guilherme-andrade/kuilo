@@ -1,0 +1,33 @@
+body {
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+// main resets done by bootstrap/reboot, any additional ones should go here.
+input:-internal-autofill-selected {
+  background: transparent;
+}
+
+*:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+
+body {
+  max-width: 100vw;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+a {
+  cursor: pointer,
+}

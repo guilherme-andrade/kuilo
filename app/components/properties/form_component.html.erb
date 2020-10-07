@@ -1,0 +1,185 @@
+<%= component_controller do %>
+  <%= simple_form_for @property, as: :property, url: form_path do |f| %>
+    <section class="mb-5">
+      <h2 class="h6">Nome</h2>
+      <p class="text-muted">
+        Começe por inserir um código e nome.
+      </p>
+      <div class="row">
+        <div class="col">
+          <%= f.input :name, placeholder: 'e.g. 10W', label: 'Nome' %>
+        </div>
+        <div class="col">
+          <%= f.input :code, placeholder: 'e.g. Kuilo10W', label: 'Código' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <%= f.input :type, as: :select, collection: property_types_collection, label: 'Categoria', input_html: { class: 'form-select' } %>
+        </div>
+
+        <% if false && @property.type %>
+          <div class="col-4">
+            <%= f.input :typology, as: :select, collection: @typology_options, label: 'Tipologia', input_html: { class: 'form-select' } %>
+          </div>
+        <% end %>
+      </div>
+    </section>
+
+    <% if allow_select_enterprise? %>
+      <section class="mb-5">
+        <h2 class="h6">Empreendimento</h2>
+        <p class="text-muted pr-2">
+          Especifique se esta propriedade pertence a um empreendimento.
+        </p>
+
+        <div class="flexbox flexbox-start-center">
+          <div class="form-check mb-3">
+            <%= reflex_tag :toggle_belongs_to_enterprise, :input, '', type: 'checkbox', class: 'form-check-input', checked: belongs_to_enterprise? %>
+            <label class="form-check-label" for="flexCheckDefault">
+              Sim
+            </label>
+          </div>
+        </div>
+
+          <% if belongs_to_enterprise? %>
+            <div class="row">
+              <div class="col-10">
+                <label for="owner_type">Pertence a:</label>
+                <%= f.association(:enterprise, as: :select, label: false, wrapper: false, input_html: { class: 'form-select' }) if @property.owner_type.present? %>
+              </div>
+            </div>
+          <% end %>
+        </section>
+      <% end %>
+
+    <section class="mb-5">
+      <h2 class="h6">Dono da propriedade</h2>
+      <p class="text-muted pr-2">
+        Especifique se esta propriedade pertence a terceiros. Deixe como está se pertencer à sua organização.
+      </p>
+      <div class="form-check mb-3">
+        <%= reflex_tag :toggle_belongs_to_third_party, :input, '', type: 'checkbox', class: 'form-check-input', checked: belongs_to_third_party? %>
+        <label class="form-check-label" for="flexCheckDefault">
+          Sim
+        </label>
+      </div>
+      <% if belongs_to_third_party? %>
+        <div class="row">
+          <div class="col-10">
+            <label for="owner_type">Pertence a:</label>
+            <div class="input-group mb-3">
+              <%= f.input :owner_type, as: :select, collection: %w[Customer Organization], label: false, wrapper: false, input_html: { class: 'form-select', data: reflex_data_attributes('change->update_owner_type') } %>
+              <%= f.input(:owner_id, as: :select, collection: @owner_options, label: false, wrapper: false, input_html: { class: 'form-select', data: reflex_data_attributes('change->update_owner_id') }) if @property.owner_type.present? %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="h6">Morada</h2>
+      <p class="text-muted">
+        Insira a morada. Se esta propriedade pertencer a um empreendimento, alguns campos serão autopreenchidos.
+      </p>
+      <%= f.simple_fields_for :address do |af| %>
+        <div class="row">
+          <div class="col-6">
+            <%= af.input :street, label: 'Morada', placeholder: 'e.g. Rua Rainha Njinga 87' %>
+          </div>
+          <div class="col-3">
+            <%= af.input :floor, label: 'Andar', placeholder: 'e.g. 11' %>
+          </div>
+          <div class="col-3">
+            <%= af.input :door, label: 'Lado/Nr. Porta', placeholder: 'e.g. D' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <%= af.input :city, label: 'Cidade', placeholder: 'e.g. Luanda' %>
+          </div>
+          <div class="col-3">
+            <%= af.input :zip_code, label: 'Código Postal', placeholder: 'e.g. 1000' %>
+          </div>
+          <div class="col-6">
+            <%= af.input :country_code, as: :country, label: 'País', placeholder: 'e.g. Angola', input_html: { class: 'form-select' } %>
+          </div>
+        </div>
+      <% end %>
+    </section>
+    <section class="mb-5">
+      <h2 class="h6">Valor da propriedade</h2>
+      <p class="text-muted">
+        Insira o valor de mercado e valores de renda a usar em contratos. Estes poderão ser adaptados quando um contrato é criado.
+      </p>
+
+      <div class="row">
+        <div class="col-6">
+          <label for="property[market_value]">Valor de Mercado</label>
+          <div class="input-group">
+            <%= f.input :market_value_humanized, as: :float, step: 0.01, wrapper: false, label: false, input_html: { class: 'col-7', data: { controller: 'currency-input', action: 'input->currency-input#format', input: '#property_market_value_cents' } } %>
+            <%= f.input :market_value_currency, as: :select, collection: CURRENCIES, wrapper: false, label: false, input_html: { class: 'flex-grow-1 bg-light col-5 form-select' } %>
+          </div>
+          <%= f.input :market_value_cents, as: :hidden %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-5">
+          <label for="property[default_rent]">Valor da Renda</label>
+          <div class="input-group">
+            <%= f.input :default_rent_humanized, as: :float, step: 0.01, wrapper: false, label: false, input_html: { class: 'col-7', data: { controller: 'currency-input', action: 'input->currency-input#format', input: '#property_default_rent_cents' } } %>
+            <%= f.input :default_rent_currency, as: :select, collection: CURRENCIES, wrapper: false, label: false, input_html: { class: 'flex-grow-1 bg-light col-5 form-select' } %>
+          </div>
+          <%= f.input :default_rent_cents, as: :hidden %>
+        </div>
+
+        <div class="col-5">
+          <label for="property[default_charges]">Valor de Encargos</label>
+          <div class="input-group">
+            <%= f.input :default_charges_humanized, as: :float, step: 0.01, wrapper: false, label: false, input_html: { class: 'col-7', data: { controller: 'currency-input', action: 'input->currency-input#format', input: '#property_default_charges_cents' } } %>
+            <%= f.input :default_charges_currency, as: :select, collection: CURRENCIES, wrapper: false, label: false, input_html: { class: 'flex-grow-1 bg-light col-5 form-select' } %>
+          </div>
+          <%= f.input :default_charges_cents, as: :hidden %>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="h6">Faturas (Opcional)</h2>
+      <p class="text-muted">
+        Descreva os valores faturados - Renda e Encargos.
+      </p>
+      <div class="row">
+        <div class="col-12">
+          <%= f.input :default_invoice_description, label: 'Descrição da renda', placeholder: 'e.g. Renda mensal Kuilo 10W' %>
+        </div>
+        <div class="col-12">
+          <%= f.input :default_charges_description, label: 'Descrição dos encargos', placeholder: 'e.g. Pagamento de Condomínio' %>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-3">
+      <h2 class="h6">Vendas e Informações (Opcional)</h2>
+      <p class="text-muted">
+        Descreva a propriedade e adicione fotografias
+      </p>
+      <div class="row">
+        <div class="col-12 mb-3">
+          <%= f.input :photos, as: :file, input_html: { multiple: true }, label: 'Fotografias', label_html: { class: 'd-block mb-2' } %>
+        </div>
+        <div class="col-12">
+          <%= f.label :description, 'Descrição', class: 'form-label mb-2' %>
+          <%= f.rich_text_area :description, label: 'Descrição' %>
+        </div>
+      </div>
+    </section>
+
+    <section class=" d-flex justify-content-end">
+
+      <%= f.submit submit_copy, class: 'btn btn-primary' %>
+    </section>
+  <% end %>
+<% end %>

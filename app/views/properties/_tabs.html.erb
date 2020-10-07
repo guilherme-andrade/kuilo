@@ -1,0 +1,23 @@
+<ul class="nav nav-tabs cell-tabs">
+  <li class="nav-item">
+    <%= active_link_to 'Todos', properties_path, active: [properties: :index], class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to 'Apartamentos', apartments_properties_path, active: ['properties/apartments': :index], class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to 'Escritórios', offices_properties_path, active: ['properties/offices': :index], class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to 'Armazéns', warehouses_properties_path, active: ['properties/warehouses': :index], class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to 'Garagens', garages_properties_path, active: ['properties/garages': :index], class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to 'Casas', houses_properties_path, active: ['properties/houses': :index], class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to 'Quartos', rooms_properties_path, active: ['properties/rooms': :index], class: 'nav-link' %>
+  </li>
+</ul>

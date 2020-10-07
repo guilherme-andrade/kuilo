@@ -1,0 +1,17 @@
+<% if flash[:success] %>
+  <div class="alert alert-success alert-dismissable" role="alert">
+    <span class="close" data-dismiss="alert">
+      <%= inline_svg_pack_tag 'media/icons/x.svg' %>
+    </span>
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<% if flash[:error] %>
+  <div class="alert alert-danger alert-dismissable" role="alert">
+    <span class="close" data-dismiss="alert">
+      <%= inline_svg_pack_tag 'media/icons/x.svg' %>
+    </span>
+    <%= flash[:error] %>
+  </div>
+<% end %>

@@ -1,0 +1,21 @@
+@import "~bootstrap/scss/functions";
+@import "../vendor/bootstrap/custom-variables";
+
+@each $initial, $direction in $directions {
+  @each $unit, $spacer in $spacers {
+    .#{$initial}-#{$unit} {
+      #{$direction}: $spacer;
+    }
+  }
+}
+
+@each $fit-name, $fit-unit in $object-fits {
+  .object-#{$fit-name} {
+    object-fit: #{$fit-unit};
+  }
+}
+
+.fit-cover {
+  object-fit: cover;
+  object-position: center;
+}

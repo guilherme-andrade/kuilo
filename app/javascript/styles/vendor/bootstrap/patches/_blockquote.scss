@@ -1,0 +1,16 @@
+blockquote {
+  font-size: $font-size-sm;
+  letter-spacing: .2px;
+  padding-left: 2rem;
+  position: relative;
+
+  &::before {
+    content: '';
+    background: $white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+  }
+}

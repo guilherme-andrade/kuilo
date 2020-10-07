@@ -1,0 +1,29 @@
+<div class="card text-dark px-3 py-2 mb-2">
+  <%= link_to '', contract_path(contract), class: 'stretched-link' %>
+  <div class="row">
+    <div class="col-2">
+      <span><%= contract.property_code %></span>
+      <div class="small text-muted">(<%= contract.property_owner_name %>)</div>
+    </div>
+    <div class="col-2">
+      <span><%= contract.customer_name %></span>
+    </div>
+    <div class="col-2">
+      <span><%= contract.status %></span>
+    </div>
+    <div class="col-2">
+      <div><%= format_date contract.start_date %></div>
+      <div class="small text-muted"><%= distance_of_time contract.start_date %></div>
+    </div>
+    <div class="col-2">
+      <div><%= format_date contract.end_date %></div>
+      <div class="small text-muted">(<%= contract.duration %>)</div>
+    </div>
+    <div class="col-2">
+      <div><%= humanized_money_with_symbol contract.rent_full %></div>
+      <div class="small <%= contract.rent_difference.negative? ? 'text-danger' : 'text-success' %>">
+        <%= number_to_percentage contract.rent_difference, precision: 2 %>
+      </div>
+    </div>
+  </div>
+</div>

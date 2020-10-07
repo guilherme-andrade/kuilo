@@ -1,0 +1,56 @@
+h1, h3, h3, h4, h5, h6 {
+  letter-spacing: -1px;
+}
+
+.xsmall {
+  font-size: 1.2rem;
+}
+
+.xxsmall {
+  font-size: .75rem;
+}
+
+.link {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+
+  &-animated:hover {
+    color: $dark;
+    text-decoration: underline;
+  }
+}
+
+.sort_link {
+  @extend .link;
+
+  color: $dark;
+
+  &.desc, &.asc {
+    color: $primary;
+  }
+}
+
+dt {
+  @extend .text-truncate;
+
+  font-weight: $font-weight-normal;
+  font-family: $headings-font-family;
+  font-size: $small-font-size;
+  color: $muted;
+  padding-right: $spacer;
+  width: 100%;
+}
+
+dd {
+  @extend .text-truncate;
+
+  font-size: $lead-font-size;
+  color: $black;
+  width: 100%;
+  padding-right: $spacer;
+
+  &:not(:last-child) {
+    margin-bottom: $spacer * 1.5;
+  }
+}

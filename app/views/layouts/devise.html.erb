@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'head' %>
+
+  <body>
+    <%= render 'navbar' %>
+    <div class="wrapper py-8">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            <div class="bg-white rounded shadow p-4 p-lg-5">
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

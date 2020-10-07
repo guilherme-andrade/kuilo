@@ -1,0 +1,44 @@
+[
+  {
+    "organization_name": "Siccal",
+    "organization_owner_email": "miguel.andrade@siccal.com",
+    "name": "Kuilo Futa Atrium",
+    "creator_email": "miguel.andrade@siccal.com",
+    "address_attributes": {
+      "street": "Ilha de Luanda 43",
+      "city": "Luanda",
+      "state": "Luanda",
+      "country_code": "AO",
+      "zip_code": "1000"
+    },
+    "contact_attributes": {
+      "name": "Kuilo Futa",
+      "phone_number": "935434375",
+      "phone_country_code": "AO",
+      "email": "kuilo-futa@gmail.com"
+    },
+    "cover_photo_url": "https://siccal.com/wp-content/uploads/2018/11/kuilo-fuita-8-1024x640.jpg",
+    "photos_urls": ["https://siccal.com/wp-content/uploads/2018/11/kuilo-fuita-8-1024x640.jpg", "https://siccal.com/wp-content/uploads/2018/11/kuilo-fuita-7-1024x640.jpg", "https://siccal.com/wp-content/uploads/2018/11/kuilo-fuita-2-1024x640.jpg"]
+  },
+  {
+    "organization_name": "Siccal",
+    "organization_owner_email": "miguel.andrade@siccal.com",
+    "name": "Kimpa Vita Atrium",
+    "creator_email": "miguel.andrade@siccal.com",
+    "address_attributes": {
+      "street": "Rua da Mutamba 86",
+      "city": "Luanda",
+      "state": "Luanda",
+      "country_code": "AO",
+      "zip_code": "1000"
+    },
+    "contact_attributes": {
+      "name": "Kimpa Vita",
+      "phone_number": "935235375",
+      "phone_country_code": "AO",
+      "email": "kimpa.vita@siccal.com"
+    },
+    "cover_photo_url": "https://siccal.com/wp-content/uploads/2018/11/49-1024x640.jpg",
+    "photos_urls": ["https://siccal.com/wp-content/uploads/2018/11/9-32-1024x640.jpg", "https://siccal.com/wp-content/uploads/2018/11/4-07-1024x640.jpg", "https://siccal.com/wp-content/uploads/2018/11/5-29-1024x640.jpg"]
+  }
+]

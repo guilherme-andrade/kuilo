@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="cell cell-transparent">
+    <div class="flexbox flexbox-between-center">
+      <h1>Empreendimentos</h1>
+      <%= render 'nav' %>
+    </div>
+
+    <p class="lead text-muted mb-0">
+      Empreendimentos representam entidades detentoras de propriedades, como prédios, aldeamentos ou empresas. <br>
+      Use-os para organizar as suas propriedades e analisar os seus resultados melhor.
+    </p>
+  </div>
+
+  <div class="row">
+    <% @enterprises.each do |enterprise| %>
+      <div class="col-4">
+        <article class="card border-0 rounded-lg">
+          <%= image_tag enterprise.cover_photo, class: 'card-img-top fit-cover rounded-lg rounded-top rounded-0' %>
+          <div class="card-body">
+            <div class="flexbox flexbox-between-center mb-3">
+              <h1 class="h6 mb-0"><%= enterprise.name %></h1>
+              <small class="font-weight-bold">
+                <%= enterprise.properties_count %> propriedades
+              </small>
+            </div>
+            <p><%= enterprise.full_address %></p>
+            <div class="flexbox flexbox-between-center">
+              <p class="text-success mb-0">
+                <%= enterprise.available_properties_count %>
+                propriedades disponíveis
+              </p>
+            </div>
+          </div>
+          <%= link_to '', enterprise, class: 'stretched-link' %>
+        </article>
+      </div>
+    <% end %>
+  </div>
+  <%= will_paginate @enterprises, list_classes: %w(pagination justify-content-end) %>
+</div>

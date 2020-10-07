@@ -1,0 +1,46 @@
+[
+  {
+    "email": "guilherme.andrade.ao@gmail.com",
+    "password": "123456",
+    "address_attributes": {
+      "street": "Rue de Cureghem 43",
+      "door": "14",
+      "floor": "2",
+      "city": "Brussels",
+      "state": "Brussels",
+      "country_code": "BE",
+      "zip_code": "1000"
+    },
+    "contact_attributes": {
+      "vat_number": "13724258",
+      "government_id": "13724258",
+      "name": "Guilherme Andrade",
+      "phone_number": "935435375",
+      "phone_country_code": "PT",
+      "email": "guilherme.andrade.ao@gmail.com"
+    },
+    "avatar_url": "https://media-exp1.licdn.com/dms/image/C5603AQE35_I9Jap3Qg/profile-displayphoto-shrink_400_400/0?e=1607558400&v=beta&t=LU7t9R4Tu5o4ab9z7rH8fdfAryWBrC0MGp9IlyiJev0"
+  },
+  {
+    "email": "miguel.andrade@siccal.com",
+    "password": "123456",
+    "address_attributes": {
+      "street": "Rue dos Açores 84",
+      "door": "E",
+      "floor": "4",
+      "city": "Lisbon",
+      "state": "Lisbon",
+      "country_code": "PT",
+      "zip_code": "1000-005"
+    },
+    "contact_attributes": {
+      "vat_number": "13724248",
+      "government_id": "13744258",
+      "name": "Miguel Andrade",
+      "phone_number": "917219075",
+      "phone_country_code": "PT",
+      "email": "migacho@hotmail.com"
+    },
+    "avatar_url": "https://media-exp1.licdn.com/dms/image/C5603AQH1gDKoCkwNmg/profile-displayphoto-shrink_800_800/0?e=1607558400&v=beta&t=C-neO_D0DGLmp_WRGmoTyxnr558geEXIYmjmuSfZ7xc"
+  }
+]

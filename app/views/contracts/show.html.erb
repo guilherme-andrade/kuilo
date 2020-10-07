@@ -1,0 +1,133 @@
+<div class="container">
+  <section class="cell cell-transparent pb-3">
+    <div class="flexbox flexbox-50-50 flexbox-between-center">
+      <div>
+        <%= link_to contracts_path, class: 'link text-muted mb-3' do %>
+          <%= inline_svg_pack_tag 'media/icons/arrow-left.svg', class: 'mr-2' %>
+          voltar atrás
+        <% end %>
+        <div class="flexbox flexbox-between-center">
+          <div>
+            <div class="flexbox flexbox-start-center">
+              <h1><%= @contract.name %></h1>
+              <h6 class="mb-0 ml-2 badge bg-primary"><%= @contract.status %></h6>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <%= link_to 'Editar', edit_contract_path(@contract), class: 'btn btn-sm btn-white' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="lead text-muted">
+      <%= link_to @contract.property_code, property_path(@contract.property), class: 'text-muted' %>
+      , propriedade de
+      <%= link_to @contract.property_owner_name, @contract.property_owner, class: 'text-muted' %>
+    </p>
+  </section>
+
+  <section class="cell cell-dark flexbox lead flexbox-between-center mb-4 py-2">
+    <div class="flexbox flexbox-start-center">
+      <div>
+        <strong class="pl-2 text-decoration-underline"><%= format_date @contract.start_date %></strong>
+      </div>
+      <span class="mx-1 mx-lg-4">
+        <%= inline_svg_pack_tag 'media/icons/arrow-right.svg' %>
+      </span>
+      <div>
+        <strong class="pl-2 text-decoration-underline"><%= format_date @contract.end_date %></strong>
+      </div>
+      <span class="mx-1 mx-lg-4">|</span>
+      <div>
+        Duração:
+        <strong class="pl-2 text-decoration-underline"><%= @contract.duration %></strong>
+      </div>
+      <span class="mx-1 mx-lg-4">|</span>
+      <div>
+        Renegociação:
+        <strong class="pl-2 text-decoration-underline"><%= @contract.renegotiation_duration %></strong>
+        <span class="small text-light">
+          (termina a <%= format_date @contract.renegotiation_period_end_date %>)
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="row">
+    <div class="col-12 col-lg-4 mb-4">
+      <article class="cell h-100">
+        <h2 class="h6">Detalhes</h2>
+        <hr>
+        <div class="row">
+          <div class="col-6">
+            <dl>
+              <dt>Valores Pendentes:</dt>
+              <dd><%= @contract.rents_unpaid? ? @contract.rents_unpaid_amount : 'não' %></dd>
+            </dl>
+          </div>
+          <div class="col-6">
+            <dl>
+              <dt>Valor de cada fatura:</dt>
+              <dd><%= humanized_money_with_symbol @contract.rent_invoice_value %></dd>
+            </dl>
+          </div>
+          <div class="col-6">
+            <dl>
+              <dt>Renda faturada:</dt>
+              <dd>a cada <%= @contract.invoicing_frequency_value %> <%= @contract.invoicing_frequency_unit %></dd>
+            </dl>
+          </div>
+          <div class="col-6">
+            <dl>
+              <dt>Data da Próxima Renda:</dt>
+              <dd><%= format_date @contract.next_rent_due_date %></dd>
+            </dl>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="col-12 col-lg-4 mb-4">
+      <article class="cell h-100">
+        <h2 class="h6">Valores</h2>
+        <hr>
+        <div class="flexbox flexbox-50-50 flexbox-between-stretch">
+          <dl>
+            <dt>Renda Total:</dt>
+            <dd><%= humanized_money_with_symbol @contract.rent_full %></dd>
+            <dt>Renda Líquida:</dt>
+            <dd><%= humanized_money_with_symbol @contract.rent_amount %></dd>
+          </dl>
+          <dl>
+            <dt>Depósito:</dt>
+            <dd><%= humanized_money_with_symbol @contract.deposit %></dd>
+            <dt>Encargos:</dt>
+            <dd><%= humanized_money_with_symbol @contract.rent_charges %></dd>
+          </dl>
+        </div>
+      </article>
+    </div>
+    <div class="col-12 col-lg-4 mb-4">
+      <article class="cell h-100">
+        <h2 class="h6">Detalhes do Cliente</h2>
+        <hr>
+        <div class="flexbox flexbox-50-50 flexbox-between-stretch">
+          <dl>
+            <dt>Name:</dt>
+            <dd><%= @contract.customer_contact_name %></dd>
+            <dt>Email:</dt>
+            <dd><%= @contract.customer_email %></dd>
+          </dl>
+          <dl>
+            <dt>Gestor de Conta:</dt>
+            <dd><%= @contract.account_manager_name %></dd>
+            <dt>Phone Number:</dt>
+            <dd><%= @contract.customer_phone %></dd>
+          </dl>
+        </div>
+      </article>
+    </div>
+  </section>
+
+</div>

@@ -1,0 +1,171 @@
+<%= component_controller do %>
+  <%= simple_form_for @contract, as: :contract, url: form_path do |f| %>
+    <section class="mb-5">
+      <h2 class="h6">Datas</h2>
+      <p class="text-muted">
+        Quando começa ou termina o contrato?
+      </p>
+      <div class="row">
+        <div class="col-6">
+          <%= f.input :start_date, as: :string, input_html: { data: { controller: 'flatpickr' }, class: 'bg-white' }, placeholder: 'começa a ...', label: 'Data de Início' %>
+        </div>
+        <div class="col-6">
+          <%= f.input :end_date, as: :string, input_html: { data: { controller: 'flatpickr' }, class: 'bg-white' }, placeholder: 'termina a ...', label: 'Data de Fim' %>
+        </div>
+        <div class="col-6">
+          <%= f.input :renegotiation_period_start_date, as: :string, input_html: { data: { controller: 'flatpickr' }, class: 'bg-white' }, placeholder: 'começa a ...', label: 'Data de Início de Renegociações' %>
+        </div>
+        <div class="col-6">
+          <%= f.input :renegotiation_period_end_date, as: :string, input_html: { data: { controller: 'flatpickr' }, class: 'bg-white' }, placeholder: 'termina a ...', label: 'Data de Fim de Renegociações' %>
+        </div>
+      </div>
+    </section>
+
+    <% if @show_customer_form %>
+      <section class="mb-5">
+        <h2 class="h6">Inquilino</h2>
+        <div class="flexbox flexbox-between-center mb-4">
+          <p class="text-muted">
+            Deseja inserir um novo inquilino ou usar um já existente?
+          </p>
+          <div class="flexbox justify-content-end mb-3">
+            <div class="form-check form-switch d-flex">
+              <%= reflex_tag :toggle_use_existing_customer, :input, '', checked: @use_existing_customer, type: :checkbox, class: 'form-check-input' %>
+              <span class="mb-0 px-2 <%= @use_existing_customer ? 'text-primary' : 'text-muted font-weight-normal' %>">Usar Existente</span>
+            </div>
+          </div>
+        </div>
+
+        <% if @use_existing_customer %>
+          <%= f.association :customer, input_html: { class: 'form-select' }, placeholder: 'e.g. 10W', label: 'Selecione um Cliente' %>
+        <% else %>
+          <%= f.simple_fields_for :customer do |cf| %>
+            <div class="row">
+              <div class="col-8">
+                <%= cf.input :name, placeholder: 'e.g. Luís Camões', label: 'Nome (usado para identificação interna)' %>
+              </div>
+              <div class="col-4">
+                <%= cf.input :type, as: :select, collection: %w[Invidivual Corporate], input_html: { class: 'form-select' }, label: 'Tipo' %>
+              </div>
+            </div>
+            <%= cf.simple_fields_for :contact do |ccf| %>
+              <div class="row">
+                <div class="col-6">
+                  <%= ccf.input :name, label: 'Nome Legal (usado em faturas)' %>
+                </div>
+                <div class="col-6">
+                  <%= ccf.input :email, as: :email, label: 'Email' %>
+                </div>
+                <div class="col-10">
+                  <label for="phone">Nr de Telefone</label>
+                  <div class="input-group mb-3">
+                    <%= ccf.input :phone_country_code, as: :select, collection: phone_country_codes, label: false, wrapper: false, input_html: { class: 'w-25 form-select'} %>
+                    <%= ccf.input :phone_number, as: :tel, label: false, wrapper: false %>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <%= ccf.input :government_id, label: 'Identificação Legal' %>
+                </div>
+                <div class="col-6">
+                  <%= ccf.input :vat_number, label: 'Número de Identificação Fiscal (VAT)' %>
+                </div>
+
+                <div class="col-6">
+                </div>
+              </div>
+            <% end %>
+            <%= cf.simple_fields_for :address do |caf| %>
+              <div class="row">
+                <div class="col-6">
+                  <%= caf.input :street, label: 'Morada', placeholder: 'e.g. Rua Rainha Njinga 87' %>
+                </div>
+                <div class="col-3">
+                  <%= caf.input :floor, label: 'Andar', placeholder: 'e.g. 11' %>
+                </div>
+                <div class="col-3">
+                  <%= caf.input :door, label: 'Lado/Nr. Porta', placeholder: 'e.g. D' %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3">
+                  <%= caf.input :city, label: 'Cidade', placeholder: 'e.g. Luanda' %>
+                </div>
+                <div class="col-3">
+                  <%= caf.input :zip_code, label: 'Código Postal', placeholder: 'e.g. 1000' %>
+                </div>
+                <div class="col-6">
+                  <%= caf.input :country_code, as: :country, label: 'País', placeholder: 'e.g. Angola', input_html: { class: 'form-select' } %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </section>
+    <% end %>
+
+    <section class="mb-5">
+      <h2 class="h6">Valores</h2>
+      <p class="text-muted">
+        Quando começa ou termina o contrato?
+      </p>
+      <div class="row">
+        <div class="col-6">
+          <label for="property[default_charges]">Renda</label>
+          <div class="input-group mb-3">
+            <%= f.input :rent_amount_cents, as: :float, step: 0.01, wrapper: false, label: false, input_html: { data: { controller: 'currency-input', action: 'input->currency-input#format', input: '#hidden_property_rent_amount_cents' } } %>
+            <%= f.input :rent_amount_currency, as: :select, collection: CURRENCIES, wrapper: false, label: false, input_html: { class: 'bg-light form-select' } %>
+          </div>
+          <%= f.hidden_field :rent_amount_cents, id: 'hidden_property_rent_amount_cents' %>
+        </div>
+        <div class="col-6">
+          <label for="property[default_charges]">Encargos</label>
+          <div class="input-group mb-3">
+            <%= f.input :rent_charges_cents, as: :float, step: 0.01, wrapper: false, label: false, input_html: { data: { controller: 'currency-input', action: 'input->currency-input#format', input: '#hidden_property_rent_charges_cents' } } %>
+            <%= f.input :rent_charges_currency, as: :select, collection: CURRENCIES, wrapper: false, label: false, input_html: { class: 'bg-light form-select' } %>
+          </div>
+          <%= f.hidden_field :rent_charges_cents, id: 'hidden_property_charges_amount_cents' %>
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-4">
+          <%= f.input :deposit_rent_multiplier, as: :select, collection: 1..5, label: 'Nr de rendas em depósito' %>
+        </div>
+        <div class="col-6 pt-3">
+          <%= f.input :deposit_paid, label: 'Depósito pago?' %>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="h6">Faturas</h2>
+      <p class="text-muted">
+        Descreva os valores faturados - Renda e Encargos.
+      </p>
+      <div class="row">
+        <div class="col-12">
+          <label for="invoicing_frequency">Frequência de faturação</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text">a cada</span>
+            <%= f.input :invoicing_frequency_value, as: :select, collection: 1..12, label: false, wrapper: false %>
+            <%= f.input :invoicing_frequency_unit, as: :select, collection: Contract::INVOICING_FREQUENCY_UNITS, label: false, wrapper: false %>
+          </div>
+        </div>
+        <div class="col-12">
+          <%= f.input :rent_due_day, as: :select, collection: 1..30, label: 'Dia de Limite de Cobrança da Renda', hint: 'Depois deste dia, avisos serão enviados para o cliente se a renda não estiver paga.' %>
+        </div>
+        <div class="col-12">
+          <%= f.input :invoice_description, label: 'Descrição da renda', placeholder: 'e.g. Renda mensal Kuilo 10W' %>
+        </div>
+        <div class="col-12">
+          <%= f.input :charges_description, label: 'Descrição dos encargos', placeholder: 'e.g. Pagamento de Condomínio' %>
+        </div>
+      </div>
+    </section>
+
+    <section class=" d-flex justify-content-end">
+      <%= f.submit submit_copy, class: 'btn btn-primary' %>
+    </section>
+  <% end %>
+<% end %>

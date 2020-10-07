@@ -1,0 +1,20 @@
+.list-group {
+  &.nav {
+    .list-group-item {
+      padding: 0;
+    }
+  }
+
+  &-link {
+    color: $nav-link-color;
+    font-weight: $nav-link-font-weight;
+    text-decoration: none;
+    display: block;
+    padding: $list-group-item-padding-y $list-group-item-padding-x;
+    font-size: $font-size-sm;
+
+    &:hover {
+      background: $gray-100;
+    }
+  }
+}
