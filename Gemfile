@@ -29,6 +29,7 @@ gem 'pundit'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
 gem 'ransack'
 gem 'simple_form'
+gem 'sidekiq'
 gem 'stimulus_reflex', '~> 3.2'
 gem 'turbolinks', '~> 5'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
