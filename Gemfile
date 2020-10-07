@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 gem 'active_link_to'
+gem 'activerecord-multi-tenant'
 gem 'acts_as_living'
 # gem 'ros-apartment', require: 'apartment'
 gem 'bootsnap', '>= 1.4.2', require: false

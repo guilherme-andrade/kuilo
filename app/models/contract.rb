@@ -16,6 +16,8 @@ class Contract < ApplicationRecord
     cancelled: -10
   }.freeze
 
+  multi_tenant :organization
+
   has_many :rents
   has_one :current_contract, -> { where(contracts: { status: Contract.statuses.dig('active') }) }, class_name: 'Contract', inverse_of: :occupied_property
   has_one :current_rent, -> { order('rents.due_date': :desc).limit(1) }, class_name: 'Rent'

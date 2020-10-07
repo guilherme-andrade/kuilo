@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ContractsController < PrivateController
+class ContractsController < OrganizationController
   before_action :find_contract, except: %i[index new create]
 
   def index

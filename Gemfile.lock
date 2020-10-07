@@ -48,6 +48,9 @@ GEM
     activerecord (6.0.3.3)
       activemodel (= 6.0.3.3)
       activesupport (= 6.0.3.3)
+    activerecord-multi-tenant (1.1.0)
+      rails (>= 4.2)
+      request_store (>= 1.0.5)
     activestorage (6.0.3.3)
       actionpack (= 6.0.3.3)
       activejob (= 6.0.3.3)
@@ -297,6 +300,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_link_to
+  activerecord-multi-tenant
   acts_as_living
   bootsnap (>= 1.4.2)
   byebug

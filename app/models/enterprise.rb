@@ -4,6 +4,8 @@ class Enterprise < ApplicationRecord
   include HasContact
   include Commentable
 
+  multi_tenant :organization
+
   belongs_to :creator, class_name: 'User'
   belongs_to :manager, class_name: 'User', optional: true
   belongs_to :organization, optional: true

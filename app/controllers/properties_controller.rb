@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PropertiesController < PrivateController
+class PropertiesController < OrganizationController
   before_action :set_property_class
   before_action :find_property, except: %i[index new create]
 
