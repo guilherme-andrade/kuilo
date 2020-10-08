@@ -1,4 +1,4 @@
-<div class="sheet padding-10mm position-relative">
+<div class="sheet my-0 shadow-none padding-10mm position-relative">
   <div class="flexbox flexbox-between-start">
     <div class="flex-grow-1 mr-5">
       <h1>
@@ -8,7 +8,7 @@
         Nr <%= @rent.id %>
       </p>
     </div>
-    <%= image_tag @rent.organization.logo, height: 75 %>
+    <%= image_tag @rent.organization.logo.service_url, height: 75 %>
   </div>
   <div class="mb-7">
     <p class="text-black">
@@ -40,7 +40,7 @@
         <td>
           <%= @rent.contract.invoice_description || "Renda relativa ao período de #{@rent.incidence_period_start} a #{@rent.incidence_period_end}" %>
         </td>
-        <td>
+        <td class="text-right">
           <%= humanized_money_with_symbol @rent.amount %>
         </td>
       </tr>
@@ -51,7 +51,7 @@
         <td class="border-light">
           <%= @rent.contract.charges_description %>
         </td>
-        <td class="border-light">
+        <td class="border-light text-right">
           <%= humanized_money_with_symbol @rent.charges %>
         </td>
       </tr>
@@ -61,7 +61,7 @@
         <td colspan="2" class="border-light text-right">
           Total:
         </td>
-        <td class="border-light">
+        <td class="border-light text-right">
           <%= humanized_money_with_symbol @rent.full %>
         </td>
       </tr>

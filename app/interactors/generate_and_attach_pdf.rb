@@ -1,13 +1,13 @@
 class GenerateAndAttachPdf < ApplicationInteractor
-  delegate :template, :locals, :record, :attachment_name, :layout, to: :context
+  delegate :template, :locals, :record, :attachment_name, :filename, :layout, to: :context
 
   def call
     generate_and_attach_pdf
   end
 
   def generate_and_attach_pdf
-    tmp_file = generate_tmp_pdf
-    record.send(:attachment_name).attach(io: tmp_file, filename: filename)
+    tmp_file = generate_pdf_file
+    record.send(attachment_name).attach(io: tmp_file, filename: filename)
     File.delete(tmp_file)
   end
 
@@ -28,7 +28,7 @@ class GenerateAndAttachPdf < ApplicationInteractor
   end
 
   def relative_html
-    ApplicationController.render_to_string(
+    ApplicationController.new.render_to_string(
       template: template,
       layout: layout,
       locals: locals

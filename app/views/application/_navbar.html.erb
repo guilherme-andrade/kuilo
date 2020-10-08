@@ -7,7 +7,7 @@
             <% if current_organization.logo.attached? %>
               <%= image_tag current_organization.logo, height: 50 %>
             <% else %>
-              <h2 class="mb-0">Kuilo</h2>
+              <%= inline_svg_pack_tag 'media/images/logo.svg', class: 'icon icon-xxl' %>
             <% end %>
           <% end %>
         </li>
@@ -25,8 +25,8 @@
         </li>
       <% else %>
         <li class="nav-item">
-          <%= active_link_to root_path, class: 'navbar-brand nav-link' do %>
-            <h2 class="mb-0">Kuilo</h2>
+          <%= link_to root_path, class: 'navbar-brand' do %>
+            <%= inline_svg_pack_tag 'media/images/logo.svg', class: 'icon icon-xxl' %>
           <% end %>
         </li>
       <% end %>
@@ -79,7 +79,7 @@
         </li>
       <% else %>
         <li class="nav-item">
-          <%= active_link_to 'Log In', new_user_session_path, class: 'nav-link nav-link-dark font-weight-bold' %>
+          <%= link_to 'Log In', new_user_session_path, class: 'nav-link nav-link-dark font-weight-bold' %>
         </li>
       <% end %>
     </ul>

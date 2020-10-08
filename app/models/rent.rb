@@ -40,8 +40,14 @@ class Rent < ApplicationRecord
     GenerateAndAttachPdf.call(
       record: self,
       attachment_name: :invoice,
-      template: 'rents/invoice',
-      
+      template: 'rents/invoices/show',
+      layout: 'pdf',
+      filename: invoice_filename,
+      locals: { '@rent': self }
     )
+  end
+
+  def invoice_filename
+    "RENDA_#{property_code}_#{incidence_period_start}_#{incidence_period_end}.pdf"
   end
 end
