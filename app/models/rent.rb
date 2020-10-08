@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class Rent < ApplicationRecord
+  include BelongsToOrganization
   include Commentable
 
   STATUSES = %i[unpaid paid].freeze
-
-  multi_tenant :organization
 
   belongs_to :contract
 

@@ -3,6 +3,7 @@
 class Contract < ApplicationRecord
   include ActionView::Helpers::DateHelper
   include ApplicationHelper
+  include BelongsToOrganization
 
   TAXATION_TYPES = %i[retained charged].freeze
   INVOICING_FREQUENCY_UNITS = %i[month quarter semester year].freeze
@@ -16,8 +17,6 @@ class Contract < ApplicationRecord
     cancelled: -10
   }.freeze
 
-  multi_tenant :organization
-
   has_many :rents
   has_one :current_contract, -> { where(contracts: { status: Contract.statuses.dig('active') }) }, class_name: 'Contract', inverse_of: :occupied_property
   has_one :current_rent, -> { order('rents.due_date': :desc).limit(1) }, class_name: 'Rent'
@@ -25,7 +24,6 @@ class Contract < ApplicationRecord
   has_paper_trail if: proc { |p| p.saved_change_to_status? }
 
   belongs_to :customer, touch: true
-  belongs_to :organization
   belongs_to :property, touch: :contracts_last_updated_at
   belongs_to :occupied_property,
              class_name: 'Property',
@@ -34,6 +32,8 @@ class Contract < ApplicationRecord
 
   counter_culture :customer
   counter_culture :property
+
+  acts_as_notification_group printable_name: ->(c) { "Contract \"#{c.name}\"" }
 
   monetize :rent_amount_cents
   monetize :rent_charges_cents

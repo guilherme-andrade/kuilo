@@ -3,12 +3,10 @@
 class Customer < ApplicationRecord
   include PropertyOwner
   include HasProfile
-
-  multi_tenant :organization
+  include BelongsToOrganization
 
   belongs_to :creator, class_name: 'User'
   belongs_to :account_manager, class_name: 'User'
-  belongs_to :organization
 
   has_many :contracts
 

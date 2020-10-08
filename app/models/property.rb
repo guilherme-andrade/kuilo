@@ -2,9 +2,8 @@
 
 class Property < ApplicationRecord
   include HasAddress
+  include BelongsToOrganization
   include ActiveSupport::NumberHelper
-
-  multi_tenant :organization
 
   TYPES           = %w[Apartment House Garage Office Room Warehouse].freeze
   STATUSES        = %i[available occupied ooo].freeze
@@ -15,7 +14,6 @@ class Property < ApplicationRecord
   belongs_to :enterprise, optional: true
   belongs_to :creator, class_name: 'User'
   belongs_to :manager, class_name: 'User', optional: true
-  belongs_to :organization, inverse_of: :properties
 
   has_many :contracts, inverse_of: :property
   has_one :current_contract, -> { Contract.with_activation }, class_name: 'Contract', inverse_of: :occupied_property
