@@ -4,7 +4,7 @@
       <h1>Rendas</h1>
     </div>
     <p class="lead text-muted mb-0">
-      Nesta tabela encontrará as rendas com faturas emitidas até à data. Faturas são emitidas a cada dia <%= current_organization.default_rent_issuing_day %> do mês
+      Nesta tabela encontrará as rendas com faturas emitidas até à data. Faturas são emitidas a <u>dia <%= current_organization.default_rent_issuing_day %> do mês anterior</u>.
     </p>
   </div>
 
@@ -28,9 +28,7 @@
                 </div>
               </div>
             </div>
-
           <% end %>
-          <%= render 'nav' %>
         </div>
       </div>
     </div>

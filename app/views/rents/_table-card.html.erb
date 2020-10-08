@@ -2,22 +2,26 @@
   <%= link_to '', rent_path(rent), class: 'stretched-link' %>
   <div class="row">
     <div class="col-2">
-      <span><%= rent.property_name %></span>
+      <span><%= rent.property_code %></span>
     </div>
     <div class="col-2">
-      <span><%= rent.customer_name %></span>
+      <span><%= format_date rent.due_date %></span>
     </div>
     <div class="col-2">
-      <span><%= rent.customer_name %></span>
-    </div>
-    <div class="col-2">
-      <span><%= rent.status %></span>
+      <span><%= humanized_money_with_symbol rent.full %></span>
     </div>
     <div class="col-2">
       <span><%= humanized_money_with_symbol rent.amount %></span>
     </div>
     <div class="col-2">
-      <span><%# humanized_money_with_symbol rent.owed_amount %></span>
+      <% if rent.invoice.attached? %>
+        <%= link_to(rent.invoice.filename, rails_blob_path(rent.invoice, disposition: 'attachment')) if rent.invoice.attached? %>
+      <% else %>
+        <span class="text-muted">(por gerar)</span>
+      <% end %>
+    </div>
+    <div class="col-2">
+      <span><%= rent.status %></span>
     </div>
   </div>
 </div>

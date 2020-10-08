@@ -2,7 +2,7 @@
 
 class Enterprise < ApplicationRecord
   include HasProfile
-  include Commentable
+  include HasComments
   include BelongsToOrganization
 
   belongs_to :creator, class_name: 'User'

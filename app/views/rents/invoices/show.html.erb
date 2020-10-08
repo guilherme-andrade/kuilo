@@ -1,0 +1,89 @@
+<div class="sheet padding-10mm position-relative">
+  <div class="flexbox flexbox-between-start">
+    <div class="flex-grow-1 mr-5">
+      <h1>
+        Fatura de Renda
+      </h1>
+      <p class="lead text-muted mb-3">
+        Nr <%= @rent.id %>
+      </p>
+    </div>
+    <%= image_tag @rent.organization.logo, height: 75 %>
+  </div>
+  <div class="mb-7">
+    <p class="text-black">
+      Emitida a: <strong><%= @rent.issue_date %></strong>
+    </p>
+    <p class="text-black mb-0">
+      Prazo: <strong><%= @rent.due_date %></strong>
+    </p>
+  </div>
+  <table class="table mt-4 text-black">
+    <thead>
+      <tr>
+        <th>
+          Item
+        </th>
+        <th class="w-75">
+          Descrição
+        </th>
+        <th>
+          Valor
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Renda
+        </td>
+        <td>
+          <%= @rent.contract.invoice_description || "Renda relativa ao período de #{@rent.incidence_period_start} a #{@rent.incidence_period_end}" %>
+        </td>
+        <td>
+          <%= humanized_money_with_symbol @rent.amount %>
+        </td>
+      </tr>
+      <tr>
+        <td class="border-light">
+          Encargos
+        </td>
+        <td class="border-light">
+          <%= @rent.contract.charges_description %>
+        </td>
+        <td class="border-light">
+          <%= humanized_money_with_symbol @rent.charges %>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot class="font-weight-bold">
+      <tr>
+        <td colspan="2" class="border-light text-right">
+          Total:
+        </td>
+        <td class="border-light">
+          <%= humanized_money_with_symbol @rent.full %>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  <footer class="position-absolute b-0 l-0 px-5 py-4 w-100">
+    <p class="mb-1 text-muted">
+      Por favor processar a transferência para a seguinte conta:
+    </p>
+    <p class="mb-0 text-black">
+      Banco: <strong><%= @rent.organization.account_bank_name %></strong> <span class="px-2">|</span>
+      IBAN: <strong><%= @rent.organization.account_IBAN %></strong> <span class="px-2">|</span>
+      SWIFT/BIC: <strong><%= @rent.organization.account_SWIFT %></strong> <span class="px-2">|</span>
+    </p>
+    <hr>
+    <div class="d-flex justify-content-between text-muted">
+      <p class="small mb-0">
+        Fatura emitida por Kuilo PMS.
+      </p>
+      <p class="small mb-0">
+        Saiba mais em <u>https://kuilo-pms.herokuapp.com</u>
+      </p>
+    </div>
+  </footer>
+</div>

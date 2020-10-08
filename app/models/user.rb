@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :memberships, class_name: 'OrganizationMember', dependent: :destroy, inverse_of: :user
   has_many :organizations, through: :memberships, inverse_of: :members
   has_many :transactions, foreign_key: :creator_id
+  has_many :commments
 
   accepts_nested_attributes_for :memberships
 

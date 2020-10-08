@@ -52,7 +52,9 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Convidar Membro</h5>
-                <%= reflex_tag :toggle_member_form, :a, '', class: 'btn-close' %>
+                <%= reflex_tag :toggle_member_form, :a, class: 'close btn btn-white' do %>
+                  <%= inline_svg_pack_tag 'media/icons/x.svg', class: 'icon icon-lg' %>
+                <% end %>
               </div>
               <div class="modal-body">
                   <div class="row">

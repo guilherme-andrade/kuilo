@@ -15,7 +15,7 @@
   <% if @enterprises.any? %>
   <div class="row">
     <% @enterprises.each do |enterprise| %>
-      <div class="col-4">
+      <div class="col-12 col-md-6 col-lg-4">
         <article class="card border-0 rounded-lg">
           <%= image_tag enterprise.cover_photo, class: 'card-img-top fit-cover rounded-lg rounded-top rounded-0' %>
           <div class="card-body">

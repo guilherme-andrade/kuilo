@@ -47,6 +47,9 @@ Rails.application.routes.draw do
     resources :rents, only: %i[new create]
   end
 
-  resources :rents, only: %i[edit destroy update show index]
+  resources :rents, only: %i[destroy show index] do
+    resource :invoice, only: :show, module: 'rents'
+  end
+
   resources :contracts
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_08_001631) do
+ActiveRecord::Schema.define(version: 2020_10_08_190210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_001631) do
     t.uuid "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "mentioned_user_ids", default: [], array: true
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -262,9 +263,11 @@ ActiveRecord::Schema.define(version: 2020_10_08_001631) do
     t.date "incidence_period_start"
     t.date "incidence_period_end"
     t.string "invoice_number"
-    t.integer "status"
+    t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "invoice_description"
+    t.text "charges_description"
     t.index ["contract_id"], name: "index_rents_on_contract_id"
     t.index ["organization_id"], name: "index_rents_on_organization_id"
   end

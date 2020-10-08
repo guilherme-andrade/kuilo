@@ -1,0 +1,8 @@
+<%= link_to('#comments-modal',
+            data: {
+              reflex: 'click->Comments#toggle_modal',
+              commentable_id: @commentable.id,
+              commentable_type: @commentable.class.to_s
+            }, **@options) do %>
+  <%= content %>
+<% end %>

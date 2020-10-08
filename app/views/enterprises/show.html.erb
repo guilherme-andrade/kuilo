@@ -19,7 +19,7 @@
   <section class="cell cell-transparent">
     <div class="flexbox flexbox-50-50 flexbox-between-center">
       <div>
-        <%= link_to properties_path, class: 'link text-muted mb-3' do %>
+        <%= link_to enterprises_path, class: 'link text-muted mb-3' do %>
           <%= inline_svg_pack_tag 'media/icons/arrow-left.svg', class: 'mr-2' %>
           voltar atrás
         <% end %>
@@ -31,8 +31,24 @@
           </div>
 
           <div class="btn-group">
-            <%= link_to 'Editar', edit_enterprise_path(@enterprise), class: 'btn btn-sm btn-white' %>
-            <%= link_to 'Criar Propriedade', new_enterprise_property_path(@enterprise), class: 'btn btn-sm btn-white' %>
+            <%= render Comments::ModalToggleComponent.new(commentable: @enterprise, class: 'btn btn-sm btn-white') do %>
+              <span class="d-none d-lg-inline-block">Comentários</span>
+              <%= inline_svg_pack_tag 'media/icons/chat-left-text.svg' %>
+            <% end %>
+
+            <%= link_to enterprise_path(@enterprise), method: :delete, data: { confirm: 'Tem a certeza que quer apagar?' }, class: 'btn btn-sm btn-danger' do %>
+              <%= inline_svg_pack_tag 'media/icons/trash.svg' %>
+            <% end %>
+
+            <%= link_to edit_enterprise_path(@enterprise), class: 'btn btn-sm btn-warning' do %>
+              <%= inline_svg_pack_tag 'media/icons/pencil.svg' %>
+            <% end %>
+
+            <%= link_to new_enterprise_property_path(@enterprise), class: 'btn btn-sm btn-black' do %>
+              <span class="d-none d-lg-inline-block">Adicionar proprieade</span>
+              <%= inline_svg_pack_tag 'media/icons/plus.svg' %>
+            <% end %>
+
           </div>
         </div>
       </div>

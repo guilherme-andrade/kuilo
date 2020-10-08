@@ -40,6 +40,14 @@ class Organization < ApplicationRecord
   delegate :name, to: :owner, prefix: true
   delegate :name, to: :admin, prefix: true
 
+  def self.each_tenant(&blk)
+    find_each do |org|
+      MultiTenant.with(org) do
+        blk.call(org)
+      end
+    end
+  end
+
   def build_owner_membership
     memberships.build(user: owner, role: :admin)
   end

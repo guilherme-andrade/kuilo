@@ -3,7 +3,9 @@
 class Contract < ApplicationRecord
   include ActionView::Helpers::DateHelper
   include ApplicationHelper
+  include DateHelper
   include BelongsToOrganization
+  include HasComments
 
   TAXATION_TYPES = %i[retained charged].freeze
   INVOICING_FREQUENCY_UNITS = %i[month quarter semester year].freeze
@@ -11,15 +13,14 @@ class Contract < ApplicationRecord
     in_negotiation: 0,
     signed: 10,
     confirmed: 20,
-    active: 30,
+    activated: 30,
     in_notice: 40,
     terminated: 50,
     cancelled: -10
   }.freeze
 
   has_many :rents
-  has_one :current_contract, -> { where(contracts: { status: Contract.statuses.dig('active') }) }, class_name: 'Contract', inverse_of: :occupied_property
-  has_one :current_rent, -> { order('rents.due_date': :desc).limit(1) }, class_name: 'Rent'
+  has_one :last_rent_issued, -> { order('rents.due_date': :desc).limit(1) }, class_name: 'Rent'
   has_many :rents_unpaid, -> { where(rents: { status: Rent.statuses.dig('pending') }) }, class_name: 'Rent'
   has_paper_trail if: proc { |p| p.saved_change_to_status? }
 
@@ -27,7 +28,6 @@ class Contract < ApplicationRecord
   belongs_to :property, touch: :contracts_last_updated_at
   belongs_to :occupied_property,
              class_name: 'Property',
-             touch: :current_contract_last_updated_at,
              optional: true
 
   counter_culture :customer
@@ -68,18 +68,14 @@ class Contract < ApplicationRecord
   validates_date :renegotiation_period_start_date, on_or_after: :start_date
   validate :property_availability
 
-  delegate :name, :contact_name, :email, :phone, to: :customer, prefix: true, allow_nil: true
+  delegate :name, :contact_name, :contact_email, :phone, to: :customer, prefix: true, allow_nil: true
   delegate :account_manager, to: :customer, allow_nil: true
   delegate :name, :owner_name, :owner, :owner_type, :code, :full_address, to: :property, prefix: true
   delegate :name, to: :account_manager, prefix: true, allow_nil: true
   delegate :statuses, to: :class
 
-  before_validation do
-    update_attribute(:status, statuses[:active]) if (start_date..end_date).cover?(Time.zone.today) && !active?
-  end
-
-  scope :with_confirmation, -> { where('status >= ? AND status < ?', statuses[:confirmed], statuses[:terminated]) }
-  scope :with_activation, -> { where('status >= ? AND status < ?', statuses[:active], statuses[:terminated]) }
+  scope :active, -> { where('status >= ? AND status < ?', statuses[:confirmed], statuses[:terminated]) }
+  scope :with_activation, -> { where('status >= ? AND status < ?', statuses[:activated], statuses[:terminated]) }
   scope :pre_notice, -> { where('status < ?', statuses[:in_notice]) }
   scope :with_confirmation_pre_notice, -> { with_confirmation.pre_notice }
 
@@ -90,6 +86,18 @@ class Contract < ApplicationRecord
       where('start_date <= ? AND ? <= end_date', date_range.first, date_range.last)
     end
   }
+
+  alias negotiate! in_negotiation!
+  alias sign! signed!
+  alias confirm! confirmed!
+  alias activate! activated!
+  alias notice_received! in_notice!
+  alias terminate! terminated!
+  alias cancel! cancelled!
+
+  before_validation do
+    update_attribute(:status, statuses[:active]) if (start_date..end_date).cover?(Time.zone.today) && !active?
+  end
 
   def name
     [customer_name, property_name].join(' - ')
@@ -119,8 +127,13 @@ class Contract < ApplicationRecord
     case invoicing_frequency_unit
     when 'semester' then (invoicing_frequency_value * 6).months
     when 'quarter' then (invoicing_frequency_value * 3).months
+    when 'year' then (invoicing_frequency_value * 12).months
     else invoicing_frequency_value.send(invoicing_frequency_unit)
     end
+  end
+
+  def months_per_invoice
+    invoicing_frequency / 1.month
   end
 
   def invoicing_frequency_in_words
@@ -140,12 +153,24 @@ class Contract < ApplicationRecord
   end
 
   def next_rent_due_date
-    return unless current_rent
+    return unless last_rent_issued
 
-    current_rent.due_date.at_beginning_of_month.next_month + rent_due_day
+    last_rent_issued.due_date.at_beginning_of_month.next_month + rent_due_day
   end
 
   def property_availability
     errors.add(:base, 'this property is occupied') unless property.available?
+  end
+
+  def active?
+    activated? || in_notice?
+  end
+
+  def not_active?
+    !activated? && !in_notice?
+  end
+
+  def create_next_rent
+    Contracts::CreateNextRent.call(contract: self)
   end
 end

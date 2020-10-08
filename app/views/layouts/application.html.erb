@@ -3,6 +3,7 @@
   <%= render 'head' %>
 
   <body class="dashboard">
+    <%= render Comments::ModalComponent.new(commentable: @commentable) if @show_comments_modal %>
     <header class="dashboard-header">
       <%= render 'navbar' %>
     </header>

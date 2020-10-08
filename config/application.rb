@@ -15,6 +15,7 @@ require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
 require 'view_component/engine'
+require 'grover'
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
@@ -37,6 +38,11 @@ module Kuilo
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    config.active_job.queue_adapter = :sidekiq
+
+    config.middleware.use Grover::Middleware
+    config.ignore_path = '/assets/'
+    config.ignore_path = '/media/'
 
     # Don't generate system test files.
     config.generators.system_tests = nil

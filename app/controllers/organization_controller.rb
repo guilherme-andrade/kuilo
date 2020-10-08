@@ -16,7 +16,9 @@ class OrganizationController < PrivateController
   end
 
   def current_organization
-    current_user.organizations.find_by_id(session[:current_organization_id])
+    current_user.organizations.find_by_id(session[:current_organization_id]).tap do |org|
+      session[:current_organization] = org
+    end
   end
 
   def set_customer_as_tenant

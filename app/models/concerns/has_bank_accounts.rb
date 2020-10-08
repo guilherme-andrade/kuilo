@@ -5,7 +5,7 @@ module HasBankAccounts
 
   included do
     has_many :bank_accounts, as: :account_holder, dependent: :destroy, inverse_of: :account_holder
-    has_one :primary_bank_account, -> { where(primary: true) }, class_name: 'BankAccount', as: :account_holder, inverse_of: :owner, dependent: :destroy
+    has_one :primary_bank_account, -> { where(primary: true) }, class_name: 'BankAccount', as: :account_holder, dependent: :destroy
 
     accepts_nested_attributes_for :bank_accounts
     accepts_nested_attributes_for :primary_bank_account

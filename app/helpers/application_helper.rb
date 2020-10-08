@@ -30,12 +30,6 @@ module ApplicationHelper
     date.strftime("%b #{date.day.ordinalize} %Y")
   end
 
-  def distance_of_time_in(unit, distance)
-    raise ArgumentError, "#{unit.inspect} is not supported as unit" unless 1.respond_to? unit
-
-    (distance / 1.send(unit)).round
-  end
-
   def markers_for(records)
     records.map(&:coordinates).to_json
   end

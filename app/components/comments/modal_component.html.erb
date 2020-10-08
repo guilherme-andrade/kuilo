@@ -1,0 +1,59 @@
+<%= component_controller do %>
+  <div class="modal fade show d-block" tabindex="-1">
+    <div class="modal-backdrop" style="opacity: .5; z-index: 0;" data-reflex="click->Comments#close_modal"></div>
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h5 class="modal-title"><%= commentable.name %></h5>
+
+            <% if @commentable.comments.any? %>
+              <p>último update - <%= distance_of_time @commentable.comments.maximum(:created_at) %></p>
+            <% else %>
+              <p class="font-italic">sem comentários</p>
+            <% end %>
+          </div>
+
+          <button data-reflex="click->Comments#close_modal" class="close btn btn-lg btn-default" aria-label="Close">
+            <%= inline_svg_pack_tag 'media/icons/x.svg', class: 'icon icon-lg' %>
+          </button>
+        </div>
+        <div class="modal-body bg-light pt-5">
+          <% @comments.each do |comment| %>
+            <% if comment.user == current_user %>
+              <div class="flexbox flexbox-start-start mb-1 flex-row-reverse text-right">
+                <%= avatar_image_tag comment.user %>
+                <div class="mr-2 mt-1">
+                  <div class="bg-white rounded px-3 py-1 rounded-pill" style="border-top-right-radius: 0 !important;">
+                    <span class="mb-0"><%= comment.content %></span>
+                  </div>
+                  <span class="small text-muted"><%= distance_of_time comment.created_at %></p>
+                </div>
+              </div>
+            <% else %>
+              <div class="flexbox flexbox-start-start mb-1">
+                <%= avatar_image_tag comment.user %>
+                <div class="ml-2 mt-1">
+                  <div class="bg-white rounded px-3 py-1 rounded-pill" style="border-top-left-radius: 0 !important;">
+                    <span class="mb-0"><%= comment.content %></span>
+                  </div>
+                  <span class="small text-muted"><%= distance_of_time comment.created_at %></span>
+                </div>
+              </div>
+            <% end %>
+
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <%= simple_form_for @comment, url: '#', html: { class: 'w-100'}, data: reflex_data_attributes('submit->create_comment') do |f| %>
+            <%= f.rich_text_area :content, placeholder: 'Escreva o seu comentário aqui...', style: 'height: 100px; min-height: unset;', class: 'w-100 mb-3' %>
+            <%= f.input :mentioned_user_ids, as: :check_boxes, label: 'Notificar', label_html: { class: 'font-weight-bold' }, wrapper: :horizontal_collection_inline, collection: organization_members %>
+            <div class="d-flex justify-content-end">
+              <%= f.submit 'Comentar', class: 'btn btn-black' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

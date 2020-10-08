@@ -3,6 +3,7 @@
 class Property < ApplicationRecord
   include HasAddress
   include BelongsToOrganization
+  include HasComments
   include ActiveSupport::NumberHelper
 
   TYPES           = %w[Apartment House Garage Office Room Warehouse].freeze
@@ -16,9 +17,7 @@ class Property < ApplicationRecord
   belongs_to :manager, class_name: 'User', optional: true
 
   has_many :contracts, inverse_of: :property
-  has_one :current_contract, -> { Contract.with_activation }, class_name: 'Contract', inverse_of: :occupied_property
-  has_one :ongoing_contract, -> { Contract.with_confirmation_pre_notice }, class_name: 'Contract', inverse_of: :occupied_property
-  has_many :confirmed_contracts, -> { Contract.with_confirmation }, class_name: 'Contract'
+  has_one :active_contract, -> { Contract.active }, class_name: 'Contract', inverse_of: :occupied_property
 
   enum status: STATUSES
 
@@ -38,7 +37,8 @@ class Property < ApplicationRecord
   default :organization_id,         (proc { |p| p.enterprise.organization_id if p.owner })
   default :manager_id,              (proc { |p| p.creator_id })
   default :owner_type,              (proc { 'Organization' })
-  default :owner_id,                (proc { |p| p.organization_id if p.owner_type = 'Organization' })
+  default :owner_id,                (proc { |p| p.organization_id if p.owner_type == 'Organization' })
+  default :rent_due_day,            (proc { |p| p.organization.default_rent_due_day if p.organization })
 
   delegate :location_attributes, to: :parent_address, prefix: :parent, allow_nil: true
   delegate :typologies, to: :class
@@ -46,7 +46,7 @@ class Property < ApplicationRecord
   delegate :name, to: :owner, prefix: true, allow_nil: true
   delegate :name, to: :manager, prefix: true
   delegate :name, to: :creator, prefix: true
-  delegate :rent_amount, to: :current_contract, prefix: true, allow_nil: true
+  delegate :rent_amount, to: :active_contract, prefix: true, allow_nil: true
 
   has_one_attached :cover_photo
   has_many_attached :photos
@@ -90,7 +90,7 @@ class Property < ApplicationRecord
   end
 
   def rented?
-    current_contract.present?
+    active_contract.present?
   end
 
   def unavailabilities

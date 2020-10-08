@@ -15,7 +15,18 @@
           </div>
 
           <div class="btn-group">
-            <%= link_to 'Editar', edit_contract_path(@contract), class: 'btn btn-sm btn-white' %>
+            <%= render Comments::ModalToggleComponent.new(commentable: @contract, class: 'btn btn-sm btn-white') do %>
+              <span class="d-none d-lg-inline-block">Comentários</span>
+              <%= inline_svg_pack_tag 'media/icons/chat-left-text.svg' %>
+            <% end %>
+
+            <%= link_to contract_path(@contract), method: :delete, data: { confirm: 'Tem a certeza que quer apagar?' }, class: 'btn btn-sm btn-danger' do %>
+              <%= inline_svg_pack_tag 'media/icons/trash.svg' %>
+            <% end %>
+
+            <%= link_to edit_contract_path(@contract), class: 'btn btn-sm btn-warning' do %>
+              <%= inline_svg_pack_tag 'media/icons/pencil.svg' %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -117,7 +128,7 @@
             <dt>Name:</dt>
             <dd><%= @contract.customer_contact_name %></dd>
             <dt>Email:</dt>
-            <dd><%= @contract.customer_email %></dd>
+            <dd><%= @contract.customer_contact_email %></dd>
           </dl>
           <dl>
             <dt>Gestor de Conta:</dt>
