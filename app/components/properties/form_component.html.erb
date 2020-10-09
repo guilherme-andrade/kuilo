@@ -70,7 +70,7 @@
           <div class="col-10">
             <label for="owner_type">Pertence a:</label>
             <div class="input-group mb-3">
-              <%= f.input :owner_type, as: :select, collection: %w[Customer Organization], label: false, wrapper: false, input_html: { class: 'form-select', data: reflex_data_attributes('change->update_owner_type') } %>
+              <%= f.input :owner_type, as: :select, collection: %w[Customer], label: false, wrapper: false, input_html: { class: 'form-select', data: reflex_data_attributes('change->update_owner_type') } %>
               <%= f.input(:owner_id, as: :select, collection: @owner_options, label: false, wrapper: false, input_html: { class: 'form-select', data: reflex_data_attributes('change->update_owner_id') }) if @property.owner_type.present? %>
             </div>
           </div>

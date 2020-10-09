@@ -37,6 +37,9 @@ class Property < ApplicationRecord
   default :manager_id,              (proc { |p| p.creator_id })
   default :owner_type,              (proc { 'Organization' })
   default :owner_id,                (proc { |p| p.organization_id if p.owner_type == 'Organization' })
+  default :default_rent_cents,      (proc { 0 })
+  default :default_charges_cents,   (proc { 0 })
+  default :market_value_cents,      (proc { 0 })
 
   delegate :location_attributes, to: :parent_address, prefix: :parent, allow_nil: true
   delegate :typologies, to: :class
@@ -60,17 +63,12 @@ class Property < ApplicationRecord
     owner_type&.constantize&.all || []
   end
 
-  def build_address(params = {})
-    defaults = parent_location_attributes&.merge(params.symbolize_keys) || {}
-    self.address = Address.new(**defaults, addressable: self)
-  end
-
   def parent_address
     owner&.address || owner&.organization&.address
   end
 
   def default_rent_full_cents
-    default_rent_cents + default_charges_cents
+    (default_rent_cents || 0) + (default_charges_cents || 0)
   end
 
   def market_value_humanized
