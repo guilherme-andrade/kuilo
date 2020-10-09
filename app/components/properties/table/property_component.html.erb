@@ -1,0 +1,25 @@
+<%= component_controller do %>
+  <div class="card card-clickable text-dark px-3 py-2 mb-2">
+    <%= link_to '', property_path(@property), class: 'stretched-link' %>
+    <div class="row position-relative">
+      <div class="col-2">
+        <%= label_for_property @property %>
+      </div>
+      <div class="col-2">
+        <span><%= @property.code %></span>
+      </div>
+      <div class="col-2">
+        <span><%= @property.name %></span>
+      </div>
+      <div class="col-2">
+        <span><%= @property.typology %></span>
+      </div>
+      <div class="col-2">
+        <span><%= humanized_money_with_symbol @property.market_value %></span>
+      </div>
+      <div class="col-2">
+        <span><%= humanized_money_with_symbol @property.default_rent %></span>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -48,6 +48,10 @@ class Rent < ApplicationRecord
   end
 
   def invoice_filename
-    "RENDA_#{property_code}_#{incidence_period_start}_#{incidence_period_end}.pdf"
+    "#{name}.pdf"
+  end
+
+  def name
+    "RENDA_#{property_code}_#{incidence_period_start}_#{incidence_period_end}"
   end
 end

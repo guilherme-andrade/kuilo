@@ -14,19 +14,29 @@
             </div>
           </div>
 
-          <div class="btn-group">
-            <%= render Comments::ModalToggleComponent.new(commentable: @contract, class: 'btn btn-sm btn-white') do %>
-              <span class="d-none d-lg-inline-block">Comentários</span>
-              <%= inline_svg_pack_tag 'media/icons/chat-left-text.svg' %>
-            <% end %>
+          <div>
+            <div class="btn-group">
+              <%= link_to contract_path(@contract), method: :delete, data: { confirm: 'Tem a certeza que quer apagar?' }, class: 'btn btn-sm btn-danger' do %>
+                <%= inline_svg_pack_tag 'media/icons/trash.svg', class: 'mr-1' %>
+                <span class="d-none d-lg-inline-block">Apagar</span>
+              <% end %>
 
-            <%= link_to contract_path(@contract), method: :delete, data: { confirm: 'Tem a certeza que quer apagar?' }, class: 'btn btn-sm btn-danger' do %>
-              <%= inline_svg_pack_tag 'media/icons/trash.svg' %>
-            <% end %>
+              <%= link_to edit_contract_path(@contract), class: 'btn btn-sm btn-warning' do %>
+                <%= inline_svg_pack_tag 'media/icons/pencil.svg', class: 'mr-1' %>
+                <span class="d-none d-lg-inline-block">Editar</span>
+              <% end %>
 
-            <%= link_to edit_contract_path(@contract), class: 'btn btn-sm btn-warning' do %>
-              <%= inline_svg_pack_tag 'media/icons/pencil.svg' %>
-            <% end %>
+              <%= render Comments::ModalToggleComponent.new(commentable: @contract, class: 'btn btn-sm btn-white') do %>
+                <%= inline_svg_pack_tag 'media/icons/chat-left-text.svg', class: 'mr-1' %>
+                <span class="d-none d-lg-inline-block">Comentários</span>
+              <% end %>
+
+              <%= link_to '#', class: 'btn btn-sm btn-black', data: { reflex: 'click->Contracts#generate_next_rent', id: @contract.id } do %>
+                <%= inline_svg_pack_tag 'media/icons/wallet.svg', class: 'mr-1' %>
+                <span class="d-none d-lg-inline-block">Gerar Próxima Renda</span>
+              <% end %>
+            </div>
+            <p></p>
           </div>
         </div>
       </div>
@@ -35,7 +45,13 @@
     <p class="lead text-muted">
       <%= link_to @contract.property_code, property_path(@contract.property), class: 'text-muted' %>
       , propriedade de
-      <%= link_to @contract.property_owner_name, @contract.property_owner, class: 'text-muted' %>
+
+      <% if @contract.property_owner.is_a? Customer %>
+        <%= link_to @contract.property_owner_contact_name, @contract.property_owner, class: 'text-muted' %>
+      <% else %>
+        <%= @contract.property_owner_contact_name %>
+      <% end %>
+
     </p>
   </section>
 

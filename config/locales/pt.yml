@@ -1,0 +1,10 @@
+---
+pt:
+  properties:
+    status_labels:
+      available: Disponível
+      ooo: Indisponível
+      occupied: Ocupada
+  number:
+    nth:
+      ordinalized: '%{number},'

@@ -2,10 +2,14 @@ import { Controller } from "stimulus"
 import { slice, replace } from 'lodash';
 
 export default class extends Controller {
-  format(e) {
-    let { value, dataset: { input: inputSelector } } = e.target;
+  connect() {
+    this.format();
+  }
+
+  format() {
+    let { value, dataset: { input: inputSelector } } = this.element;
     const targetInput = document.querySelector(inputSelector);
-    e.target.value = value
-    targetInput.value = e.target.value * 100
+    this.element.value = value;
+    targetInput.value = this.element.value * 100
   }
 }

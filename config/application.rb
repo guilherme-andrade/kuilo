@@ -44,6 +44,9 @@ module Kuilo
     config.ignore_path = '/assets/'
     config.ignore_path = '/media/'
 
+    config.i18n.default_locale = :pt
+    config.i18n.available_locales = :pt
+
     # Don't generate system test files.
     config.generators.system_tests = nil
   end

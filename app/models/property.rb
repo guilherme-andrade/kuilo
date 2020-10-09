@@ -21,9 +21,8 @@ class Property < ApplicationRecord
 
   enum status: STATUSES
 
-  counter_culture :owner
-  counter_culture :owner, column_name: ->(p) { p.owner.is_a?(Enterprise) ? :available_properties_count : '' },
-                          column_names: { Property.available => :available_properties_count }
+  # counter_culture :owner
+  # counter_culture :enterprise
 
   monetize :market_value_cents
   monetize :default_rent_cents
@@ -38,12 +37,11 @@ class Property < ApplicationRecord
   default :manager_id,              (proc { |p| p.creator_id })
   default :owner_type,              (proc { 'Organization' })
   default :owner_id,                (proc { |p| p.organization_id if p.owner_type == 'Organization' })
-  default :rent_due_day,            (proc { |p| p.organization.default_rent_due_day if p.organization })
 
   delegate :location_attributes, to: :parent_address, prefix: :parent, allow_nil: true
   delegate :typologies, to: :class
   delegate :name, to: :owner, prefix: true, allow_nil: true
-  delegate :name, to: :owner, prefix: true, allow_nil: true
+  delegate :contact_name, to: :owner, prefix: true, allow_nil: true
   delegate :name, to: :manager, prefix: true
   delegate :name, to: :creator, prefix: true
   delegate :rent_amount, to: :active_contract, prefix: true, allow_nil: true
@@ -51,6 +49,10 @@ class Property < ApplicationRecord
   has_one_attached :cover_photo
   has_many_attached :photos
   has_rich_text :description
+
+  def owner
+    attributes.dig(:owner) || organization
+  end
 
   def owners_from_type
     return [] unless owner_type.present?
@@ -74,19 +76,19 @@ class Property < ApplicationRecord
   def market_value_humanized
     return unless market_value_cents
 
-    number_to_delimited(market_value_cents / 100, locale: :fr, delimiter: '')
+    number_to_delimited(market_value_cents / 100, locale: :pt, delimiter: '')
   end
 
   def default_rent_humanized
     return unless default_rent_cents
 
-    number_to_delimited(default_rent_cents / 100, locale: :fr, delimiter: '')
+    number_to_delimited(default_rent_cents / 100, locale: :pt, delimiter: '')
   end
 
   def default_charges_humanized
     return unless default_charges_cents
 
-    number_to_delimited(default_charges_cents / 100, locale: :fr, delimiter: '')
+    number_to_delimited(default_charges_cents / 100, locale: :pt, delimiter: '')
   end
 
   def rented?
@@ -99,5 +101,9 @@ class Property < ApplicationRecord
 
   def available_on(from = Time.zone.today, to = from)
     confirmed_contracts.for(from, to).empty?
+  end
+
+  def notifiable_path
+    property_path(self)
   end
 end

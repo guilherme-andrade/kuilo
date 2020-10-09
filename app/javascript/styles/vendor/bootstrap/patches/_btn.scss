@@ -1,3 +1,9 @@
 .btn {
   font-family: $headings-font-family;
+
+  &.no-caret {
+    &::after {
+      display: none;
+    }
+  }
 }

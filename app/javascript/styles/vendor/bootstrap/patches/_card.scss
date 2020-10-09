@@ -1,0 +1,10 @@
+.card {
+  a:not(.stretched-link) {
+    position: relative;
+    z-index: 2;
+  }
+
+  &-clickable:hover {
+    border-color: $primary;
+  }
+}

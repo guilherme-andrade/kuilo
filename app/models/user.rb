@@ -23,5 +23,7 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true
 
-  alias name contact_name
+  def name
+    contact_name
+  end
 end

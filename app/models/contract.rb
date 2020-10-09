@@ -70,7 +70,7 @@ class Contract < ApplicationRecord
 
   delegate :name, :contact_name, :contact_email, :phone, to: :customer, prefix: true, allow_nil: true
   delegate :account_manager, to: :customer, allow_nil: true
-  delegate :name, :owner_name, :owner, :owner_type, :code, :full_address, to: :property, prefix: true
+  delegate :name, :owner_contact_name, :owner, :owner_type, :code, :full_address, to: :property, prefix: true
   delegate :name, to: :account_manager, prefix: true, allow_nil: true
   delegate :statuses, to: :class
 

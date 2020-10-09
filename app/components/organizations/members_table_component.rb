@@ -10,7 +10,7 @@ class Organizations::MembersTableComponent < ReflexComponent
   def toggle_member_form
     @show_member_form = !@show_member_form
     return unless show_member_form?
-
+    byebug
     @new_member = User.new
     @new_member.build_contact
     @new_member.memberships.build(organization: @organization)
@@ -26,9 +26,5 @@ class Organizations::MembersTableComponent < ReflexComponent
     membership = @organization.memberships.find(id)
 
     membership.update(role: role)
-  end
-
-  def omitted_from_state
-    [:@memberships]
   end
 end

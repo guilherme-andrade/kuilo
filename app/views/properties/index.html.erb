@@ -5,7 +5,7 @@
     </div>
 
     <p class="lead text-muted mb-0">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias officiis exercitationem autem eveniet obcaecati, earum odio maxime ipsum enim animi molestias ducimus nobis expedita iure ea inventore reiciendis pariatur reprehenderit?
+      Aqui encontrará todas as propridades adicionas à aplicação. Se pretender adicionar um prédio ou outro tipo de empreendimento, comece por ir à página de 'empreendimentos'.
     </p>
   </div>
 
@@ -48,5 +48,5 @@
       </div>
     </div>
     <hr>
-    <%= render 'table' %>
+    <%= render Properties::TableComponent.new(query: @query, properties: @properties) %>
 </div>

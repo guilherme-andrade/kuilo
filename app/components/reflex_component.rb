@@ -1,5 +1,6 @@
 class ReflexComponent < ViewComponentReflex::Component
   include ApplicationHelper
+  include Ransack::Helpers::FormHelper
 
   def current_organization
     session[:current_organization]
