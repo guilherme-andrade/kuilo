@@ -1,11 +1,9 @@
-require 'jobs/next_rent_creation_job'
-
 namespace :contracts do
-  task :create_next_rents do
+  task create_next_rents: :environment do
     NextRentCreationJob.perform_later
   end
 
-  task :perform_status_checks do
+  task perform_status_checks: :environment do
     ContractsStatusCheckJob.perform_later
   end
 end
