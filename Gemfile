@@ -10,7 +10,7 @@ gem 'activerecord-multi-tenant'
 gem 'activerecord-session_store'
 gem 'acts_as_living'
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'bullet', group: 'development'
+gem 'bullet'
 gem 'cloudinary'
 gem 'counter_culture'
 gem 'country_select'
