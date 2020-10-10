@@ -48,8 +48,8 @@ module Kuilo
     config.i18n.available_locales = :pt
 
     config.active_record.observers = %i[
-      contract_observer user_observer notifications_observer comment_observer
-      rent_observer property_observer transaction_observer
+      contract_observer user_observer notification_observer comment_observer
+      rent_observer property_observer transaction_observer notifiable_observer
     ]
 
     # Don't generate system test files.

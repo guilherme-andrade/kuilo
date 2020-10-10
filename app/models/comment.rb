@@ -24,10 +24,6 @@ class Comment < ApplicationRecord
     end
   end
 
-  after_create do
-    CommentNotification.with(notifiable: self).deliver(user)
-  end
-
   def mentions
     User.find(mentioned_user_ids)
   end

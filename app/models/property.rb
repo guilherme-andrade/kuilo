@@ -21,8 +21,8 @@ class Property < ApplicationRecord
 
   enum status: STATUSES
 
-  # counter_culture :owner
-  # counter_culture :enterprise
+  counter_culture :organization
+  counter_culture :enterprise
 
   monetize :market_value_cents
   monetize :default_rent_cents

@@ -1,6 +1,5 @@
 class ApplicationNotification < Noticed::Base
   deliver_by :database, format: :format_for_database
-  deliver_by :cable_ready, class: 'DeliveryMethods::CableReady', method: :warn
 
   def format_for_database
     {

@@ -33,9 +33,9 @@ class Organization < ApplicationRecord
   has_one_attached :logo
 
   # Multi tenancy
-  # after_create :create_tenant
+  before_validation :set_slug, unless: :slug
 
-  default :slug, (proc { |o| o&.name&.downcase&.underscore })
+  # default :slug, (proc { |o| o&.name&.downcase&.underscore })
 
   delegate :name, to: :owner, prefix: true
   delegate :name, to: :admin, prefix: true
@@ -49,7 +49,7 @@ class Organization < ApplicationRecord
   end
 
   def build_owner_membership
-    memberships.build(user: owner, role: :admin)
+    memberships.build(user: owner, role: :admin) unless memberships.emtpy?
   end
 
   def invite_member(email:, role:, invited_by: owner, **attrs)
@@ -60,9 +60,7 @@ class Organization < ApplicationRecord
                  }, invited_by)
   end
 
-  # private
-
-  # def create_tenant
-  #   Apartment::Tenant.create(slug) if Apartment::Tenant.current == 'public'
-  # end
+  def set_slug
+    name.dasherize.downcase
+  end
 end
