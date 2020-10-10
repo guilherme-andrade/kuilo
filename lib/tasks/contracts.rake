@@ -1,3 +1,5 @@
+require 'jobs/next_rent_creation_job'
+
 namespace :contracts do
   task :create_next_rents do
     NextRentCreationJob.perform_later

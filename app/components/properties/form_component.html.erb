@@ -48,7 +48,7 @@
           <% if belongs_to_enterprise? %>
             <div class="row">
               <div class="col-10">
-                <label for="owner_type">Pertence a:</label>
+                <label class="form-label" for="owner_type">Pertence a:</label>
                 <%= f.association(:enterprise, as: :select, label: false, wrapper: false, input_html: { class: 'form-select' }) %>
               </div>
             </div>
@@ -72,7 +72,7 @@
         <% if belongs_to_third_party? %>
           <div class="row">
             <div class="col-10">
-              <label for="owner_type">Pertence a:</label>
+              <label class="form-label" for="owner_type">Pertence a:</label>
               <div class="input-group mb-3">
                 <%= f.input :owner_type, as: :select, collection: %w[Customer Organization], label: false, wrapper: false, input_html: { class: 'form-select', data: reflex_data_attributes('change->update_owner_type') } %>
                 <%= f.input(:owner_id, as: :select, collection: @owner_options, label: false, wrapper: false, input_html: { class: 'form-select', data: reflex_data_attributes('change->update_owner_id') }) if @property.owner_type.present? %>
@@ -122,7 +122,7 @@
 
       <div class="row">
         <div class="col-6">
-          <label for="property[market_value]">Valor de Mercado</label>
+          <label class="form-label" for="property[market_value]">Valor de Mercado</label>
           <div class="input-group">
             <%= f.input :market_value_humanized, as: :float, step: 0.01, wrapper: false, label: false, input_html: { class: 'col-7', data: { controller: 'currency-input', action: 'input->currency-input#format', input: '#property_market_value_cents' } } %>
             <%= f.input :market_value_currency, as: :select, collection: CURRENCIES, wrapper: false, label: false, input_html: { class: 'flex-grow-1 bg-light col-5 form-select' } %>
@@ -133,7 +133,7 @@
 
       <div class="row">
         <div class="col-5">
-          <label for="property[default_rent]">Valor da Renda</label>
+          <label class="form-label" for="property[default_rent]">Valor da Renda</label>
           <div class="input-group">
             <%= f.input :default_rent_humanized, as: :float, step: 0.01, wrapper: false, label: false, input_html: { class: 'col-7', data: { controller: 'currency-input', action: 'input->currency-input#format', input: '#property_default_rent_cents' } } %>
             <%= f.input :default_rent_currency, as: :select, collection: CURRENCIES, wrapper: false, label: false, input_html: { class: 'flex-grow-1 bg-light col-5 form-select' } %>
@@ -142,7 +142,7 @@
         </div>
 
         <div class="col-5">
-          <label for="property[default_charges]">Valor de Encargos</label>
+          <label class="form-label" for="property[default_charges]">Valor de Encargos</label>
           <div class="input-group">
             <%= f.input :default_charges_humanized, as: :float, step: 0.01, wrapper: false, label: false, input_html: { class: 'col-7', data: { controller: 'currency-input', action: 'input->currency-input#format', input: '#property_default_charges_cents' } } %>
             <%= f.input :default_charges_currency, as: :select, collection: CURRENCIES, wrapper: false, label: false, input_html: { class: 'flex-grow-1 bg-light col-5 form-select' } %>

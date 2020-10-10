@@ -7,7 +7,7 @@
             <% if current_organization&.logo&.attached? %>
               <%= image_tag current_organization.logo, height: 50 %>
             <% else %>
-              <%= inline_svg_pack_tag 'media/images/logo.svg', class: 'icon icon-xxl my-2' %>
+              <%= inline_svg_pack_tag 'media/images/logo.svg', class: 'icon icon-xl my-2' %>
             <% end %>
           <% end %>
         </li>
@@ -26,7 +26,7 @@
       <% else %>
         <li class="nav-item">
           <%= link_to root_path, class: 'navbar-brand' do %>
-            <%= inline_svg_pack_tag 'media/images/logo.svg', class: 'icon icon-xxl my-2' %>
+            <%= inline_svg_pack_tag 'media/images/logo.svg', class: 'icon icon-xl my-2' %>
           <% end %>
         </li>
       <% end %>
@@ -34,7 +34,7 @@
 
     <ul class="navbar-nav flex-row align-items-center">
       <% if user_signed_in? %>
-        <%= render Layout::NotificationsDropdownComponent.new %>
+        <%= render Application::NotificationsDropdownComponent.new %>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle no-caret" href="#" id="user-dropdown" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -76,7 +76,7 @@
         </li>
       <% else %>
         <li class="nav-item">
-          <%= link_to 'Log In', new_user_session_path, class: 'nav-link nav-link-dark font-weight-bold' %>
+          <%= link_to 'Log In', new_user_session_path, class: 'btn btn-sm btn-black font-weight-bold' %>
         </li>
       <% end %>
     </ul>

@@ -3,7 +3,7 @@ class Organizations::MembersTableComponent < ReflexComponent
 
   def initialize(organization:)
     @organization = organization
-    @memberships = organization.memberships
+    @memberships = organization.memberships.includes(user: { contact: :avatar_attachment })
     @show_member_form = false
   end
 
@@ -26,5 +26,6 @@ class Organizations::MembersTableComponent < ReflexComponent
     membership = @organization.memberships.find(id)
 
     membership.update(role: role)
+    @memberships.reload
   end
 end

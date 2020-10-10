@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'head' %>
+
+  <body class="bg-white">
+    <%= render Static::NavbarComponent.new %>
+    <%= render 'flashes' %>
+    <%= yield %>
+  </body>
+</html>

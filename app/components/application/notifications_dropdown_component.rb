@@ -1,4 +1,4 @@
-class Layout::NotificationsDropdownComponent < ReflexComponent
+class Application::NotificationsDropdownComponent < ReflexComponent
   def notifications
     @notifications || []
   end

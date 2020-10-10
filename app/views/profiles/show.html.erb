@@ -14,7 +14,7 @@
                   <%= cf.input :avatar, as: :file, input_html: { class: 'd-block' } %>
                 </div>
                 <div class="col-10">
-                  <label for="phone">Nr de Telefone</label>
+                  <label for="phone" class="form-label">Nr de Telefone</label>
                   <div class="input-group mb-3">
                     <%= cf.input :phone_country_code, as: :select, collection: phone_country_codes, label: false, wrapper: false, input_html: { class: 'w-25 form-select'} %>
                     <%= cf.input :phone_number, as: :tel, label: false, wrapper: false %>

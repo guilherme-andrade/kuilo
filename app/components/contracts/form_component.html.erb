@@ -57,7 +57,7 @@
                   <%= ccf.input :email, as: :email, label: 'Email' %>
                 </div>
                 <div class="col-10">
-                  <label for="phone">Nr de Telefone</label>
+                  <label for="phone" class="form-label">Nr de Telefone</label>
                   <div class="input-group mb-3">
                     <%= ccf.input :phone_country_code, as: :select, collection: phone_country_codes, label: false, wrapper: false, input_html: { class: 'w-25 form-select'} %>
                     <%= ccf.input :phone_number, as: :tel, label: false, wrapper: false %>
@@ -109,7 +109,7 @@
       </p>
       <div class="row">
         <div class="col-6">
-          <label for="property[default_charges]">Renda</label>
+          <label class="form-label" for="property[default_charges]">Renda</label>
           <div class="input-group mb-3">
             <%= f.input :rent_amount_cents, as: :float, step: 0.01, wrapper: false, label: false, input_html: { data: { controller: 'currency-input', action: 'input->currency-input#format', input: '#hidden_property_rent_amount_cents' } } %>
             <%= f.input :rent_amount_currency, as: :select, collection: CURRENCIES, wrapper: false, label: false, input_html: { class: 'bg-light form-select' } %>
@@ -117,7 +117,7 @@
           <%= f.hidden_field :rent_amount_cents, id: 'hidden_property_rent_amount_cents' %>
         </div>
         <div class="col-6">
-          <label for="property[default_charges]">Encargos</label>
+          <label class="form-label" for="property[default_charges]">Encargos</label>
           <div class="input-group mb-3">
             <%= f.input :rent_charges_cents, as: :float, step: 0.01, wrapper: false, label: false, input_html: { data: { controller: 'currency-input', action: 'input->currency-input#format', input: '#hidden_property_rent_charges_cents' } } %>
             <%= f.input :rent_charges_currency, as: :select, collection: CURRENCIES, wrapper: false, label: false, input_html: { class: 'bg-light form-select' } %>
@@ -142,7 +142,7 @@
       </p>
       <div class="row">
         <div class="col-12">
-          <label for="invoicing_frequency">Frequência de faturação</label>
+          <label class="form-label" for="invoicing_frequency">Frequência de faturação</label>
           <div class="input-group mb-3">
             <span class="input-group-text">a cada</span>
             <%= f.input :invoicing_frequency_value, as: :select, collection: 1..12, label: false, wrapper: false %>

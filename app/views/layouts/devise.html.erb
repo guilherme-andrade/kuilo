@@ -3,7 +3,8 @@
   <%= render 'head' %>
 
   <body>
-    <%= render Layout::NavbarComponent.new %>
+    <%= render Application::NavbarComponent.new %>
+    <%= render 'flashes' %>
     <div class="wrapper py-8">
       <div class="container">
         <div class="row justify-content-center">

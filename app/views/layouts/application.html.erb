@@ -2,10 +2,10 @@
 <html>
   <%= render 'head' %>
 
-  <body class="dashboard" data-controller="stimulus-reflex">
+  <body class="dashboard">
     <%= render Comments::ModalComponent.new(commentable_type: @commentable_type, commentable_id: @commentable_id) if @show_comments_modal %>
     <header class="dashboard-header">
-      <%= render Layout::NavbarComponent.new %>
+      <%= render Application::NavbarComponent.new %>
     </header>
     <section class="dashboard-body">
       <main class="dashboard-main">

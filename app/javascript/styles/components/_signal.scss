@@ -1,7 +1,7 @@
 .signal {
   width: $spacer / 2;
   height: $spacer / 2;
-  border-radius: 2px;
+  border-radius: 50%;
   display: inline-block;
   vertical-align: middle;
   margin-bottom: 2px;
@@ -22,8 +22,8 @@
 
     content: '';
     position: absolute;
-    top: 12px;
-    right: 1px;
+    top: 5px;
+    right: 4px;
     border: none;
   }
 }

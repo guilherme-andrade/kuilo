@@ -1,3 +1,21 @@
+$btn-round-size: 35px;
+$btn-round-size-sm: 27px;
+
 .btn {
   font-family: $headings-font-family;
+
+  &-round {
+    padding: 0;
+    width: $btn-round-size;
+    height: $btn-round-size;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
+    &-sm {
+      width: $btn-round-size-sm;
+      height: $btn-round-size-sm;
+    }
+  }
 }

@@ -35,19 +35,21 @@
           </div>
 
           <div class="btn-group">
+            <% unless @property.active_contract %>
+              <%= link_to property_path(@property), class: 'btn btn-sm btn-danger' do %>
+                Apagar
+                <%= inline_svg_pack_tag 'media/icons/trash.svg' %>
+              <% end %>
+            <% end %>
+            <%= link_to edit_property_path(@property), class: 'btn btn-sm btn-warning' do %>
+              Editar
+              <%= inline_svg_pack_tag 'media/icons/pencil.svg' %>
+            <% end %>
             <%= render Comments::ModalToggleComponent.new(commentable: @property, class: 'btn btn-sm btn-white') do %>
               <span class="d-none d-lg-inline-block">Comentários</span>
               <%= inline_svg_pack_tag 'media/icons/chat-left-text.svg' %>
             <% end %>
-
-            <%= link_to edit_property_path(@property), class: 'btn btn-sm btn-warning' do %>
-              <%= inline_svg_pack_tag 'media/icons/pencil.svg' %>
-            <% end %>
-
             <% unless @property.active_contract %>
-              <%= link_to property_path(@property), class: 'btn btn-sm btn-danger' do %>
-                <%= inline_svg_pack_tag 'media/icons/trash.svg' %>
-              <% end %>
               <%= link_to new_property_contract_path(@property), class: 'btn btn-sm btn-secondary' do %>
                 Adicionar Contrato
                 <%= inline_svg_pack_tag 'media/icons/plus.svg', class: 'icon icon-md' %>

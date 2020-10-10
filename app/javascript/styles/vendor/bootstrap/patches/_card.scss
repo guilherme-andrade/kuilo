@@ -1,4 +1,7 @@
 .card {
+  transition: all .2s ease-in-out;
+  position: relative;
+
   a:not(.stretched-link) {
     position: relative;
     z-index: 2;
@@ -6,5 +9,10 @@
 
   &-clickable:hover {
     border-color: $primary;
+  }
+
+  &-clickable-shadow:hover {
+    box-shadow: $box-shadow;
+    transform: translateY(-6px);
   }
 }

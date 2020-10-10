@@ -28,11 +28,13 @@
       </div>
     </div>
 
-    <% if @properties.empty? %>
-      <p>No properties found.</p>
-    <% else %>
-      <%= render Properties::Table::PropertyComponent.with_collection(@properties) %>
-    <% end %>
+    <div class="mb-3">
+      <% if @properties.empty? %>
+        <p>No properties found.</p>
+      <% else %>
+        <%= render Properties::Table::PropertyComponent.with_collection(@properties) %>
+      <% end %>
+    </div>
 
     <%= will_paginate @properties, list_classes: %w(pagination justify-content-end) %>
   </div>

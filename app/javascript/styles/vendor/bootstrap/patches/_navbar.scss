@@ -40,11 +40,11 @@
     }
 
     &:hover, &.active {
-      background: rgba($gray-100, .5);
+      color: $primary;
+    }
 
-      &::after {
-        background: $black;
-      }
+    &.active {
+      font-weight: $font-weight-bold;
     }
   }
 }
