@@ -39,6 +39,7 @@ gem 'puma', '~> 4.1'
 gem 'pundit'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
 gem 'rails-i18n', '~> 6.0.0'
+gem 'rails-observers'
 gem 'ransack'
 gem 'redis', '>= 4.0', :require => ['redis', 'redis/connection/hiredis']
 gem 'sentry-raven'

@@ -1,0 +1,2 @@
+class PropertyObserver < ApplicationObserver
+end

@@ -1,0 +1,2 @@
+class ContractObserver < ApplicationObserver
+end

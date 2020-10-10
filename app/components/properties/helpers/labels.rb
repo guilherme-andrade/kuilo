@@ -17,6 +17,6 @@ module Properties::Helpers::Labels
     class_name = label_class_for_property(property)
     text = I18n.t(['properties.status_labels.', property.status].join)
 
-    return content_tag(:span, text, class: ['badge', class_name])
+    return content_tag(:span, text, class: ['badge', 'rounded-pill', class_name])
   end
 end

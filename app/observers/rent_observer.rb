@@ -1,0 +1,2 @@
+class RentObserver < ApplicationObserver
+end

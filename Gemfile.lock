@@ -274,6 +274,8 @@ GEM
     rails-i18n (6.0.0)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 7)
+    rails-observers (0.1.5)
+      activemodel (>= 4.0)
     railties (6.0.3.3)
       actionpack (= 6.0.3.3)
       activesupport (= 6.0.3.3)
@@ -416,6 +418,7 @@ DEPENDENCIES
   pundit
   rails (~> 6.0.3, >= 6.0.3.3)
   rails-i18n (~> 6.0.0)
+  rails-observers
   ransack
   redis (>= 4.0)
   sentry-raven

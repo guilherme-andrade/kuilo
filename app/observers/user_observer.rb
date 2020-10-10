@@ -1,0 +1,2 @@
+class UserObserver < ApplicationObserver
+end
