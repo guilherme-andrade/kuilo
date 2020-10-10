@@ -6,7 +6,17 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
-  config.session_store :active_record_store, key: '_kuilo_session'
+  config.cache_store = :redis_cache_store, { driver: :hiredis, url: ENV.fetch("REDIS_URL") }
+
+  config.session_store :redis_session_store, {
+    key: Rails.application.credentials.app_session_key,
+    serializer: :json,
+    redis: {
+      expire_after: 1.year,
+      ttl: 1.year,
+      key_prefix: "app:session:",
+      url: ENV.fetch("HEROKU_REDIS_MAROON_URL"),
+    }
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -112,4 +122,26 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.sentry = true
+    Bullet.alert = false
+    Bullet.bullet_logger = false
+    Bullet.skip_html_injection = true
+    Bullet.console = false
+    Bullet.rails_logger = Faker::LoremPixel.image(size: "50x60", is_gray: false, category: 'sports', number: 3)
+    # Bullet.growl = true
+    # Bullet.xmpp = { :account  => 'bullets_account@jabber.org',
+    #                 :password => 'bullets_password_for_jabber',
+    #                 :receiver => 'your_account@jabber.org',
+    #                 :show_online_status => true }
+    # Bullet.honeybadger = true
+    # Bullet.bugsnag = true
+    # Bullet.airbrake = true
+    # Bullet.rollbar = true
+    # Bullet.add_footer = true
+    # Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
+    # Bullet.stacktrace_excludes = [ 'their_gem', 'their_middleware', ['my_file.rb', 'my_method'], ['my_file.rb', 16..20] ]
+    # Bullet.slack = { webhook_url: 'http://some.slack.url', channel: '#default', username: 'notifier' }
+  end
 end

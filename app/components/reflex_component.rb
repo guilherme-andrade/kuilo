@@ -1,15 +1,22 @@
-require 'ransack'
-
 class ReflexComponent < ViewComponentReflex::Component
+  include Ransack::Helpers::FormHelper if defined? Ransack::Helpers
   include ApplicationHelper
-  include Ransack::Helpers::FormHelper
+  include ImageHelper
 
   def current_organization
-    session[:current_organization]
+    Organization.find_by_id(session[:current_organization_id])
+  end
+
+  def organization_selected?
+    current_organization.present?
+  end
+
+  def user_signed_in?
+    current_user.present?
   end
 
   def current_user
-    @current_user ||= User.find(session['warden.user.user.key'].first.first)
+    User.find_by_id(session['warden.user.user.key']&.first&.first)
   end
 
   def current_user_id

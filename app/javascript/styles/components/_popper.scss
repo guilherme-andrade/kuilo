@@ -1,0 +1,7 @@
+.popper {
+  @extend .cell, .border, .border-medium;
+
+  z-index: $zindex-dropdown;
+  max-width: 500px;
+  min-width: 300px;
+}

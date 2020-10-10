@@ -3,13 +3,6 @@
 class User < ApplicationRecord
   include HasProfile
 
-  acts_as_target action_cable_allowed: true,
-                 action_cable_with_devise: true,
-                 email: :email,
-                 email_allowed: :confirmed_at,
-                 subscription_allowed: :confirmed_at,
-                 batch_email_allowed: :confirmed_at
-
   devise :database_authenticatable, :trackable, :recoverable,
          :rememberable, :validatable, :invitable, :confirmable, :timeoutable
 
@@ -17,7 +10,8 @@ class User < ApplicationRecord
   has_many :memberships, class_name: 'OrganizationMember', dependent: :destroy, inverse_of: :user
   has_many :organizations, through: :memberships, inverse_of: :members
   has_many :transactions, foreign_key: :creator_id
-  has_many :commments
+  has_many :comments
+  has_many :notifications, as: :recipient
 
   accepts_nested_attributes_for :memberships
 

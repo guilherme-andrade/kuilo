@@ -1,0 +1,45 @@
+.dropdown {
+  &-menu-xl {
+    min-width: 500px;
+  }
+
+  &-menu-lg {
+    min-width: 400px;
+  }
+
+  &-menu-md {
+    min-width: 300px;
+  }
+
+  &-menu-sm {
+    min-width: 200px;
+  }
+
+  &-menu-xs {
+    min-width: 100px;
+  }
+
+  &-list-item {
+    padding: $spacer * 2 $spacer;
+
+    p {
+      margin-bottom: 0;
+    }
+
+    &:not(:last-child) {
+      border-bottom: $border-width solid $border-color;
+    }
+  }
+
+  &-item-display {
+    padding: 0;
+
+    p {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background: transparent;
+    }
+  }
+}

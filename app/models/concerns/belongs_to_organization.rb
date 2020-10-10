@@ -9,11 +9,6 @@ module BelongsToOrganization
 
     delegate :members, :name, to: :organization, prefix: true
 
-    acts_as_notifiable :users,
-                       targets: ->(r, _key) { r.organization_members.where.not(id: r.being_changed_by) },
-                       action_cable_allowed: true,
-                       action_cable_api_allowed: true,
-                       tracked: { only: [:create] }
-
+    has_many :notifications, as: :notifiable, dependent: :nullify
   end
 end

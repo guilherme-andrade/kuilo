@@ -1,0 +1,13 @@
+<%= t('emails.greeting', recipient: @recipient.name) %>
+
+<%= t('emails.someone_mentioned_you_in_a_comment', author: @comment.user_name) %>
+
+<div class="border-left p-3">
+  <%= @comment.content %>
+</div>
+
+<%  %>
+
+<% content_for :footer do %>
+  <%= link_to t('emails.view_comment'), url_for(@comment.commentable), class: 'btn btn-primary' %>
+<% end %>

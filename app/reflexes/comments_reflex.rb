@@ -13,7 +13,6 @@ class CommentsReflex < ApplicationReflex
   private
 
   def find_commentable
-    commentable_type, commentable_id = element.dataset.to_h.values_at(:commentable_type, :commentable_id)
-    @commentable = commentable_type.constantize.find(commentable_id)
+    @commentable_type, @commentable_id = element.dataset.to_h.values_at(:commentable_type, :commentable_id)
   end
 end

@@ -6,13 +6,14 @@ class PropertiesController < OrganizationController
 
   def index
     @query = @property_class.ransack(params[:q])
-    @properties = @query.result.page(params[:page])
+    @properties = @query.result.paginate(page: params[:page], per_page: 7)
   end
 
   def show; end
 
   def new
     @property = Property.new
+    @property.build_address
   end
 
   def edit; end

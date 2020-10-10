@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include DeliverServerErrors
+
   helper ActionText::Engine.helpers
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-
   helper_method :organization_selected?, :current_organization
 
   def organization_selected?

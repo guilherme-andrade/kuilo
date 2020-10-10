@@ -1,0 +1,26 @@
+<%= reflex_tag 'shown.bs.dropdown->load_notifications', :li, class: 'nav-item mr-4 dropdown', data: { reflex_root: '#notifications-dropdown-menu-content' } do %>
+  <a class="nav-link dropdown-toggle no-caret <%= 'signal-notification' if current_user.notifications.unread.any? %>" href="#" id="notifications-dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+    <%= inline_svg_pack_tag 'media/icons/bell-fill.svg', class: 'icon icon-lg icon-medium stretched-link' %>
+  </a>
+  <div class="dropdown-menu py-0 dropdown-menu-right dropdown-menu-xl position-absolute" id="notifications-dropdown-menu" aria-labelledby="#notifications-dropdown">
+    <ul class="list-unstyled" id="notifications-dropdown-menu-content">
+      <li><h6 class="dropdown-header text-black font-weight-normal bg-light">Notificações</h6></li>
+      <%= component_controller do %>
+        <% if @notifications&.any? %>
+          <% @notifications.each do |notification| %>
+            <li class="dropdown-list-item font-weight-normal">
+              <%= link_to notification[:url], class: 'link text-black' do %>
+                <%= notification.message_html %>
+              <% end %>
+              <div class="d-flex justify-content-end">
+                <%= reflex_tag :mark_as_read, :a, 'marcar como lida', data: { id: notification.id }, class: 'small text-danger' %>
+              </div>
+            </li>
+          <% end %>
+        <% else %>
+            <li><span class="dropdown-item text-muted disabled">Não tem notificações não lidas.</span></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

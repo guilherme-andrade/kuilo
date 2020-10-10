@@ -4,25 +4,28 @@ class EnterprisesController < OrganizationController
   before_action :find_enterprise, except: %i[index new create]
 
   def index
-    @query = Enterprise.ransack(params[:q])
-    @enterprises = @query.result.page(params[:page])
+    @query = Enterprise.includes(:address).ransack(params[:q])
+    @enterprises = @query.result.paginate(page: params[:page], per_page: 7)
   end
 
   def show
     @query = @enterprise.properties.ransack(params[:q])
-    @properties = @query.result.page(params[:page])
+    @properties = @query.result.paginate(page: params[:page], per_page: 7)
   end
 
   def new
     @enterprise = Enterprise.new
+    @enterprise.build_contact
+    @enterprise.build_address
   end
 
   def edit; end
 
   def create
-    @enterprise = Enterprise.new(params[:enterprise])
+    @enterprise = Enterprise.new(enterprise_params)
+    @enterprise.assign_attributes(manager: current_user, creator: current_user)
     if @enterprise.save
-      flash[:success] = 'User successfully created'
+      flash[:success] = 'Enterprise successfully created'
       redirect_to @enterprise
     else
       flash[:error] = 'Something went wrong'
@@ -31,8 +34,8 @@ class EnterprisesController < OrganizationController
   end
 
   def update
-    if @enterprise.update_attributes(params[:enterprise])
-      flash[:success] = 'User was successfully updated'
+    if @enterprise.update(enterprise_params)
+      flash[:success] = 'Enterprise was successfully updated'
       redirect_to @enterprise
     else
       flash[:error] = 'Something went wrong'
@@ -42,7 +45,7 @@ class EnterprisesController < OrganizationController
 
   def destroy
     if @enterprise.destroy
-      flash[:success] = 'User was successfully deleted'
+      flash[:success] = 'Enterprise was successfully deleted'
     else
       flash[:error] = 'Something went wrong'
     end
@@ -53,5 +56,13 @@ class EnterprisesController < OrganizationController
 
   def find_enterprise
     @enterprise = Enterprise.find(params[:id])
+  end
+
+  def enterprise_params
+    params.require(:enterprise).permit(
+      :name, :description, photos: [],
+      address_attributes: %i[street door floor city country zip_code],
+      contact_attributes: %i[name vat_number government_id email phone_number phone_country_code]
+    )
   end
 end

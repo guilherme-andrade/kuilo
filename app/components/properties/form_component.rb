@@ -1,7 +1,6 @@
 class Properties::FormComponent < ReflexComponent
   def initialize(property:)
     @property = property
-    @property.build_address unless @property.address
   end
 
   def allow_select_enterprise?
@@ -21,7 +20,7 @@ class Properties::FormComponent < ReflexComponent
   end
 
   def belongs_to_third_party?
-    @belongs_to_third_party ||= false || (@property.persisted? && @property.owner)
+    @belongs_to_third_party ||= false || (@property.persisted? && @property.owner.present?)
   end
 
   def toggle_belongs_to_enterprise
@@ -29,11 +28,10 @@ class Properties::FormComponent < ReflexComponent
   end
 
   def belongs_to_enterprise?
-    @belongs_to_enterprise ||= false || (@property.persisted? && @property.enterprise)
+    @belongs_to_enterprise ||= false || (@property.persisted? && @property.enterprise.present?)
   end
 
   def before_render
-    @property.build_address
     @owner_options = @property.owners_from_type
     @property.owner_id = @owner_options&.first&.id
   end

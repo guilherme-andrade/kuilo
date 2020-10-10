@@ -1,21 +1,26 @@
 class Comments::ModalComponent < ReflexComponent
   include ImageHelper
 
-  attr_reader :commentable
-
-  def initialize(commentable:)
-    @commentable = commentable
+  def initialize(commentable_type:, commentable_id:)
+    @commentable_type = commentable_type
+    @commentable_id = commentable_id
+    @commentable = commentable_type.constantize.find(commentable_id)
     @comment = Comment.new
-    @comments = @commentable.comments.includes(user: :contact)
   end
 
   def organization_members
     current_organization.members
   end
 
+  def comments
+    @commentable.comments.includes(user: :contact)
+  end
+
   def create_comment
-    Comment.create!(comment_params.merge(commentable: commentable, user_id: current_user_id))
-    @comments = @commentable.comments.includes(user: :contact)
+    current_user.comments.create!(
+      comment_params.merge(commentable_type: @commentable_type, commentable_id: @commentable_id)
+    )
+    @commentable = @commentable_type.constantize.find(@commentable_id)
   end
 
   private

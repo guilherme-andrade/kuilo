@@ -12,3 +12,18 @@
     }
   }
 }
+
+
+.signal-notification {
+  position: relative;
+
+  &::after {
+    @extend .signal, .signal-danger;
+
+    content: '';
+    position: absolute;
+    top: 12px;
+    right: 1px;
+    border: none;
+  }
+}

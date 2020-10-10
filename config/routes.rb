@@ -3,8 +3,6 @@
 Rails.application.routes.draw do
   get 'profiles/show'
   devise_for :users
-  notify_to :users, with_subscription: true, with_devise: :users, devise_default_routes: true
-  subscribed_by :users, with_devise: :users, devise_default_routes: true
 
   resources :enterprises do
     scope module: 'enterprises' do

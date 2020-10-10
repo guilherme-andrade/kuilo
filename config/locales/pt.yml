@@ -8,3 +8,41 @@ pt:
   number:
     nth:
       ordinalized: '%{number},'
+  devise:
+    invitations:
+      send_instructions: 'Um email de convite foi enviado para% {email}.'
+      invitation_token_invalid: 'O token de convite fornecido não é válido!'
+      updated: 'Sua senha foi definida com sucesso. Agora você está conectado. '
+      updated_not_active: 'Sua senha foi definida com sucesso.'
+    mailer:
+      invitation_instructions:
+        subject: Você recebeu um convite!
+        user_subject: 'Você recebeu um convite!'
+        hello: Saudações da Kuilo!
+        someone_invited_you: Um utilizador da nossa aplicação convidou-o para se registar.
+        accept: Aceitar Convite
+        ignore: Ignorar Convite
+  notifications:
+    contract_in_negotiation: Iniciou negociações com **%{customer_name}** pela propriedade **%{property_name} - %{property_code}.**
+    contract_in_notice: O contrato da **%{property_name} - %{property_code}** está a **terminar**.
+    contract_activated: O contrato da **%{property_name} - %{property_code}** está agora **ativo**!
+    contract_signed: O contrato da **%{property_name} - %{property_code}** foi **assinado**!
+    contract_terminated: O contrato da propriedade **%{p - operty_name}(%{property_code} terminou**.
+    contract_cancelled: As negociações com **%{customer_name}** pela propriedade **%{property_name} - %{property_code}** foram **canceladas**.
+    contract_confirmed: O sinal **%{customer_name}** pela propriedade **%{property_name} - %{property_code}** foi recebido e eu seu contrato está agora **confirmado**!
+  emails:
+    click_here_to_view: Clique aqui para ver.
+    a_contract_is_now_in_negotiation: Negociações Iniciadas!
+    a_contract_is_now_in_notice: Um contrato está a terminar.
+    a_contract_is_now_activated: Contrato activado!
+    a_contract_is_now_signed: Contrato Assinado!
+    a_contract_is_now_terminated: Um contrato terminou.
+    a_contract_is_now_cancelled: Um contrato foi cancelado.
+    a_contract_is_now_confirmed: Contrato Confirmado!
+    you_were_mentioned: Alguém o mencionou.
+    greeting: Olá %{recipient},
+    someone_mentioned_you_in_a_comment: '**%{author}** mencionou o seu nome num comentário, veja abaixo:'
+    view_comment: Ver Comentário na aplicação
+    next_rents_created: Criadas rendas do próximo mês
+    the_rents_for_next_month_have_been_created: 'Um total de **%{rents_count} renda(s)** foram criadas para o próximo mês. Veja abaixo a lista:'
+    manage_rents: Gerir Rendas

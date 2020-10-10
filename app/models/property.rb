@@ -53,10 +53,6 @@ class Property < ApplicationRecord
   has_many_attached :photos
   has_rich_text :description
 
-  def owner
-    attributes.dig(:owner) || organization
-  end
-
   def owners_from_type
     return [] unless owner_type.present?
 

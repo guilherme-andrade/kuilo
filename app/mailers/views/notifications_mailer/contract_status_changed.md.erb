@@ -1,0 +1,7 @@
+<%= t('emails.greeting', recipient: @recipient.name) %>
+
+<%= @message %>
+
+<% content_for :footer do %>
+  <%= link_to t('emails.click_here_to_view'), contract_url(@contract), class: 'btn btn-primary' %>
+<% end %>

@@ -24,6 +24,7 @@ class Contract < ApplicationRecord
   has_many :rents_unpaid, -> { where(rents: { status: Rent.statuses.dig('pending') }) }, class_name: 'Rent'
   has_paper_trail if: proc { |p| p.saved_change_to_status? }
 
+  belongs_to :manager, class_name: 'User'
   belongs_to :customer, touch: true
   belongs_to :property, touch: :contracts_last_updated_at
   belongs_to :occupied_property,
@@ -32,8 +33,6 @@ class Contract < ApplicationRecord
 
   counter_culture :customer
   counter_culture :property
-
-  acts_as_notification_group printable_name: ->(c) { "Contract \"#{c.name}\"" }
 
   monetize :rent_amount_cents
   monetize :rent_charges_cents
@@ -54,6 +53,7 @@ class Contract < ApplicationRecord
   default :occupied_property_id,  (proc { |c| c.property.id if c.active? })
   default :organization_id,       (proc { |c| c.property.organization_id if c.property })
   default :rent_due_day,          (proc { |c| c.organization.default_rent_due_day })
+  default :manager_id,            (proc { |c| c.property.manager_id })
 
   validates :start_date, :end_date, :renegotiation_period_start_date,
             :renegotiation_period_end_date, presence: true
@@ -91,9 +91,11 @@ class Contract < ApplicationRecord
   alias sign! signed!
   alias confirm! confirmed!
   alias activate! activated!
-  alias notice_received! in_notice!
+  alias receive_notice! in_notice!
   alias terminate! terminated!
   alias cancel! cancelled!
+
+  after_commit :notify_of_status_change, if: :saved_change_to_status?
 
   before_validation do
     update_attribute(:status, statuses[:active]) if (start_date..end_date).cover?(Time.zone.today) && !active?
@@ -172,5 +174,11 @@ class Contract < ApplicationRecord
 
   def create_next_rent
     Contracts::CreateNextRent.call(contract: self)
+  end
+
+  def notify_of_status_change
+    recipients = organization.admins.merge(User.where(id: manager.id))
+
+    ContractStatusChangedNotification.with(notifiable: self).deliver_later(recipients)
   end
 end

@@ -1,6 +1,6 @@
 <ul class="nav flex-column list-group">
   <li class="list-group-item">
-    <%= active_link_to current_query_url(status_not_eq: 10, anchor: 'rents-table'), class: 'list-group-link' do %>
+    <%= active_link_to current_query_url(status_not_eq: 10, status_eq: nil, anchor: 'rents-table'), class: 'list-group-link' do %>
       <span class="signal signal-muted mr-1"></span>
       Todas
     <% end %>

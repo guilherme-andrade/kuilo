@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
-
-  config.session_store :active_record_store, key: '_kuilo_session'
+  config.session_store :cache_store
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -15,6 +13,8 @@ Rails.application.configure do
 
   # Show full error reports.
   config.consider_all_requests_local = true
+
+  config.action_controller.asset_host = 'http://localhost:3000'
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
@@ -60,4 +60,28 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.sentry = true
+    Bullet.alert = true
+    Bullet.bullet_logger = false
+    Bullet.add_footer = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+    # Bullet.skip_html_injection = false
+    # Bullet.growl = true
+    # Bullet.xmpp = { :account  => 'bullets_account@jabber.org',
+    #                 :password => 'bullets_password_for_jabber',
+    #                 :receiver => 'your_account@jabber.org',
+    #                 :show_online_status => true }
+    # Bullet.honeybadger = true
+    # Bullet.bugsnag = true
+    # Bullet.airbrake = true
+    # Bullet.rollbar = true
+    # Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
+    # Bullet.stacktrace_excludes = [ 'their_gem', 'their_middleware', ['my_file.rb', 'my_method'], ['my_file.rb', 16..20] ]
+    # Bullet.slack = { webhook_url: 'http://some.slack.url', channel: '#default', username: 'notifier' }
+    Bullet.add_whitelist type: :n_plus_one_query, class_name: 'ActiveStorage::Attachment', association: :blob
+  end
 end

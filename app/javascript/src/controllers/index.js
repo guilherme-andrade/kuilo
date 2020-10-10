@@ -14,10 +14,10 @@ application.load(definitionsFromContext(context))
 application.register('flatpickr', Flatpickr)
 StimulusReflex.initialize(application, { consumer, controller, debug: false })
 
-document.addEventListener('stimulus-reflex:after', fireTurbolinksLoad)
+// document.addEventListener('stimulus-reflex:after', fireTurbolinksLoad)
 
-function fireTurbolinksLoad() {
-  const event = document.createEvent('Event');
-  event.initEvent('turbolinks:load', true, true);
-  document.dispatchEvent(event);
-}
+// function fireTurbolinksLoad() {
+//   const event = document.createEvent('Event');
+//   event.initEvent('turbolinks:load', true, true);
+//   document.dispatchEvent(event);
+// }

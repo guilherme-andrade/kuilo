@@ -1,20 +1,16 @@
 # frozen_string_literal: true
 
 class Comment < ApplicationRecord
+  default_scope -> { order(created_at: :desc) }
   belongs_to :commentable, polymorphic: true
   belongs_to :user
 
   delegate :organization, to: :commentable
   delegate :members, to: :organization, prefix: true
+  delegate :name, to: :user, prefix: true
 
   has_rich_text :content
-
-  acts_as_notifiable :users,
-                     targets: ->(c, _key) { c.organization_members },
-                     action_cable_allowed: true,
-                     action_cable_api_allowed: true,
-                     notifiable_path: :commentable_path,
-                     tracked: { only: [:create] }
+  has_many :notifications, as: :notifiable, dependent: :nullify
 
   def commentable_path
     case commentable
@@ -26,5 +22,13 @@ class Comment < ApplicationRecord
     else
       commentable
     end
+  end
+
+  after_create do
+    CommentNotification.with(notifiable: self).deliver(user)
+  end
+
+  def mentions
+    User.find(mentioned_user_ids)
   end
 end

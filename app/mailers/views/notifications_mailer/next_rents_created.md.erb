@@ -1,0 +1,11 @@
+<%= t('emails.greeting', recipient: @recipient.name) %>
+
+<%= t('emails.the_rents_for_next_month_have_been_created', rents_count: @rents.count) %>
+
+<% @rents.each do |rent| %>
+- **<%= rent.customer_name %>** (<%= rent.property_code %>) - <%= humanized_money_with_symbol rent.full %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= link_to t('emails.manage_rents'), rents_url(q: { id_in: @rents.pluck(:id) }), class: 'btn btn-primary' %>
+<% end %>

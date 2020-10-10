@@ -1,0 +1,88 @@
+
+<%= simple_form_for @enterprise do |f| %>
+  <section class="mb-5">
+    <%= f.input :name, placeholder: 'e.g. Prédio da Avenida de Roma' %>
+  </section>
+
+  <section class="mb-5">
+    <h2 class="h6">Detalhes de Contacto</h2>
+    <p class="text-muted pr-2">
+      Os detalhes legais para emissão de faturas e fins informativos.
+    </p>
+    <%= f.simple_fields_for :contact do |cf| %>
+      <div class="row">
+        <div class="col-6">
+          <%= cf.input :name, label: 'Nome Legal (usado em faturas)' %>
+        </div>
+        <div class="col-6">
+          <%= cf.input :email, as: :email, label: 'Email' %>
+        </div>
+        <div class="col-10">
+          <label for="phone">Nr de Telefone</label>
+          <div class="input-group mb-3">
+            <%= cf.input :phone_country_code, as: :select, collection: phone_country_codes, label: false, wrapper: false, input_html: { class: 'w-25 form-select'} %>
+            <%= cf.input :phone_number, as: :tel, label: false, wrapper: false %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <%= cf.input :government_id, label: 'Identificação Legal' %>
+        </div>
+        <div class="col-6">
+          <%= cf.input :vat_number, label: 'Número de Identificação Fiscal (VAT)' %>
+        </div>
+      </div>
+    <% end %>
+  </section>
+  <section class="mb-5">
+    <h2 class="h6">Morada</h2>
+    <p class="text-muted pr-2">
+      Esta morada será usada como base de morada das propriedades que pertencerem ao empreendimento.
+    </p>
+    <%= f.simple_fields_for :address do |caf| %>
+      <div class="row">
+        <div class="col-6">
+          <%= caf.input :street, label: 'Morada', placeholder: 'e.g. Rua Rainha Njinga 87' %>
+        </div>
+        <div class="col-3">
+          <%= caf.input :floor, label: 'Andar', placeholder: 'e.g. 11' %>
+        </div>
+        <div class="col-3">
+          <%= caf.input :door, label: 'Lado/Nr. Porta', placeholder: 'e.g. D' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <%= caf.input :city, label: 'Cidade', placeholder: 'e.g. Luanda' %>
+        </div>
+        <div class="col-3">
+          <%= caf.input :zip_code, label: 'Código Postal', placeholder: 'e.g. 1000' %>
+        </div>
+        <div class="col-6">
+          <%= caf.input :country_code, as: :country, label: 'País', placeholder: 'e.g. Angola', input_html: { class: 'form-select' } %>
+        </div>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="mb-3">
+    <h2 class="h6">Vendas e Informações (Opcional)</h2>
+    <p class="text-muted">
+      Descreva o Empreendimento e adicione fotografias.
+    </p>
+    <div class="row">
+      <div class="col-12 mb-3">
+        <%= f.input :photos, as: :file, input_html: { multiple: true }, label: 'Fotografias', label_html: { class: 'd-block mb-2' } %>
+      </div>
+      <div class="col-12">
+        <%= f.label :description, 'Descrição', class: 'form-label mb-2' %>
+        <%= f.rich_text_area :description, label: 'Descrição' %>
+      </div>
+    </div>
+  </section>
+
+  <section class=" d-flex justify-content-end">
+    <%= f.submit 'Salvar Empreendimento', class: 'btn btn-primary' %>
+  </section>
+<% end %>

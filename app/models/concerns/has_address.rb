@@ -8,6 +8,6 @@ module HasAddress
     accepts_nested_attributes_for :address
 
     delegate :street, :country, :city, :zip_code, :latitude, :longitude, :door,
-             :floor, :full_address, :coordinates, to: :address
+             :country_code, :floor, :full_address, :coordinates, to: :address
   end
 end

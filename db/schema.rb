@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_08_235127) do
+ActiveRecord::Schema.define(version: 2020_10_09_110546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -168,26 +168,18 @@ ActiveRecord::Schema.define(version: 2020_10_08_235127) do
     t.index ["organization_id"], name: "index_enterprises_on_organization_id"
   end
 
-  create_table "notifications", force: :cascade do |t|
-    t.string "target_type", null: false
-    t.bigint "target_id", null: false
-    t.string "notifiable_type", null: false
-    t.bigint "notifiable_id", null: false
-    t.string "key", null: false
-    t.string "group_type"
-    t.bigint "group_id"
-    t.integer "group_owner_id"
-    t.string "notifier_type"
-    t.bigint "notifier_id"
-    t.text "parameters"
-    t.datetime "opened_at"
+  create_table "notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "recipient_type", null: false
+    t.uuid "recipient_id", null: false
+    t.string "notifiable_type"
+    t.uuid "notifiable_id"
+    t.string "type", null: false
+    t.jsonb "params"
+    t.datetime "read_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["group_owner_id"], name: "index_notifications_on_group_owner_id"
-    t.index ["group_type", "group_id"], name: "index_notifications_on_group_type_and_group_id"
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
-    t.index ["notifier_type", "notifier_id"], name: "index_notifications_on_notifier_type_and_notifier_id"
-    t.index ["target_type", "target_id"], name: "index_notifications_on_target_type_and_target_id"
+    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient_type_and_recipient_id"
   end
 
   create_table "organization_members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -279,24 +271,6 @@ ActiveRecord::Schema.define(version: 2020_10_08_235127) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
-  end
-
-  create_table "subscriptions", force: :cascade do |t|
-    t.string "target_type", null: false
-    t.bigint "target_id", null: false
-    t.string "key", null: false
-    t.boolean "subscribing", default: true, null: false
-    t.boolean "subscribing_to_email", default: true, null: false
-    t.datetime "subscribed_at"
-    t.datetime "unsubscribed_at"
-    t.datetime "subscribed_to_email_at"
-    t.datetime "unsubscribed_to_email_at"
-    t.text "optional_targets"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["key"], name: "index_subscriptions_on_key"
-    t.index ["target_type", "target_id", "key"], name: "index_subscriptions_on_target_type_and_target_id_and_key", unique: true
-    t.index ["target_type", "target_id"], name: "index_subscriptions_on_target_type_and_target_id"
   end
 
   create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

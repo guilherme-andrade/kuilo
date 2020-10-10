@@ -17,7 +17,7 @@
     <% @enterprises.each do |enterprise| %>
       <div class="col-12 col-md-6 col-lg-4">
         <article class="card border-0 rounded-lg">
-          <%= image_tag enterprise.cover_photo, class: 'card-img-top fit-cover rounded-lg rounded-top rounded-0' %>
+          <%= image_tag enterprise.photos.first, class: 'card-img-top fit-cover rounded-lg rounded-top rounded-0', height: 300 %>
           <div class="card-body">
             <div class="flexbox flexbox-between-center mb-3">
               <h1 class="h6 mb-0"><%= enterprise.name %></h1>

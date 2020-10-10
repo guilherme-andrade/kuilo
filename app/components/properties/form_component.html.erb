@@ -1,5 +1,7 @@
 <%= component_controller do %>
   <%= simple_form_for @property, as: :property, url: form_path do |f| %>
+    <%= f.hidden_field :owner_type %>
+    <%= f.hidden_field :owner_id %>
     <section class="mb-5">
       <h2 class="h6">Nome</h2>
       <p class="text-muted">
@@ -28,7 +30,7 @@
     </section>
 
     <% if allow_select_enterprise? %>
-      <section class="mb-5">
+      <section class="mb-5" id="enterprise-section">
         <h2 class="h6">Empreendimento (Opcional)</h2>
         <p class="text-muted pr-2">
           Especifique se esta propriedade pertence a um empreendimento.
@@ -47,43 +49,47 @@
             <div class="row">
               <div class="col-10">
                 <label for="owner_type">Pertence a:</label>
-                <%= f.association(:enterprise, as: :select, label: false, wrapper: false, input_html: { class: 'form-select' }) if @property.owner_type.present? %>
+                <%= f.association(:enterprise, as: :select, label: false, wrapper: false, input_html: { class: 'form-select' }) %>
               </div>
             </div>
           <% end %>
         </section>
       <% end %>
 
-    <section class="mb-5">
-      <h2 class="h6">Dono da propriedade (Opcional)</h2>
-      <p class="text-muted pr-2">
-        Especifique se esta propriedade pertence a terceiros. Deixe como está se pertencer à sua organização.
-      </p>
-      <div class="form-check mb-3">
-        <%= reflex_tag :toggle_belongs_to_third_party, :input, '', type: 'checkbox', class: 'form-check-input', checked: belongs_to_third_party? %>
-        <label class="form-check-label" for="flexCheckDefault">
-          Sim
-        </label>
-      </div>
-      <% if belongs_to_third_party? %>
-        <div class="row">
-          <div class="col-10">
-            <label for="owner_type">Pertence a:</label>
-            <div class="input-group mb-3">
-              <%= f.input :owner_type, as: :select, collection: %w[Customer], label: false, wrapper: false, input_html: { class: 'form-select', data: reflex_data_attributes('change->update_owner_type') } %>
-              <%= f.input(:owner_id, as: :select, collection: @owner_options, label: false, wrapper: false, input_html: { class: 'form-select', data: reflex_data_attributes('change->update_owner_id') }) if @property.owner_type.present? %>
+
+    <% if false %>
+      <section class="mb-5">
+        <h2 class="h6">Dono da propriedade (Opcional)</h2>
+        <p class="text-muted pr-2">
+          Esta propriedade, por defeito, irá pertencer à sua organização. Pode opcionalmente atribuir um cliente como dono.
+        </p>
+        <div class="form-check mb-3">
+          <%= reflex_tag :toggle_belongs_to_third_party, :input, '', type: 'checkbox', class: 'form-check-input', checked: belongs_to_third_party? %>
+          <label class="form-check-label" for="flexCheckDefault">
+            Sim
+          </label>
+        </div>
+        <% if belongs_to_third_party? %>
+          <div class="row">
+            <div class="col-10">
+              <label for="owner_type">Pertence a:</label>
+              <div class="input-group mb-3">
+                <%= f.input :owner_type, as: :select, collection: %w[Customer Organization], label: false, wrapper: false, input_html: { class: 'form-select', data: reflex_data_attributes('change->update_owner_type') } %>
+                <%= f.input(:owner_id, as: :select, collection: @owner_options, label: false, wrapper: false, input_html: { class: 'form-select', data: reflex_data_attributes('change->update_owner_id') }) if @property.owner_type.present? %>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-    </section>
+        <% end %>
+      </section>
+    <% end %>
 
-    <section class="mb-5">
+
+    <section class="mb-5" id="address-section">
       <h2 class="h6">Morada</h2>
       <p class="text-muted">
         Insira a morada. Se esta propriedade pertencer a um empreendimento, alguns campos serão autopreenchidos.
       </p>
-      <%= f.simple_fields_for :address do |af| %>
+      <%= f.simple_fields_for :address, @property.address do |af| %>
         <div class="row">
           <div class="col-6">
             <%= af.input :street, label: 'Morada', placeholder: 'e.g. Rua Rainha Njinga 87' %>
@@ -103,7 +109,7 @@
             <%= af.input :zip_code, label: 'Código Postal', placeholder: 'e.g. 1000' %>
           </div>
           <div class="col-6">
-            <%= af.input :country_code, as: :country, label: 'País', placeholder: 'e.g. Angola', input_html: { class: 'form-select' } %>
+            <%= af.input :country_code, as: :country, priority: ['PT', 'AO'], selected: current_organization.country_code, label: 'País', placeholder: 'e.g. Angola', input_html: { class: 'form-select' } %>
           </div>
         </div>
       <% end %>

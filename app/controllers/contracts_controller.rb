@@ -5,7 +5,7 @@ class ContractsController < OrganizationController
 
   def index
     @query = Contract.ransack(params[:q])
-    @contracts = @query.result.page(params[:page])
+    @contracts = @query.result.paginate(page: params[:page], per_page: 7)
   end
 
   def show; end

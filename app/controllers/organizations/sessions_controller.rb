@@ -2,7 +2,7 @@ class Organizations::SessionsController < OrganizationController
   skip_before_action :select_organization!
 
   def new
-    @organizations = current_user.organizations
+    @organizations = current_user.organizations.includes(:logo_attachment, :address)
   end
 
   def create
@@ -17,7 +17,7 @@ class Organizations::SessionsController < OrganizationController
 
   def destroy
     @organization = current_organization
-    if session.delete(:current_organization_id) && session.delete(:current_organization)
+    if session.delete(:current_organization_id)
       redirect_to new_organization_session_path, success: "Successfully logged out of #{@organization.name}!"
     else
       redirect_back fallback_location: session[:user_return_to], error: 'Could not log out.'
