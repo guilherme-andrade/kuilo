@@ -1,3 +1,5 @@
+require 'ransack/helpers'
+
 class ReflexComponent < ViewComponentReflex::Component
   include Ransack::Helpers::FormHelper if defined? Ransack::Helpers
   include ApplicationHelper
