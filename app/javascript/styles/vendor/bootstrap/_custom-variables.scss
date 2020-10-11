@@ -65,6 +65,7 @@ $secondary:     $black !default;
 $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
+$highlight:     $purple !default;
 $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
@@ -78,6 +79,7 @@ $theme-colors: (
   "success":    $success,
   "info":       $info,
   "warning":    $warning,
+  "highlight":  $highlight,
   "black":      $black,
   "danger":     $danger,
   "white":      $white,
@@ -1063,21 +1065,21 @@ $form-feedback-tooltip-border-radius: $tooltip-border-radius !default;
 
 $popover-font-size:                 $font-size-sm !default;
 $popover-bg:                        $white !default;
-$popover-max-width:                 276px !default;
+$popover-max-width:                 350px !default;
 $popover-border-width:              $border-width !default;
 $popover-border-color:              rgba($black, .2) !default;
 $popover-border-radius:             $border-radius-lg !default;
 $popover-inner-border-radius:       subtract($popover-border-radius, $popover-border-width) !default;
 $popover-box-shadow:                $box-shadow !default;
 
-$popover-header-bg:                 darken($popover-bg, 3%) !default;
+$popover-header-bg:                 $light !default;
 $popover-header-color:              $headings-color !default;
 $popover-header-padding-y:          .5rem !default;
 $popover-header-padding-x:          $spacer !default;
 
 $popover-body-color:                $body-color !default;
 $popover-body-padding-y:            $spacer !default;
-$popover-body-padding-x:            $spacer !default;
+$popover-body-padding-x:            $spacer * 2 !default;
 
 $popover-arrow-width:               1rem !default;
 $popover-arrow-height:              .5rem !default;

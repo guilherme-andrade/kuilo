@@ -25,6 +25,16 @@ class ReflexComponent < ViewComponentReflex::Component
     session['warden.user.user.key'].first.first
   end
 
+  def flash(**flashes)
+    return if flashes.empty?
+
+    FlashRenderer.render(
+      type: flashes.keys.first,
+      content: flashes.values.first,
+      to: current_user.id
+    )
+  end
+
   # here for action text to work
   def main_app
     Rails.application.class.routes.default_url_options[:host] = 'lvh.me:3000'

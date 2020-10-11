@@ -20,6 +20,7 @@ class OrganizationMember < ApplicationRecord
   delegate :owner, :memberships, to: :organization, prefix: true
 
   validates :user_id, uniqueness: { scope: :organization_id }
+  validates :organization_id, uniqueness: { scope: :user_id }
 
   validate :owner_is_admin
 

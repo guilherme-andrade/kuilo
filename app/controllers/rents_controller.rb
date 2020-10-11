@@ -2,7 +2,7 @@ class RentsController < OrganizationController
   before_action :find_rent, except: [:index, :new, :create]
 
   def index
-    @query = Rent.includes(:contract, :invoice_attachment).ransack(params[:q])
+    @query = Rent.includes(:contract, :invoice_attachment, :comments).ransack(params[:q])
     @rents = @query.result.paginate(page: params[:page], per_page: 7)
   end
 

@@ -24,12 +24,6 @@ module ApplicationHelper
     end
   end
 
-  def format_date(date)
-    return unless date
-
-    date.strftime("%b #{date.day.ordinalize} %Y")
-  end
-
   def markers_for(records)
     records.map(&:coordinates).to_json
   end

@@ -1,0 +1,94 @@
+<div class="card border-light text-dark px-3 py-2 mb-2">
+  <div class="row">
+    <div class="col-2">
+      <div class="text-truncate"><%= status_label @rent %></div>
+    </div>
+
+    <div class="col-2">
+      <div class="text-truncate">
+        <%= link_to @rent.property_code, property_path(@rent.property), class: 'link' %>
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div class="text-truncate">
+        <%= content_tag(
+          :span,
+          @rent.customer_name,
+          class: 'link',
+          data: { toggle: 'popover', title: 'Detalhes de contacto', html: true, content: render(Contacts::ContactComponent.new(contact: @rent.customer.contact)) }
+        )%>
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div class="text-truncate"><%= format_month @rent.due_date %></div>
+    </div>
+
+    <div class="col-1">
+      <div class="text-truncate"><%= humanized_money_with_symbol @rent.full %></div>
+    </div>
+
+    <div class="col-2">
+      <div class="text-truncate"><%= @rent.invoice_number || '(não atribuído)' %></div>
+    </div>
+
+    <div class="col-1 flexbox flexbox-end-center">
+      <div class="dropdown">
+        <a class="btn btn-sm btn-light btn-round btn-round-sm dropdown-toggle no-caret" href="#" role="button" id="dropdown-<%= @rent.id %>" data-toggle="dropdown" aria-expanded="false">
+          <%= inline_svg_pack_tag 'media/icons/chevron-down.svg' %>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-<%= @rent.id %>">
+          <% if @rent.invoice.attached? %>
+            <li class="dropdown-item p-1 px-2">
+              <%= link_to(rails_blob_path(@rent.invoice, disposition: 'attachment'), class: 'btn btn-sm text-left w-100 text-black', target: '_blank') do %>
+                <%= inline_svg_pack_tag 'media/icons/download.svg', class: 'mr-2' %>
+                Download
+              <% end %>
+            </li>
+          <% end %>
+          <% if @rent.paid? %>
+            <li class="dropdown-item p-1 px-2">
+              <%= link_to '#', class: 'btn btn-sm text-left w-100 text-success', data: { reflex: 'click->Rents#send_thank_you_email', id: @rent.id } do %>
+                <%= inline_svg_pack_tag 'media/icons/envelope.svg', class: 'mr-2' %>
+                Enviar email de agradecimento
+              <% end %>
+            </li>
+            <li class="dropdown-item p-1 px-2">
+              <%= link_to '#', class: 'btn btn-sm text-left w-100 text-black', data: { reflex: 'click->Rents#mark_as_unpaid', id: @rent.id } do %>
+                <%= inline_svg_pack_tag 'media/icons/x-circle.svg', class: 'mr-2' %>
+                Marcar como não paga
+              <% end %>
+            </li>
+          <% else %>
+            <li class="dropdown-item p-1 px-2">
+              <%= link_to '#', class: 'btn btn-sm text-left w-100 text-success', data: { reflex: 'click->Rents#mark_as_paid', id: @rent.id } do %>
+                <%= inline_svg_pack_tag 'media/icons/check-circle.svg', class: 'mr-2' %>
+                Marcar como paga
+              <% end %>
+            </li>
+          <% end %>
+
+          <li class="dropdown-item p-1 px-2">
+          </li>
+          <li class="dropdown-item p-1 px-2">
+            <%= link_to edit_rent_path(@rent), class: 'btn btn-sm text-left w-100 text-warning' do %>
+              <%= inline_svg_pack_tag 'media/icons/pencil.svg', class: 'mr-2' %>
+              Editar
+            <% end %>
+          </li>
+          <li class="dropdown-item p-1 px-2">
+            <%= link_to rent_path(@rent), method: :delete, class: 'btn btn-sm text-left w-100 text-danger' do %>
+              <%= inline_svg_pack_tag 'media/icons/trash.svg', class: 'mr-2' %>
+              Apagar
+            <% end %>
+          </li>
+        </ul>
+      </div>
+      <%= render Comments::ModalToggleComponent.new(commentable: @rent, class: 'btn btn-sm btn-round btn-round-sm btn-light ml-2') do %>
+        <%= inline_svg_pack_tag 'media/icons/chat-left-text.svg', id: [@rent.id, 'notifications'].join('-'), class: @rent.comments.any? ? 'text-primary' : 'text-muted' %>
+      <% end %>
+    </div>
+  </div>
+</div>

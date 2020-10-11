@@ -1,17 +1,16 @@
 class NotificationObserver < ApplicationObserver
   attr_reader :notification
+  alias notification record
   delegate :recipient, to: :notification
   delegate :notifications, to: :recipient, prefix: true
 
-  def after_create(notification)
-    @notification = notification
-
+  def after_create(record)
+    super
     add_signal_if_unread
   end
 
-  def after_commit(notification)
-    @notification = notification
-
+  def after_commit(record)
+    super
     remove_signal_if_read
   end
 

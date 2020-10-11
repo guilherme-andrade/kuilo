@@ -1,0 +1,56 @@
+<div style="width: 400px">
+  <div class="pb-2">
+    <div class="text-muted">
+      nome:
+    </div>
+    <div class="text-black">
+      <%= @contact.name %>
+    </div>
+  </div>
+
+  <div class="pb-2">
+    <div class="text-muted">
+      email:
+    </div>
+    <div class="text-black">
+      <%= @contact.email %>
+    </div>
+  </div>
+
+
+  <% if @contact.phone %>
+    <div class="pb-2">
+      <div class="text-muted">
+        tlf:
+      </div>
+      <div class="text-black">
+        <%= @contact.phone %>
+      </div>
+    </div>
+  <% end %>
+
+
+  <% if @contact.vat_number %>
+    <div class="pb-2">
+      <div class="text-muted">
+        vat:
+      </div>
+      <div class="text-black">
+        <%= @contact.vat_number %>
+      </div>
+    </div>
+  <% end %>
+
+
+
+  <% if @contact.government_id %>
+    <div class="pb-2">
+      <div class="text-muted">
+        BI:
+      </div>
+      <div class="text-black">
+        <%= @contact.government_id %>
+      </div>
+    </div>
+  <% end %>
+</div>

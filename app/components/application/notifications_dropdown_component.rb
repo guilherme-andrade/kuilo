@@ -13,4 +13,10 @@ class Application::NotificationsDropdownComponent < ReflexComponent
     @notifications.find(element.dataset.id).mark_as_read!
     @notifications.reload
   end
+
+  def mark_all_as_read
+    @notifications = current_user.notifications.unread
+    @notifications.find_each(&:mark_as_read!)
+    @notifications.reload
+  end
 end

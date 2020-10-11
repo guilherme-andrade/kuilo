@@ -12,6 +12,7 @@ $btn-round-size-sm: 27px;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    flex-shrink: 0;
 
     &-sm {
       width: $btn-round-size-sm;

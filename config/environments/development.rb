@@ -15,6 +15,8 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
+  config.action_controller.asset_host = 'http://localhost:3000'
+
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
@@ -40,7 +42,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :letter_opener
 
-  config.action_mailer.default_url_options = { host: ENV['APP_DOMAIN'], port: ENV['PORT'] }
+  config.action_mailer.default_url_options = { host: ENV['APP_HOST'], port: ENV['PORT'] }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

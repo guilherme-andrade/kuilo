@@ -24,6 +24,14 @@ class Rent < ApplicationRecord
 
   before_commit :generate_invoice, on: :create
 
+  scope :for, lambda { |*date_range|
+    if date_range.is_a? Range
+      where(incidence_period_start_date: date_range, incidence_period_end_date: date_range)
+    else
+      where('incidence_period_start_date <= ? AND ? <= incidence_period_end_date', date_range.first, date_range.last)
+    end
+  }
+
   def incidence_period
     (incidence_period_end - incidence_period_start + 1).days
   end
@@ -52,6 +60,6 @@ class Rent < ApplicationRecord
   end
 
   def name
-    "RENDA_#{property_code}_#{incidence_period_start}_#{incidence_period_end}"
+    [property_code, incidence_period_start, incidence_period_end].join('_')
   end
 end

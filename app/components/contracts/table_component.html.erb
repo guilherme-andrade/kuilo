@@ -24,5 +24,5 @@
 <% if @contracts.empty? %>
   <p>No contracts found.</p>
 <% else %>
-  <%= render partial: 'table-card', collection: @contracts, as: :contract %>
+  <%= render Contracts::Table::ContractComponent.with_collection(@contracts) %>
 <% end %>

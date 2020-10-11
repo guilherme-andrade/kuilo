@@ -4,8 +4,22 @@
   </a>
   <div class="dropdown-menu py-0 mt-3 dropdown-menu-right dropdown-menu-xl position-absolute" id="notifications-dropdown-menu" aria-labelledby="#notifications-dropdown">
     <ul class="list-unstyled" id="notifications-dropdown-menu-content">
-      <li><h6 class="dropdown-header">Notificações</h6></li>
       <%= component_controller do %>
+        <li>
+          <h6 class="d-flex justify-content-between dropdown-header align-items-center">
+            <span>
+              Notificações
+
+              <% if @notifications&.any? %>
+                <span class="ml-2 badge bg-danger">
+                  <%= @notifications.count %>
+                </span>
+              <% end %>
+            </span>
+
+            <%= reflex_tag :mark_all_as_read, :a, 'Marcar todas', class: 'text-muted float-right' %>
+          </h6>
+        </li>
         <% if @notifications&.any? %>
           <% @notifications.each do |notification| %>
             <li class="dropdown-list-item font-weight-normal">

@@ -52,7 +52,9 @@ class Organization < ApplicationRecord
     memberships.build(user: owner, role: :admin) unless memberships.emtpy?
   end
 
-  def invite_member(email:, role:, invited_by: owner, **attrs)
+  def invite_member(email:, role:, name:, invited_by: owner, **attrs)
+    return if User.find_by_email(email)
+
     User.invite!({
                    email: email,
                    contact_attributes: { name: name, **attrs },

@@ -1,5 +1,5 @@
 class Contracts::SaveRent < ApplicationInteractor
-  include DateHelper
+  include DateFormatHelper
 
   delegate :rent, :contract, :rent_amount, :charges_amount, to: :context
 

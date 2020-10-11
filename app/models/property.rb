@@ -7,7 +7,7 @@ class Property < ApplicationRecord
   include ActiveSupport::NumberHelper
 
   TYPES           = %w[Apartment House Garage Office Room Warehouse].freeze
-  STATUSES        = %i[available occupied ooo].freeze
+  STATUSES        = %i[available occupied ooo available_soon].freeze
   TYPOLOGIES      = %i[property].freeze
   CHARACTERISTICS = %i[area_unit area_value].freeze
 
@@ -31,6 +31,7 @@ class Property < ApplicationRecord
 
   validates :name, :code, presence: true
   validates :name, uniqueness: { scope: %i[owner_type owner_id] }
+  validates :address_id, presence: true, uniqueness: true
 
   default :status,                  (proc { 0 })
   default :organization_id,         (proc { |p| p.enterprise.organization_id if p.owner })

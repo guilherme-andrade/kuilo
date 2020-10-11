@@ -11,11 +11,11 @@ class NotifiableObserver < ApplicationObserver
   def after_create(record)
     @record = record
 
-    deliver_notification
+    deliver_notification if comment_notification_class_defined?
   end
 
   def deliver_notification
-    comment_notification_class.with(notifiable: self).deliver(recipients)
+    comment_notification_class.constantize.with(notifiable: self).deliver(recipients)
   end
 
   def recipients
@@ -27,6 +27,10 @@ class NotifiableObserver < ApplicationObserver
   end
 
   def comment_notification_class
-    [record_class, 'Notification'].join.constantize
+    [record_class, 'Notification'].join
+  end
+
+  def comment_notification_class_defined?
+    Object.const_defined?(comment_notification_class)
   end
 end

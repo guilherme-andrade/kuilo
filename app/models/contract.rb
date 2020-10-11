@@ -3,7 +3,7 @@
 class Contract < ApplicationRecord
   include ActionView::Helpers::DateHelper
   include ApplicationHelper
-  include DateHelper
+  include DateFormatHelper
   include BelongsToOrganization
   include HasComments
 

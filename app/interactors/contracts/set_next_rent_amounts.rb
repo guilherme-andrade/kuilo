@@ -1,5 +1,5 @@
 class Contracts::SetNextRentAmounts < ApplicationInteractor
-  include DateHelper
+  include DateFormatHelper
 
   delegate :rent, :contract, :rent_amount, :charges_amount, to: :context
   delegate :incidence_period_start, :incidence_period_end, :incidence_period, to: :rent

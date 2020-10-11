@@ -15,6 +15,8 @@ class CommentNotification < ApplicationNotification
 
   def url
     Kuilo::Application.default_url_options = { host: ENV['APP_BASE_URL'] }
+    return property_url(notifiable.commentable) if notifiable.commentable.is_a? Property
+
     url_for(notifiable.commentable) + '#comments-modal'
   end
 end

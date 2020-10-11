@@ -1,4 +1,16 @@
-module DateHelper
+module DateFormatHelper
+  def format_date(date)
+    return unless date
+
+    date.strftime("%b #{date.day.ordinalize} %Y")
+  end
+
+  def format_month(date)
+    return unless date
+
+    date.strftime("%B")
+  end
+
   def beginning_of_next_month
     today.beginning_of_month.next_month
   end

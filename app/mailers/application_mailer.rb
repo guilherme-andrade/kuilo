@@ -7,7 +7,7 @@ class ApplicationMailer < ActionMailer::Base
 
   before_action :add_logo_attachment
 
-  add_template_helper(DateHelper)
+  add_template_helper(DateFormatHelper)
 
   private
 

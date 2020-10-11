@@ -48,7 +48,7 @@
       <% if show_member_form? %>
         <div class="modal fade d-block show" tabindex="-1" data-backdrop="static">
           <%= reflex_tag 'click->toggle_member_form', :div, '', class: 'modal-backdrop', style: 'z-index: 0; opacity: .5;' %>
-          <%= simple_form_for @new_member, url: user_invitation_path, method: :post, html: { class: 'modal-dialog modal-dialog-centered' } do |f| %>
+          <%= simple_form_for '', url: '', data: reflex_data_attributes('submit->add_member'), html: { class: 'modal-dialog modal-dialog-centered' } do |f| %>
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Convidar Membro</h5>
@@ -59,15 +59,10 @@
               <div class="modal-body">
                   <div class="row">
                     <div class="col-6">
-                      <%= f.simple_fields_for :contact do |cf| %>
-                        <%= cf.input :name, label: 'Nome' %>
-                      <% end %>
+                      <%= f.input :name, label: 'Nome' %>
                     </div>
                     <div class="col-6">
-                      <%= f.simple_fields_for :memberships do |mf| %>
-                        <%= mf.hidden_field :organization_id %>
-                        <%= mf.input :role, as: :select, collection: OrganizationMember.roles.keys, label: 'Permissões' %>
-                      <% end %>
+                      <%= f.input :role, as: :select, collection: OrganizationMember.roles.keys, label: 'Permissões' %>
                     </div>
                   </div>
                   <%= f.input :email, label: 'Email' %>

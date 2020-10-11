@@ -1,5 +1,5 @@
 class ContractsStatusCheckJob < ApplicationJob
-  include DateHelper
+  include DateFormatHelper
 
   queue_as :contracts
 
@@ -16,7 +16,7 @@ class ContractsStatusCheckJob < ApplicationJob
   end
 
   def in_negotiation_check(contract)
-
+    # check if there contract
   end
 
   def signed_check(contract)
