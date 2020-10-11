@@ -4,6 +4,7 @@ Rails.application.configure do
   config.session_store :cache_store
 
   config.hosts << "lvh.me"
+  config.hosts << "996e30383b90.ngrok.io"
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
