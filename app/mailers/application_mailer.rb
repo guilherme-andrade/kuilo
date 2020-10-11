@@ -2,7 +2,7 @@
 
 class ApplicationMailer < ActionMailer::Base
   prepend_view_path 'app/mailers/views'
-  default from: 'Guilherme Andrade <please-reply@kuilo-pms.com>'
+  default from: "Guilherme Andrade <#{ENV['SENDGRID_SENDER_EMAIL']}>"
   layout 'mailer'
 
   before_action :add_logo_attachment
