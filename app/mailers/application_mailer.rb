@@ -12,7 +12,7 @@ class ApplicationMailer < ActionMailer::Base
   private
 
   def add_logo_attachment
-    logo = File.read(Rails.root.join('app/javascript/images/logo.png'))
+    logo = File.read(Rails.root.join('app/javascript/images/logo-email.png'))
     attachments.inline['logo.png'] = logo
   end
 end
