@@ -1,1 +1,1 @@
-import "./stylesheets/style.scss";
+import "./stylesheets/email.scss";
