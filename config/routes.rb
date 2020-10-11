@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'profiles/show'
   devise_for :users
 
   resources :enterprises do
@@ -25,6 +24,7 @@ Rails.application.routes.draw do
   end
 
   root to: 'static#home'
+  get 'manifest.json', to: 'static#manifest'
 
   resources :properties do
     scope module: 'properties' do
