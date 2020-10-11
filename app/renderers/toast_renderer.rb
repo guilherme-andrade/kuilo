@@ -1,4 +1,4 @@
-class Renderers::ToastRenderer < ApplicationRenderer
+class ToastRenderer < ApplicationRenderer
   def render
     broadcast do
     end
