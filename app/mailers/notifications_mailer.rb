@@ -1,5 +1,4 @@
 class NotificationsMailer < ApplicationMailer
-
   before_action :find_notifiable
   after_action :send_email
 

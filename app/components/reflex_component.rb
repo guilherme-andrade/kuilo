@@ -31,7 +31,19 @@ class ReflexComponent < ViewComponentReflex::Component
     FlashRenderer.render(
       type: flashes.keys.first,
       content: flashes.values.first,
-      to: current_user.id
+      to: current_user.id,
+      async: false
+    )
+  end
+
+  def toast(**toasts)
+    return if toasts.empty?
+
+    ToastRenderer.render(
+      type: toasts.keys.first,
+      body: toasts.values.first,
+      to: current_user.id,
+      async: false
     )
   end
 

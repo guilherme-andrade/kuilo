@@ -2,10 +2,10 @@ class CommentNotification < ApplicationNotification
   deliver_by :email, mailer: 'NotificationsMailer', method: :comment, if: :email_notifications?
 
   def message
-    if notifiable.mentions.include?(recipient)
-      t('notifications.new_comment_mentioning_you')
+    if notifiable.mentioned_user_ids.include?(recipient.id)
+      t('notifications.new_comment_mentioning_you', locale_data)
     else
-      t('notifications.new_comment')
+      t('notifications.new_comment', locale_data)
     end
   end
 
@@ -13,10 +13,15 @@ class CommentNotification < ApplicationNotification
     notifiable.user
   end
 
-  def url
-    Kuilo::Application.default_url_options = { host: ENV['APP_BASE_URL'] }
-    return property_url(notifiable.commentable) if notifiable.commentable.is_a? Property
+  def locale_data
+    {
+      author_name: notifiable.author_name,
+      url: url,
+      commentable_name: notifiable.commentable_name
+    }
+  end
 
-    url_for(notifiable.commentable) + '#comments-modal'
+  def url
+    notifiable.commentable_url
   end
 end

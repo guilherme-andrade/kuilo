@@ -29,6 +29,8 @@ pt:
     contract_terminated: O contrato da propriedade **%{p - operty_name}(%{property_code} terminou**.
     contract_cancelled: As negociações com **%{customer_name}** pela propriedade **%{property_name} - %{property_code}** foram **canceladas**.
     contract_confirmed: O sinal **%{customer_name}** pela propriedade **%{property_name} - %{property_code}** foi recebido e eu seu contrato está agora **confirmado**!
+    new_comment: '%{author_name} fez um comentário sobre [%{commentable_name}](%{url}).'
+    new_comment_mentioning_you: '%{author_name} mencionou-te num [comentário](%{url}).'
   emails:
     click_here_to_view: Clique aqui para ver.
     a_contract_is_now_in_negotiation: Negociações Iniciadas!
@@ -41,7 +43,7 @@ pt:
     you_were_mentioned: Alguém o mencionou.
     greeting: Olá %{recipient},
     someone_mentioned_you_in_a_comment: '**%{author}** mencionou o seu nome num comentário, veja abaixo:'
-    view_comment: Ver Comentário na aplicação
+    view_comment: Ver Comentário
     next_rents_created: Criadas rendas do próximo mês
     the_rents_for_next_month_have_been_created: 'Um total de **%{rents_count} renda(s)** foram criadas para o próximo mês. Veja abaixo a lista:'
     manage_rents: Gerir Rendas

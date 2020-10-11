@@ -18,6 +18,6 @@ class ApplicationNotification < Noticed::Base
   end
 
   def notifiable
-    @notifiable ||= params.delete(:notifiable)
+    @notifiable ||= params.dig(:notifiable)
   end
 end

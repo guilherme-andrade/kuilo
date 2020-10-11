@@ -7,6 +7,7 @@ class NotificationObserver < ApplicationObserver
   def after_create(record)
     super
     add_signal_if_unread
+    toast_the_user
   end
 
   def after_commit(record)
@@ -15,6 +16,15 @@ class NotificationObserver < ApplicationObserver
   end
 
   private
+
+  def toast_the_user
+    ToastRenderer.render(
+      to: recipient.id,
+      body: notification.message_html,
+      title: I18n.t('notifications.new_notification'),
+      type: 'success'
+    )
+  end
 
   def add_signal_if_unread
     return unless recipient_notifications.unread.any?

@@ -2,7 +2,10 @@ class FlashRenderer < ApplicationRenderer
   delegate :content, :type, to: :context
 
   def render
-    insert_adjacent_html(selector: '#flash-root', html: html)
+    {
+      mutation: :insert_adjacent_html,
+      mutation_payload: { selector: '#flash-root', html: html }
+    }
   end
 
   def html

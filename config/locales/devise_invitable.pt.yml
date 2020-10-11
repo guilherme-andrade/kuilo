@@ -11,6 +11,7 @@ pt:
         subject: 'Instruções do convite'
         hello: 'Olá %{email}'
         someone_invited_you: 'Alguém o convidou para acessar %{url}, por favor clique no link abaixo para aceitar o convite.'
+        accept_until: "Este convite expirará em %{due_date}."
         accept: 'Aceitar convite'
         ignore: "Se não quer aceitar o convite, por favor ignore este e-mail.\nA sua conta não será ativada até usar o link abaixo para escolher sua senha."
     failure:

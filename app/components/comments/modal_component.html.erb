@@ -44,7 +44,7 @@
         <br>
       <% end %>
       <div class="modal-footer">
-        <%= simple_form_for @comment, url: '#', html: { class: 'w-100'}, data: reflex_data_attributes('submit->create_comment') do |f| %>
+        <%= simple_form_for Comment.new, url: '#', html: { class: 'w-100'}, data: reflex_data_attributes('submit->create_comment') do |f| %>
           <%= f.rich_text_area :content, placeholder: 'Escreva o seu comentário aqui...', style: 'height: 100px; min-height: unset;', class: 'w-100 mb-3' %>
           <%= f.input :mentioned_user_ids, as: :check_boxes, label: 'Notificar', label_html: { class: 'font-weight-bold' }, wrapper: :horizontal_collection_inline, collection: organization_members %>
           <div class="d-flex justify-content-end">

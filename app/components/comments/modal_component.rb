@@ -9,7 +9,7 @@ class Comments::ModalComponent < ReflexComponent
   end
 
   def organization_members
-    current_organization.members
+    current_organization.members - [current_user]
   end
 
   def comments
@@ -17,10 +17,10 @@ class Comments::ModalComponent < ReflexComponent
   end
 
   def create_comment
-    current_user.comments.create!(
-      comment_params.merge(commentable_type: @commentable_type, commentable_id: @commentable_id)
-    )
-    @commentable = @commentable_type.constantize.find(@commentable_id)
+    attrs = comment_params.merge(commentable_type: @commentable_type, commentable_id: @commentable_id)
+    if current_user.comments.create!(attrs)
+      toast(success: 'Comentário adicionado')
+    end
   end
 
   private

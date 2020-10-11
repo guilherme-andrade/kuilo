@@ -1,5 +1,5 @@
 @import "~bootstrap/scss/functions";
-@import "../vendor/bootstrap/custom-variables";
+@import "../vendor/bootstrap/variables.default";
 
 @each $initial, $direction in $directions {
   @each $unit, $spacer in $spacers {

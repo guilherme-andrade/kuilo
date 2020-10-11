@@ -1,11 +1,27 @@
-import { Alert, Tooltip, Carousel, Popover } from 'bootstrap';
+import { Alert, Tooltip, Carousel, Popover, Toast } from 'bootstrap';
 
 document.addEventListener('turbolinks:load', e => {
   initTooltips()
   initAlerts()
   initCarousels()
   initPopovers();
+  initToasts();
 })
+
+document.addEventListener('cable-ready:after-insert-adjacent-html', e => {
+  initToasts();
+})
+
+function initToasts() {
+  const toastElList = [].slice.call(document.querySelectorAll('.toast'))
+  toastElList.map(function (toastEl) {
+    const toast = new Toast(toastEl);
+
+    setTimeout(() => {
+      toast.hide();
+    }, 5000);
+  })
+}
 
 function initTooltips() {
   const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))

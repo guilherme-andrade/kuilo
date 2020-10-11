@@ -1,0 +1,17 @@
+  <% if toast.success? %>
+    <div id="<%= toast.id %>" data-controller="toast" class="toast show d-flex align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body">
+        <%= toast.body %>
+      </div>
+      <%# <button type="button" class="btn-close btn-close-white ml-auto mr-2" data-dismiss="toast" aria-label="Close"></button> %>
+    </div>
+  <% end %>
+
+  <% if toast.error? %>
+    <div id="<%= toast.id %>" data-controller="toast" class="toast show d-flex align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body">
+        <%= toast.body %>
+      </div>
+      <%# <button type="button" class="btn-close btn-close-white ml-auto mr-2" data-dismiss="toast" aria-label="Close"></button> %>
+    </div>
+  <% end %>

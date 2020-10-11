@@ -1,15 +1,17 @@
 .trix-button {
-  @extend .btn, .btn-white, .bg-white, .border, .border-medium;
+  @extend .btn, .btn-white, .bg-white, .border-0, .border-medium;
 
   &-group {
-    @extend .btn-group, .border-0;
+    @extend .btn-group, .border-0, .rounded;
   }
 }
 
 trix-editor {
-  @extend .border;
+  @extend .bg-light, .border-0, .border-medium, .bg-white;
 
   min-height: 200px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 
   blockquote {
     border: none;

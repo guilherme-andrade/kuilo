@@ -1,5 +1,5 @@
 class NotifiableObserver < ApplicationObserver
-  observe :property, :contract, :comment, :transaction,
+  observe :property, :contract, :transaction,
           :enterprise, :organization_member, :organization
 
   attr_reader :record
@@ -11,11 +11,11 @@ class NotifiableObserver < ApplicationObserver
   def after_create(record)
     @record = record
 
-    deliver_notification if comment_notification_class_defined?
+    deliver_notification if notifiable_notification_class_defined?
   end
 
   def deliver_notification
-    comment_notification_class.constantize.with(notifiable: self).deliver(recipients)
+    notifiable_notification_class.constantize.with(notifiable: record).deliver(recipients)
   end
 
   def recipients
@@ -26,11 +26,11 @@ class NotifiableObserver < ApplicationObserver
     end
   end
 
-  def comment_notification_class
+  def notifiable_notification_class
     [record_class, 'Notification'].join
   end
 
-  def comment_notification_class_defined?
-    Object.const_defined?(comment_notification_class)
+  def notifiable_notification_class_defined?
+    Object.const_defined?(notifiable_notification_class)
   end
 end

@@ -5,9 +5,21 @@
     <%= stylesheet_pack_tag 'email' %>
   </head>
 
-  <body class="bg-dark m-0">
-    <%= image_tag attachments["logo.png"].url, { align: "center", class: "fix", width: "100", height: "100", border: "0", alt: 'Kuilo Logo' } %>
-    <%= yield %>
-    <%= yield :footer %>
+  <body style="background: #f1f3f8">
+    <div style="height: 100vh; display: flex, justify-content: center; align-items: center;">
+      <div style="max-width: 500px; margin: 2rem auto; background: white; border-radius: 4px; box-shadow: 0 0.125rem 0.5rem rgba(12, 46, 102, 0.08)">
+        <div style="padding: 1rem">
+          <%= image_tag attachments["logo.png"].url, align: "center", class: "fix", height: "100", border: "0", alt: 'Kuilo Logo', style: 'margin: 0 auto;' %>
+        </div>
+        <div style="padding: 1rem">
+          <%= yield %>
+        </div>
+        <div style="padding: 1rem">
+          <div style="margin: 0 auto;">
+            <%= yield :footer %>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
