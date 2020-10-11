@@ -37,3 +37,4 @@ yarn-debug.log*
 
 *.env
 Gemfile.lock
+public/service-worker.js*

@@ -25,7 +25,8 @@
     "stimulus-use": "^0.14.0",
     "stimulus_reflex": "3.3.0",
     "trix": "^1.2.0",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "webpacker-pwa": "^0.1.2"
   },
   "version": "0.1.0",
   "devDependencies": {
