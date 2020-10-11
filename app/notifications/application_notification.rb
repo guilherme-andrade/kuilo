@@ -1,5 +1,6 @@
 class ApplicationNotification < Noticed::Base
   deliver_by :database, format: :format_for_database
+  deliver_by :push_notification, class: 'DeliveryMethods::PushNotification', format: :format_for_push_notification
 
   def format_for_database
     {
@@ -10,6 +11,15 @@ class ApplicationNotification < Noticed::Base
         message: message,
         actor: actor
       }
+    }
+  end
+
+  def format_for_push_notification
+    {
+      notifiable: notifiable,
+      type: 'Notification',
+      message: message,
+      actor: actor
     }
   end
 

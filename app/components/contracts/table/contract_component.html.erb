@@ -1,29 +1,53 @@
 <div class="card card-clickable text-dark px-3 py-2 mb-2">
   <%= link_to '', contract_path(@contract), class: 'stretched-link' %>
   <div class="row">
-    <div class="col-2">
-      <span><%= @contract.property_code %></span>
-      <div class="small text-muted">(<%= @contract.property_owner_contact_name %>)</div>
-    </div>
-    <div class="col-2">
-      <span><%= @contract.customer_name %></span>
-    </div>
-    <div class="col-2">
+    <div class="col-1 text-truncate">
       <span><%= status_label @contract %></span>
     </div>
-    <div class="col-2">
-      <div><%= format_date @contract.start_date %></div>
-      <div class="small text-muted"><%= distance_of_time @contract.start_date %></div>
+    <div class="col-2 text-truncate">
+      <span><%= @contract.property_code %></span>
     </div>
-    <div class="col-2">
-      <div><%= format_date @contract.end_date %></div>
-      <div class="small text-muted">(<%= @contract.duration %>)</div>
+    <div class="col-2 text-truncate">
+      <span><%= @contract.customer_name %></span>
     </div>
-    <div class="col-2">
-      <div><%= humanized_money_with_symbol @contract.rent_full %></div>
-      <div class="small <%= @contract.rent_difference.negative? ? 'text-danger' : 'text-success' %>">
-        <%= number_to_percentage @contract.rent_difference, precision: 2 %>
+    <div class="col-3 text-truncate">
+      <div>
+        <%= format_date @contract.start_date %>
+        <%= inline_svg_pack_tag 'media/icons/arrow-right.svg' %>
+        <%= format_date @contract.end_date %>
       </div>
+    </div>
+    <div class="col-2 text-truncate">
+      <div><%= @contract.duration %></div>
+    </div>
+    <div class="col-1 text-truncate">
+      <div><%= humanized_money_with_symbol @contract.rent_full %></div>
+    </div>
+    <div class="col-1 d-flex">
+      <div class="dropdown">
+        <a class="btn btn-sm btn-light btn-round btn-round-sm dropdown-toggle no-caret" href="#" role="button" id="dropdown-<%= @contract.id %>" data-toggle="dropdown" aria-expanded="false">
+          <%= inline_svg_pack_tag 'media/icons/chevron-down.svg' %>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-<%= @contract.id %>">
+          <li class="dropdown-item p-1 px-2">
+            <%= link_to edit_rent_path(@contract), class: 'btn btn-sm text-left w-100 text-warning' do %>
+              <%= inline_svg_pack_tag 'media/icons/pencil.svg', class: 'mr-2' %>
+              Editar
+            <% end %>
+          </li>
+          <li class="dropdown-item p-1 px-2">
+            <%= link_to rent_path(@contract), method: :delete, class: 'btn btn-sm text-left w-100 text-danger' do %>
+              <%= inline_svg_pack_tag 'media/icons/trash.svg', class: 'mr-2' %>
+              Apagar
+            <% end %>
+          </li>
+        </ul>
+      </div>
+      <%= render Comments::ModalToggleComponent.new(commentable: @contract, class: 'btn btn-sm btn-round btn-round-sm btn-light ml-2') do %>
+        <%= inline_svg_pack_tag 'media/icons/chat-left-text.svg', id: [@contract.id, 'notifications'].join('-'), class: @contract.comments.any? ? 'text-primary' : 'text-muted' %>
+      <% end %>
+    </div>
     </div>
   </div>
 </div>

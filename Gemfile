@@ -53,6 +53,7 @@ gem 'validates_timeliness'
 gem 'view_component', '~> 2.13'
 gem 'view_component_reflex'
 gem 'webpacker', '~> 4.0'
+gem 'webpacker-pwa'
 gem 'will_paginate-bootstrap4'
 
 group :development, :test do

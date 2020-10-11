@@ -1,21 +1,21 @@
 <div class="border-bottom font-weight-normal px-3 py-2 mb-2">
   <div class="row">
+    <div class="col-1">
+      <%= sort_link(@query, :status, 'Estado') %>
+    </div>
     <div class="col-2">
       <%= sort_link(@query, :property_code, 'Propriedade') %>
     </div>
     <div class="col-2">
       <%= sort_link(@query, :customer_name, 'Cliente') %>
     </div>
-    <div class="col-2">
-      <%= sort_link(@query, :status, 'Estado') %>
+    <div class="col-3">
+      <%= sort_link(@query, :start_date, 'Datas') %>
     </div>
     <div class="col-2">
-      <%= sort_link(@query, :start_date, 'Início') %>
+      <%= sort_link(@query, :duration, 'Duração') %>
     </div>
-    <div class="col-2">
-      <%= sort_link(@query, :end_date, 'Fim') %>
-    </div>
-    <div class="col-2">
+    <div class="col-1">
       <%= sort_link(@query, :rent_amount_cents, 'Renda') %>
     </div>
   </div>

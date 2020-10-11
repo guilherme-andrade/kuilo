@@ -47,3 +47,14 @@ pt:
     next_rents_created: Criadas rendas do próximo mês
     the_rents_for_next_month_have_been_created: 'Um total de **%{rents_count} renda(s)** foram criadas para o próximo mês. Veja abaixo a lista:'
     manage_rents: Gerir Rendas
+  datetime:
+    distance_in_words:
+      about_x_months:
+        one: "~ 1 mês"
+        other: "~ %{count} meses"
+      about_x_days:
+        one: "~ 1 dias"
+        other: "~ %{count} dias"
+      about_x_years:
+        one: "1 ano"
+        other: "%{count} anos"
