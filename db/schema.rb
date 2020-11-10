@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_110546) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "account_holder_type"
-    t.bigint "account_holder_id"
+    t.uuid "account_holder_id"
     t.index ["account_holder_id", "account_holder_type"], name: "index_bank_accounts_on_account_holder"
   end
 

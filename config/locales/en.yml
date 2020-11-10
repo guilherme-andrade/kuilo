@@ -1,33 +1,250 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
+---
 en:
-  hello: "Hello world"
+  alerts:
+    changes_saved_successfully: Changes saved successfully
+    could_not_save_record: Could not save record
+    could_not_update_organization: Could not update organization
+    organization_updated: Organization updated
+  component:
+    buttons:
+      tooltips:
+        add_a_contract: Add a contract
+        create_next_rent: Create next rent
+        delete_contract: Delete contract
+        delete_property: Delete property
+        edit_contract: Edit contract
+        edit_property: Edit property
+        view_comments: View comments
+  components:
+    address:
+      form:
+        city_label: City label
+        city_placeholder: City placeholder
+        country_label: Country label
+        country_placeholder: Country placeholder
+        door_label: Door label
+        door_placeholder: Door placeholder
+        floor_label: Floor label
+        floor_placeholder: Floor placeholder
+        phone_label: Phone label
+        street_label: Street label
+        street_placeholder: Street placeholder
+        zip_code_label: Zip code label
+        zip_code_placeholder: Zip code placeholder
+    bank_account:
+      form:
+        bank_name_label: Bank name label
+        bank_name_placeholder: Bank name placeholder
+        iban_label: Iban label
+        iban_placeholder: Iban placeholder
+        name_label: Name label
+        name_placeholder: Name placeholder
+        number_label: Number label
+        number_placeholder: Number placeholder
+        swift_label: Swift label
+        swift_placeholder: Swift placeholder
+    contacts:
+      form:
+        email_label: Email label
+        email_placeholder: Email placeholder
+        government_id_label: Government id label
+        government_id_placeholder: Government id placeholder
+        legal_name_label: Legal name label
+        legal_name_placeholder: Legal name placeholder
+        phone_label: Phone label
+        phone_placeholder: Phone placeholder
+        vat_number_label: Vat number label
+        vat_number_placeholder: Vat number placeholder
+    new_organization:
+      title: Title
+    organization:
+      members_table:
+        add_member: Add member
+        customize: Customize
+        manage: Manage
+        members: Members
+    organization_form:
+      address: Address
+      address_subtitle: Address subtitle
+      address_title: Address title
+      bank_account: Bank account
+      bank_account_subtitle: Bank account subtitle
+      bank_account_title: Bank account title
+      contact: Contact
+      contact_subtitle: Contact subtitle
+      contact_title: Contact title
+      details: Details
+      details_subtitle: Details subtitle
+      details_title: Details title
+    organizations:
+      form:
+        address_section: Address section
+        address_section_help: Address section help
+        bank_account_section: Bank account section
+        bank_account_section_help: Bank account section help
+        contact_section: Contact section
+        contact_section_help: Contact section help
+        default_rent_due_day_label: Default rent due day label
+        default_rent_issuing_day_label: Default rent issuing day label
+        details_subtitle: Details subtitle
+        details_title: Details title
+        invoicing_section: Invoicing section
+        invoicing_section_help: Invoicing section help
+        logo_hint: Logo hint
+        logo_label: Logo label
+        name_label: Name label
+        name_placeholder: Name placeholder
+        name_section: Name section
+        name_section_help: Name section help
+  contracts:
+    status_labels:
+      activated: Ativo
+      cancelled: Cancelado
+      confirmed: Confirmado
+      in_negotiation: Em negociações
+      in_notice: A Terminar
+      signed: Assinado
+      terminated: Terminado
+  datetime:
+    distance_in_words:
+      about_x_days:
+        one: "~ 1 dias"
+        other: "~ %{count} dias"
+      about_x_months:
+        one: "~ 1 mês"
+        other: "~ %{count} meses"
+      about_x_years:
+        one: 1 ano
+        other: "%{count} anos"
+  devise:
+    confirmations:
+      new:
+        resend_confirmation_instructions: Resend confirmation instructions
+    mailer:
+      confirmation_instructions:
+        action: Action
+        greeting: Greeting
+        instruction: Instruction
+      email_changed:
+        greeting: Greeting
+        message: Message
+      password_change:
+        greeting: Greeting
+        message: Message
+      reset_password_instructions:
+        action: Action
+        greeting: Greeting
+        instruction: Instruction
+        instruction_2: Instruction 2
+        instruction_3: Instruction 3
+      unlock_instructions:
+        action: Action
+        greeting: Greeting
+        instruction: Instruction
+        message: Message
+    passwords:
+      edit:
+        change_my_password: Change my password
+        change_your_password: Change your password
+        confirm_new_password: Confirm new password
+        new_password: New password
+      new:
+        forgot_your_password: Forgot your password
+        send_me_reset_password_instructions: Send me reset password instructions
+    registrations:
+      edit:
+        are_you_sure: Are you sure
+        cancel_my_account: Cancel my account
+        currently_waiting_confirmation_for_email: Currently waiting confirmation for
+          email
+        leave_blank_if_you_don_t_want_to_change_it: Leave blank if you don t want
+          to change it
+        title: Title
+        unhappy: Unhappy
+        update: Update
+        we_need_your_current_password_to_confirm_your_changes: We need your current
+          password to confirm your changes
+      new:
+        sign_up: Sign up
+    sessions:
+      new:
+        sign_in: Sign in
+    shared:
+      links:
+        back: Back
+        didn_t_receive_confirmation_instructions: Didn t receive confirmation instructions
+        didn_t_receive_unlock_instructions: Didn t receive unlock instructions
+        forgot_your_password: Forgot your password
+        sign_in: Sign in
+        sign_in_with_provider: Sign in with provider
+        sign_up: Sign up
+      minimum_password_length: Minimum password length
+    unlocks:
+      new:
+        resend_unlock_instructions: Resend unlock instructions
+  emails:
+    a_contract_is_now_activated: Contrato activado!
+    a_contract_is_now_cancelled: Um contrato foi cancelado.
+    a_contract_is_now_confirmed: Contrato Confirmado!
+    a_contract_is_now_in_negotiation: Negociações Iniciadas!
+    a_contract_is_now_in_notice: Um contrato está a terminar.
+    a_contract_is_now_signed: Contrato Assinado!
+    a_contract_is_now_terminated: Um contrato terminou.
+    click_here_to_view: Clique aqui para ver.
+    greeting: Olá %{recipient},
+    manage_rents: Gerir Rendas
+    next_rents_created: Criadas rendas do próximo mês
+    someone_mentioned_you_in_a_comment: "**%{author}** mencionou o seu nome num comentário,
+      veja abaixo:"
+    the_rents_for_next_month_have_been_created: 'Um total de **%{rents_count} renda(s)**
+      foram criadas para o próximo mês. Veja abaixo a lista:'
+    view_comment: Ver Comentário
+    you_were_mentioned: Alguém o mencionou.
+  errors:
+    messages:
+      not_saved: Not saved
+  globals:
+    add: Add
+    comments: Comments
+    customize: Customizar
+    delete: Delete
+    edit: Edit
+    general: Geral
+    go_back: Go back
+    manage: Gerir
+    members: Membros
+    moments_ago: Moments ago
+    save_changes: Save changes
+    select_a_country: Select a country
+    settings: Definições
+  notifications:
+    contract_activated: O contrato da **%{property_name} - %{property_code}** está
+      agora **ativo**!
+    contract_cancelled: As negociações com **%{customer_name}** pela propriedade **%{property_name}
+      - %{property_code}** foram **canceladas**.
+    contract_confirmed: O sinal **%{customer_name}** pela propriedade **%{property_name}
+      - %{property_code}** foi recebido e eu seu contrato está agora **confirmado**!
+    contract_in_negotiation: Iniciou negociações com **%{customer_name}** pela propriedade
+      **%{property_name} - %{property_code}.**
+    contract_in_notice: O contrato da **%{property_name} - %{property_code}** está
+      a **terminar**.
+    contract_signed: O contrato da **%{property_name} - %{property_code}** foi **assinado**!
+    contract_terminated: O contrato da propriedade **%{p - operty_name}(%{property_code}
+      terminou**.
+    new_comment: "%{author_name} fez um comentário sobre [%{commentable_name}](%{url})."
+    new_comment_mentioning_you: "%{author_name} mencionou-te num [comentário](%{url})."
+    new_notification: New notification
+    next_rents_created:
+      message: Message
+  number:
+    nth:
+      ordinalized: "%{number},"
+  properties:
+    status_labels:
+      available: Disponível
+      occupied: Ocupada
+      ooo: Indisponível
+  rents:
+    status_labels:
+      paid: paga
+      unpaid: por pagar

@@ -1,0 +1,3 @@
+<%= render Static::Cell.new(title: t('components.organization.members_table.customize')) do |component| %>
+  <%= render Organizations::SectionedFormComponent.new(organization: current_organization) %>
+<% end %>

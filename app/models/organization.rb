@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Organization < ApplicationRecord
-  include HasProfile
+  include HasProfile, HasSlug
 
   has_many :memberships, class_name: 'OrganizationMember', dependent: :destroy, inverse_of: :organization
   has_many :members, through: :memberships, class_name: 'User', source: :user, inverse_of: :organizations
@@ -18,6 +18,7 @@ class Organization < ApplicationRecord
   has_many :admins, through: :admin_memberships, source: :user, class_name: 'User'
   has_many :employees, through: :employee_memberships, source: :user, class_name: 'User'
   has_many :guests, through: :guest_memberships, source: :user, class_name: 'User'
+  has_many :notifications, as: :recipient
 
   belongs_to :owner, class_name: 'User'
 
@@ -28,14 +29,8 @@ class Organization < ApplicationRecord
   after_validation :build_owner_membership, on: :create, if: -> { memberships.empty? }
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
-  validates :slug, presence: true, uniqueness: { case_sensitive: false }
 
   has_one_attached :logo
-
-  # Multi tenancy
-  before_validation :set_slug, unless: :slug
-
-  # default :slug, (proc { |o| o&.name&.downcase&.underscore })
 
   delegate :name, to: :owner, prefix: true
   delegate :name, to: :admin, prefix: true
@@ -60,9 +55,5 @@ class Organization < ApplicationRecord
                    contact_attributes: { name: name, **attrs },
                    memberships_attributes: [{ organization: self, role: role }]
                  }, invited_by)
-  end
-
-  def set_slug
-    name.dasherize.downcase
   end
 end

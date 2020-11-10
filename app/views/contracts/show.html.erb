@@ -1,11 +1,50 @@
 <div class="container">
-  <section class="cell cell-transparent pb-3">
-    <div class="flexbox flexbox-50-50 flexbox-between-center">
+  <section class="cell pb-3 my-5">
+    <div class="flexbox flexbox-50-50 flexbox-between-center my-3">
       <div>
-        <%= link_to contracts_path, class: 'link text-muted mb-3' do %>
-          <%= inline_svg_pack_tag 'media/icons/arrow-left.svg', class: 'mr-2' %>
-          voltar atrás
-        <% end %>
+        <div class="flexbox flexbox-between-center mb-4">
+          <%= render Static::Button.new(
+            type: 'back round',
+            to: edit_contract_path(@contract),
+            class: 'ml-2',
+          )%>
+          <div class="d-flex align-items-center">
+            <% unless @contract.active? %>
+              <%= render Static::Button.new(
+                type: 'delete round',
+                to: contract_path(@contract),
+                method: :delete,
+                class: 'ml-2',
+                tooltip: t('component.buttons.tooltips.delete_contract')
+              )%>
+            <% end %>
+            <%= render Static::Button.new(
+              type: 'edit round',
+              to: edit_contract_path(@contract),
+              class: 'ml-2',
+              tooltip: t('component.buttons.tooltips.edit_contract')
+            )%>
+            <%= render Static::Button.new(
+              type: 'comment round',
+              class: 'ml-2',
+              tooltip: t('component.buttons.tooltips.view_comments'),
+              data: {
+                reflex: 'click->Comments#toggle_modal',
+                commentable_id: @contract.id,
+                commentable_type: @contract.class.to_s
+              }
+            ) %>
+            <% if @contract.active? %>
+              <%= render Static::Button.new(
+                type: 'add round',
+                class: 'ml-2',
+                icon: 'receipt',
+                data: { reflex: 'click->Contracts#generate_next_rent', id: @contract.id },
+                tooltip: t('component.buttons.tooltips.create_next_rent')
+              )%>
+            <% end %>
+          </div>
+        </div>
         <div class="flexbox flexbox-between-center">
           <div>
             <div class="flexbox flexbox-start-center">
@@ -13,50 +52,21 @@
               <h6 class="mb-0 ml-2 badge bg-primary"><%= @contract.status %></h6>
             </div>
           </div>
-
-          <div>
-            <div class="btn-group">
-              <%= link_to contract_path(@contract), method: :delete, data: { confirm: 'Tem a certeza que quer apagar?' }, class: 'btn btn-sm btn-danger' do %>
-                <%= inline_svg_pack_tag 'media/icons/trash.svg', class: 'mr-1' %>
-                <span class="d-none d-lg-inline-block">Apagar</span>
-              <% end %>
-
-              <%= link_to edit_contract_path(@contract), class: 'btn btn-sm btn-warning' do %>
-                <%= inline_svg_pack_tag 'media/icons/pencil.svg', class: 'mr-1' %>
-                <span class="d-none d-lg-inline-block">Editar</span>
-              <% end %>
-
-              <%= render Comments::ModalToggleComponent.new(commentable: @contract, class: 'btn btn-sm btn-white') do %>
-                <%= inline_svg_pack_tag 'media/icons/chat-left-text.svg', class: 'mr-1' %>
-                <span class="d-none d-lg-inline-block">Comentários</span>
-              <% end %>
-
-              <%= link_to '#', class: 'btn btn-sm btn-black', data: { reflex: 'click->Contracts#generate_next_rent', id: @contract.id } do %>
-                <%= inline_svg_pack_tag 'media/icons/wallet.svg', class: 'mr-1' %>
-                <span class="d-none d-lg-inline-block">Gerar Próxima Renda</span>
-              <% end %>
-            </div>
-            <p></p>
-          </div>
         </div>
+      <p class="lead text-muted">
+        <%= link_to @contract.property_code, property_path(@contract.property), class: 'text-muted' %>
+        , <%= t('components.contracts.page.property_of') %>
+
+        <% if @contract.property_owner.is_a? Customer %>
+          <%= link_to @contract.property_owner_contact_name, @contract.property_owner, class: 'text-muted' %>
+        <% else %>
+          <%= @contract.property_owner_contact_name %>
+        <% end %>
+      </p>
       </div>
     </div>
 
-    <p class="lead text-muted">
-      <%= link_to @contract.property_code, property_path(@contract.property), class: 'text-muted' %>
-      , propriedade de
-
-      <% if @contract.property_owner.is_a? Customer %>
-        <%= link_to @contract.property_owner_contact_name, @contract.property_owner, class: 'text-muted' %>
-      <% else %>
-        <%= @contract.property_owner_contact_name %>
-      <% end %>
-
-    </p>
-  </section>
-
-  <section class="cell cell-dark flexbox lead flexbox-between-center mb-4 py-2">
-    <div class="flexbox flexbox-start-center">
+    <div class="flexbox flexbox-start-center bg-light cell shadow-none lead">
       <div>
         <strong class="pl-2 text-decoration-underline"><%= format_date @contract.start_date %></strong>
       </div>
@@ -68,93 +78,84 @@
       </div>
       <span class="mx-1 mx-lg-4">|</span>
       <div>
-        Duração:
+        <%= t('components.contracts.page.duration') %>:
         <strong class="pl-2 text-decoration-underline"><%= @contract.duration %></strong>
       </div>
       <span class="mx-1 mx-lg-4">|</span>
       <div>
-        Renegociação:
+        <%= t('components.contracts.page.renegotiation') %>:
         <strong class="pl-2 text-decoration-underline"><%= @contract.renegotiation_duration %></strong>
         <span class="small text-light">
-          (termina a <%= format_date @contract.renegotiation_period_end_date %>)
+          (<%= t('components.contracts.page.ends_on', date: format_date(@contract.renegotiation_period_end_date)) %>)
         </span>
       </div>
     </div>
-  </section>
 
-  <section class="row">
-    <div class="col-12 col-lg-4 mb-4">
-      <article class="cell h-100">
-        <h2 class="h6">Detalhes</h2>
-        <hr>
-        <div class="row">
-          <div class="col-6">
-            <dl>
-              <dt>Valores Pendentes:</dt>
-              <dd><%= @contract.rents_unpaid? ? @contract.rents_unpaid_amount : 'não' %></dd>
-            </dl>
-          </div>
-          <div class="col-6">
-            <dl>
-              <dt>Valor de cada fatura:</dt>
-              <dd><%= humanized_money_with_symbol @contract.rent_invoice_value %></dd>
-            </dl>
-          </div>
-          <div class="col-6">
-            <dl>
-              <dt>Renda faturada:</dt>
-              <dd>a cada <%= @contract.invoicing_frequency_value %> <%= @contract.invoicing_frequency_unit %></dd>
-            </dl>
-          </div>
-          <div class="col-6">
-            <dl>
-              <dt>Data da Próxima Renda:</dt>
-              <dd><%= format_date @contract.next_rent_due_date %></dd>
-            </dl>
-          </div>
-        </div>
-      </article>
-    </div>
-    <div class="col-12 col-lg-4 mb-4">
-      <article class="cell h-100">
-        <h2 class="h6">Valores</h2>
-        <hr>
-        <div class="flexbox flexbox-50-50 flexbox-between-stretch">
+    <article class="my-5">
+      <h2 class="h6"><%= t('components.contracts.page.details') %></h2>
+      <hr>
+      <div class="row">
+        <div class="col-6">
           <dl>
-            <dt>Renda Total:</dt>
-            <dd><%= humanized_money_with_symbol @contract.rent_full %></dd>
-            <dt>Renda Líquida:</dt>
-            <dd><%= humanized_money_with_symbol @contract.rent_amount %></dd>
-          </dl>
-          <dl>
-            <dt>Depósito:</dt>
-            <dd><%= humanized_money_with_symbol @contract.deposit %></dd>
-            <dt>Encargos:</dt>
-            <dd><%= humanized_money_with_symbol @contract.rent_charges %></dd>
+            <dt><%= t('components.contracts.page.pending_amounts') %>:</dt>
+            <dd><%= @contract.rents_unpaid? ? @contract.rents_unpaid_amount : 'não' %></dd>
           </dl>
         </div>
-      </article>
-    </div>
-    <div class="col-12 col-lg-4 mb-4">
-      <article class="cell h-100">
-        <h2 class="h6">Detalhes do Cliente</h2>
-        <hr>
-        <div class="flexbox flexbox-50-50 flexbox-between-stretch">
+        <div class="col-6">
           <dl>
-            <dt>Name:</dt>
-            <dd><%= @contract.customer_contact_name %></dd>
-            <dt>Email:</dt>
-            <dd><%= @contract.customer_contact_email %></dd>
-          </dl>
-          <dl>
-            <dt>Gestor de Conta:</dt>
-            <dd><%= @contract.account_manager_name %></dd>
-            <dt>Phone Number:</dt>
-            <dd><%= @contract.customer_phone %></dd>
+            <dt><%= t('components.contracts.page.invoice_amount') %>:</dt>
+            <dd><%= humanized_money_with_symbol @contract.rent_invoice_value %></dd>
           </dl>
         </div>
-      </article>
-    </div>
+        <div class="col-6">
+          <dl>
+            <dt><%= t('components.contracts.page.invoicing_frequency') %>:</dt>
+            <dd><%= t('frequencies.every', x: @contract.invoicing_frequency_value, units: @contract.invoicing_frequency_unit) %></dd>
+          </dl>
+        </div>
+        <div class="col-6">
+          <dl>
+            <dt><%= t('components.contracts.page.next_rent_date') %>:</dt>
+            <dd><%= format_date @contract.next_rent_due_date %></dd>
+          </dl>
+        </div>
+      </div>
+    </article>
+    <article class="my-5">
+      <h2 class="h6"><%= t('components.contracts.page.values') %></h2>
+      <hr>
+      <div class="flexbox flexbox-50-50 flexbox-between-stretch">
+        <dl>
+          <dt><%= t('components.contracts.page.total_rent') %>:</dt>
+          <dd><%= humanized_money_with_symbol @contract.rent_full %></dd>
+          <dt><%= t('components.contracts.page.net_rent') %>:</dt>
+          <dd><%= humanized_money_with_symbol @contract.rent_amount %></dd>
+        </dl>
+        <dl>
+          <dt><%= t('components.contracts.page.deposit_amount') %>:</dt>
+          <dd><%= humanized_money_with_symbol @contract.deposit %></dd>
+          <dt><%= t('components.contracts.page.charges_amount') %>:</dt>
+          <dd><%= humanized_money_with_symbol @contract.rent_charges %></dd>
+        </dl>
+      </div>
+    </article>
+    <article class="my-5">
+      <h2 class="h6"><%= t('components.contracts.page.client_details') %></h2>
+      <hr>
+      <div class="flexbox flexbox-50-50 flexbox-between-stretch">
+        <dl>
+          <dt><%= t('components.contracts.page.name') %>:</dt>
+          <dd><%= @contract.customer_contact_name %></dd>
+          <dt><%= t('components.contracts.page.email') %>:</dt>
+          <dd><%= @contract.customer_contact_email %></dd>
+        </dl>
+        <dl>
+          <dt><%= t('components.contracts.page.account_manager') %>:</dt>
+          <dd><%= @contract.account_manager_name %></dd>
+          <dt><%= t('components.contracts.page.phone_number') %>:</dt>
+          <dd><%= @contract.customer_phone %></dd>
+        </dl>
+      </div>
+    </article>
   </section>
-
 </div>

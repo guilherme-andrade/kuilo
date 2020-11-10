@@ -1,25 +1,29 @@
 import { Alert, Tooltip, Carousel, Popover, Toast } from 'bootstrap';
 
 document.addEventListener('turbolinks:load', e => {
+  initBootstrap()
+})
+
+export function initBootstrap() {
   initTooltips()
   initAlerts()
   initCarousels()
   initPopovers();
   initToasts();
-})
+}
 
 document.addEventListener('cable-ready:after-insert-adjacent-html', e => {
-  initToasts();
+  initBootstrap();
 })
 
 function initToasts() {
   const toastElList = [].slice.call(document.querySelectorAll('.toast'))
   toastElList.map(function (toastEl) {
-    const toast = new Toast(toastEl);
+    new Toast(toastEl);
 
     setTimeout(() => {
-      toast.hide();
-    }, 5000);
+      toastEl.remove();
+    }, 7000);
   })
 }
 

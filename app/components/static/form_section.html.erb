@@ -1,0 +1,11 @@
+<%= content_tag :section, class: 'mb-4' do %>
+  <% if @title || @subtitle %>
+    <header class="mb-5">
+      <h2 class="h6"><%= @title %></h2>
+      <p class="text-muted">
+        <%= @subtitle %>
+      </p>
+    </header>
+  <% end %>
+  <%= @content %>
+<% end %>

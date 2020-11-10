@@ -17,6 +17,12 @@
 .signal-notification {
   position: relative;
 
+  @each $color-name, $color-value in $theme-colors {
+    &-#{$color-name}::after {
+      background: $color-value;
+    }
+  }
+
   &::after {
     @extend .signal, .signal-danger;
 

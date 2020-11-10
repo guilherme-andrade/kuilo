@@ -6,23 +6,22 @@ class Contract < ApplicationRecord
   include DateFormatHelper
   include BelongsToOrganization
   include HasComments
+  include HasStatus
 
   TAXATION_TYPES = %i[retained charged].freeze
   INVOICING_FREQUENCY_UNITS = %i[month quarter semester year].freeze
-  STATUSES = {
-    in_negotiation: 0,
-    signed: 10,
-    confirmed: 20,
-    activated: 30,
-    in_notice: 40,
-    terminated: 50,
-    cancelled: -10
-  }.freeze
+
+  status in_negotiation: 0,
+         signed: 10,
+         confirmed: 20,
+         activated: 30,
+         in_notice: 40,
+         terminated: 50,
+         cancelled: -10
 
   has_many :rents
   has_one :last_rent_issued, -> { order('rents.due_date': :desc).limit(1) }, class_name: 'Rent'
   has_many :rents_unpaid, -> { where(rents: { status: Rent.statuses.dig('pending') }) }, class_name: 'Rent'
-  has_paper_trail if: proc { |p| p.saved_change_to_status? }
 
   belongs_to :manager, class_name: 'User'
   belongs_to :customer, touch: true
@@ -41,7 +40,6 @@ class Contract < ApplicationRecord
 
   enum taxation_type: TAXATION_TYPES
   enum invoicing_frequency_unit: INVOICING_FREQUENCY_UNITS
-  enum status: STATUSES
 
   accepts_nested_attributes_for :customer
 
@@ -98,7 +96,7 @@ class Contract < ApplicationRecord
   after_commit :notify_of_status_change, if: :saved_change_to_status?
 
   before_validation do
-    update_attribute(:status, statuses[:active]) if (start_date..end_date).cover?(Time.zone.today) && !active?
+    update_attribute(:status, :activated) if (start_date..end_date).cover?(Time.zone.today) && !active?
   end
 
   def name

@@ -1,14 +1,4 @@
-<div class="container">
-  <div class="cell cell-transparent">
-    <div class="flexbox flexbox-between-center">
-      <h1>Propriedades</h1>
-    </div>
-
-    <p class="lead text-muted mb-0">
-      Aqui encontrará todas as propridades adicionas à aplicação. Se pretender adicionar um prédio ou outro tipo de empreendimento, comece por ir à página de 'empreendimentos'.
-    </p>
-  </div>
-
+<div class="container pt-6">
   <%= render 'tabs' %>
   <div class="cell">
     <div class="row">
@@ -48,5 +38,5 @@
       </div>
     </div>
     <hr>
-    <%= render Properties::TableComponent.new(query: @query, properties: @properties) %>
+    <%= render Properties::Table.new(query: @query, properties: @properties) %>
 </div>

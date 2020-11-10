@@ -13,5 +13,6 @@ contracts_params.each do |contract_params|
   property    = org.enterprised_properties.find_by_code(contract_params.delete('property_code'))
   customer    = Customer.find_by_name(contract_params.delete('customer_name'))
 
-  property.contracts.create!(contract_params.merge(customer: customer, organization: org))
+  contract = property.contracts.build(contract_params.merge(customer: customer, organization: org))
+  contract.save!
 end

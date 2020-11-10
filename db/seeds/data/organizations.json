@@ -1,7 +1,6 @@
 [
   {
     "name": "Siccal",
-    "description": "Uma construtora com mais de 60 anos de atividade em Angola.",
     "owner_email": "miguel.andrade@siccal.com",
     "default_rent_due_day": 15,
     "address_attributes": {

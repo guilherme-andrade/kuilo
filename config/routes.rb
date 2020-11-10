@@ -13,7 +13,11 @@ Rails.application.routes.draw do
 
   scope module: 'organizations', path: '/organizations' do
     resource :sessions, as: :organization_session, only: %i[create new destroy]
-    resource :current, as: :current_organization, only: %i[show edit update destroy]
+    resource :current, as: :current_organization, only: %i[show edit update destroy] do
+      scope module: :currents do
+        resources :members
+      end
+    end
     resources :enterprises, only: %i[new create], as: :organization_enterprises
   end
 

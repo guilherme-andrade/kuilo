@@ -1,25 +1,20 @@
 class Organizations::FormComponent < ReflexComponent
   def initialize(organization:)
     @organization = organization
+  end
+
+  def before_render
     @organization.build_address
     @organization.build_contact
-    @organization.bank_accounts.new
+    @organization.build_bank_account
   end
 
   def form_path
-    @organization.persisted? ? organization_url(@organization) : url_for(controller: controller_name, action: :create)
+    @organization.persisted? ? current_organization_url(@organization) : organizations_url
   end
 
   def submit_copy
-    @organization.persisted? ? 'Salvar mudanças' : 'Adicionar propriedade'
-  end
-
-  def phone_country_codes
-    label_method = ->(code) { "#{IsoCountryCodes.find(code).name} (#{IsoCountryCodes.find(code).calling})"}
-    value_method = ->(code) { IsoCountryCodes.find(code).calling }
-    IsoCountryCodes.for_select.map do |(_, code)|
-      [label_method.call(code), code, { label: value_method.call(code) }]
-    end
+    @organization.persisted? ? 'Salvar mudanças' : 'Adicionar Organizacao'
   end
 
   def validate_name

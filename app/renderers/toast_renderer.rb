@@ -1,11 +1,15 @@
 class ToastRenderer < ApplicationRenderer
   Toast = Struct.new(:title, :body, :time_ago, :type, :id) do
     def success?
-      type != 'error'
+      type.to_s == 'success'
     end
 
     def error?
-      type == 'error'
+      type.to_s == 'error'
+    end
+
+    def warning?
+      type.to_s == 'warning'
     end
   end
 

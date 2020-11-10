@@ -1,25 +1,2 @@
-<div class="container">
-  <section class="cell cell-transparent">
-    <div class="flexbox flexbox-50-50 flexbox-between-center">
-      <div>
-        <div class="flexbox flexbox-between-center">
-          <div>
-            <div class="flexbox flexbox-start-center">
-              <h1><%= @organization.name %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <p class="lead text-muted">
-      <%= @organization.full_address %>
-    </p>
-  </section>
-
-  <section class="row">
-    <div class="col-12">
-      <%= render Organizations::MembersTableComponent.new(organization: current_organization) %>
-    </div>
-  </section>
-</div>
+<%= render Static::Cell.new(title: t('components.organization.members_table.manage')) do |component| %>
+<% end %>

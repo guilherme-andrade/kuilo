@@ -1,0 +1,15 @@
+<div id="<%= dom_id self %>" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <% @photos.each_with_index do |photo, index| %>
+      <div class="carousel-item <%= 'active' if index.zero? %>">
+        <%= image_tag photo, class: 'fit-cover d-block w-100', height: 500 %>
+      </div>
+    <% end %>
+  </div>
+  <a class="carousel-control-prev bg-light" href="#<%= dom_id self %>" role="button" data-slide="prev">
+    <%= inline_svg_pack_tag 'media/icons/chevron-left.svg', class: 'icon icon-xl' %>
+  </a>
+  <a class="carousel-control-next bg-light" href="#<%= dom_id self %>" role="button" data-slide="next">
+    <%= inline_svg_pack_tag 'media/icons/chevron-right.svg', class: 'icon icon-xl' %>
+  </a>
+</div>

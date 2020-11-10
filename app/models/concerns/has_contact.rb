@@ -4,7 +4,7 @@ module HasContact
   extend ActiveSupport::Concern
 
   included do
-    has_one :contact, as: :entity, dependent: :destroy
+    has_one :contact, as: :entity, dependent: :destroy, autosave: false
     accepts_nested_attributes_for :contact
 
     delegate :vat_number, :government_id, :phone_number, :phone, :avatar,

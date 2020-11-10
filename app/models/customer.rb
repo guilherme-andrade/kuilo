@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class Customer < ApplicationRecord
-  include PropertyOwner
-  include HasProfile
-  include BelongsToOrganization
+  include PropertyOwner, HasProfile, BelongsToOrganization
 
   belongs_to :creator, class_name: 'User'
   belongs_to :account_manager, class_name: 'User'

@@ -1,0 +1,71 @@
+<nav class="navbar navbar-light bg-white w-100 navbar-fixed fixed-top">
+  <div class="container-fluid">
+    <ul class="navbar-nav flex-row">
+      <li class="nav-item px-3">
+        <%= link_to root_path, class: 'navbar-brand' do %>
+          <%= inline_svg_pack_tag 'media/images/logo.svg', class: 'icon icon-xl my-2' %>
+          <span class="h3 ml-2 mb-0 text-black">Kuilo</span>
+        <% end %>
+      </li>
+      <li class="nav-item px-3">
+        <%= link_to 'Preços', '#', class: 'nav-link' %>
+      </li>
+      <li class="nav-item px-3">
+        <%= link_to 'Features', '#', class: 'nav-link' %>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav flex-row align-items-center">
+      <% if user_signed_in? %>
+        <%= render Application::NotificationsDropdown.new %>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle no-caret" href="#" id="user-dropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+            <%= avatar_image_tag(current_user) %>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right position-absolute" aria-labelledby="#user-dropdown" style="min-width: 300px;">
+
+            <% if organization_selected? %>
+              <li><h6 class="dropdown-header font-weight-normal"><%= current_organization.name %></h6></li>
+              <li>
+                <%= link_to current_organization_path, class: 'dropdown-item' do %>
+                  <%= inline_svg_pack_tag 'media/icons/tools.svg', class: 'icon icon-sm icon-muted mr-2' %>
+                  Gerir Organização
+                <% end %>
+              </li>
+            <li>
+              <%= link_to new_organization_session_path, class: 'dropdown-item' do %>
+                <%= inline_svg_pack_tag 'media/icons/shuffle.svg', class: 'icon icon-sm icon-muted mr-2' %>
+                Mudar de Organização
+              <% end %>
+            </li>
+              <li>
+                <%= link_to organization_session_path, method: :delete, class: 'dropdown-item' do %>
+                  <%= inline_svg_pack_tag 'media/icons/arrow-right.svg', class: 'icon icon-sm icon-muted mr-2' %>
+                  Sair de <%= current_organization.name %>
+                <% end %>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+            <% end %>
+
+            <li><h6 class="dropdown-header font-weight-normal">Conta</h6></li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do %>
+                <%= inline_svg_pack_tag 'media/icons/door-open.svg', class: 'icon icon-sm icon-muted mr-2' %>
+                Terminar Sessão
+              <% end %>
+            </li>
+          </ul>
+        </li>
+      <% else %>
+        <li class="nav-item mr-3">
+          <%= link_to 'Já tenho conta', new_user_session_path, class: 'btn btn-outline-primary font-weight-bold' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Começar a usar', new_organization_session_path, class: 'btn btn-primary' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+

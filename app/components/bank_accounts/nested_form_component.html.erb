@@ -1,0 +1,33 @@
+<%= component_controller do %>
+  <%= render Static::SectionHeader.new(title: @options[:title], subtitle: @options[:subtitle]) %>
+  <div class="row">
+    <div class="col-5">
+      <%= reflex_input :name, label: t('components.bank_account.form.name_label'), placeholder: t('components.bank_account.form.name_placeholder') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <%= reflex_input :bank_name, label: t('components.bank_account.form.bank_name_label'), placeholder: t('components.bank_account.form.bank_name_placeholder') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <%= reflex_input :SWIFT, label: t('components.bank_account.form.swift_label'), placeholder: t('components.bank_account.form.swift_placeholder') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <%= reflex_input :number, label: t('components.bank_account.form.number_label'), placeholder: t('components.bank_account.form.number_placeholder') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <%= reflex_input :IBAN, label: t('components.bank_account.form.iban_label'), placeholder: t('components.bank_account.form.iban_placeholder') %>
+    </div>
+  </div>
+  <%= reflex_submit t('globals.save_changes'), class: 'btn btn-primary' %>
+<% end %>

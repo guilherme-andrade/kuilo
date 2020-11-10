@@ -1,4 +1,4 @@
-class Organizations::SessionsController < OrganizationController
+class Organizations::SessionsController < TenantController
   skip_before_action :select_organization!
 
   def new

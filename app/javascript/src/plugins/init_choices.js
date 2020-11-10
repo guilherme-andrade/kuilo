@@ -3,7 +3,6 @@ import Choices from 'choices.js';
 document.addEventListener('turbolinks:load', initChoices)
 
 function initChoices(e) {
-  console.log(e)
   const selects = document.querySelectorAll('select[data-choices="true"]');
   selects.forEach(createChoices)
 }

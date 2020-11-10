@@ -1,0 +1,2 @@
+class TransactionSubscriber < ApplicationSubscriber
+end

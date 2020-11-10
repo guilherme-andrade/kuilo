@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
 class Property < ApplicationRecord
-  include HasAddress
-  include BelongsToOrganization
-  include HasComments
-  include ActiveSupport::NumberHelper
+  include HasAddress, BelongsToOrganization, HasComments, TriggersNotifications, ActiveSupport::NumberHelper, HasStatus
 
   TYPES           = %w[Apartment House Garage Office Room Warehouse].freeze
-  STATUSES        = %i[available occupied ooo available_soon].freeze
   TYPOLOGIES      = %i[property].freeze
   CHARACTERISTICS = %i[area_unit area_value].freeze
 
@@ -19,7 +15,7 @@ class Property < ApplicationRecord
   has_many :contracts, inverse_of: :property
   has_one :active_contract, -> { Contract.active }, class_name: 'Contract', inverse_of: :occupied_property
 
-  enum status: STATUSES
+  status :available, :occupied, :ooo, :available_soon
 
   counter_culture :organization
   counter_culture :enterprise
@@ -31,7 +27,6 @@ class Property < ApplicationRecord
 
   validates :name, :code, presence: true
   validates :name, uniqueness: { scope: %i[owner_type owner_id] }
-  validates :address_id, presence: true, uniqueness: true
 
   default :status,                  (proc { 0 })
   default :organization_id,         (proc { |p| p.enterprise.organization_id if p.owner })
@@ -54,14 +49,12 @@ class Property < ApplicationRecord
   has_many_attached :photos
   has_rich_text :description
 
+  inherit_address_from :enterprise, :owner, :owner_organization
+
   def owners_from_type
     return [] unless owner_type.present?
 
     owner_type&.constantize&.all || []
-  end
-
-  def parent_address
-    owner&.address || owner&.organization&.address
   end
 
   def default_rent_full_cents

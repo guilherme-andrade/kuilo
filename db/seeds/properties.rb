@@ -10,6 +10,7 @@ properties_params = JSON.parse(file)
 properties_params.each do |property_params|
   photos_urls     = property_params.delete('photos_urls')
   cover_photo_url = property_params.delete('cover_photo_url')
+
   owner       = User.find_by_email(property_params.delete('organization_owner_email'))
   org         = owner.owned_organizations.find_by_name(property_params.delete('organization_name'))
   enterprise  = Enterprise.find_by_name(property_params.delete('enterprise_name'))

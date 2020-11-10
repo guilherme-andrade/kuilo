@@ -1,4 +1,4 @@
-class Enterprises::BaseController < OrganizationController
+class Enterprises::BaseController < TenantController
   before_action :find_enterprise
 
   private

@@ -1,0 +1,21 @@
+<%= component_controller do %>
+  <div class="row pb-6">
+    <div class="col-1 col-lg-3">
+      <ul class="nav flex-column list-group">
+        <% tabs.each do |tab| %>
+          <li class="list-group-item">
+            <%= reflex_tag :change_tab, 'a', class: tab_class_for(tab), data: { tab: tab[:name], loader_target: '.tab-content' } do %>
+              <%= tab_icon_for(tab) || tab_signal_for(tab) %>
+              <span class="d-none d-lg-inline-block">
+                <%= tab[:text] %>
+              </span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-10 col-lg-9 tab-content">
+      <%= render tab_content %>
+    </div>
+  </div>
+<% end %>

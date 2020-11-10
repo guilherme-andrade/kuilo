@@ -1,60 +1,72 @@
-<% if @property.photos.any? %>
-  <div class="wrapper">
-    <div id="property-banner-carousel" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <% @property.photos.each_with_index do |photo, index| %>
-          <div class="carousel-item <%= 'active' if index.zero? %>">
-            <%= image_tag photo, class: 'fit-cover d-block w-100', height: 500 %>
-          </div>
-        <% end %>
-      </div>
-      <a class="carousel-control-prev bg-light" href="#property-banner-carousel" role="button" data-slide="prev">
-        <%= inline_svg_pack_tag 'media/icons/chevron-left.svg', class: 'icon icon-xl' %>
-      </a>
-      <a class="carousel-control-next bg-light" href="#property-banner-carousel" role="button" data-slide="next">
-        <%= inline_svg_pack_tag 'media/icons/chevron-right.svg', class: 'icon icon-xl' %>
-      </a>
-    </div>
-  </div>
-<% end %>
-
 <div class="container">
-  <section class="cell cell-transparent">
+  <section class="cell mt-6 mb-4">
+    <% if @property.photos.any? %>
+      <div class="wrapper my-3">
+        <div id="property-banner-carousel" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <% @property.photos.each_with_index do |photo, index| %>
+              <div class="carousel-item <%= 'active' if index.zero? %>">
+                <%= image_tag photo, class: 'fit-cover d-block w-100 rounded', height: 300 %>
+              </div>
+            <% end %>
+          </div>
+          <a class="carousel-control-prev bg-light" href="#property-banner-carousel" role="button" data-slide="prev">
+            <%= inline_svg_pack_tag 'media/icons/chevron-left.svg', class: 'icon icon-xl' %>
+          </a>
+          <a class="carousel-control-next bg-light" href="#property-banner-carousel" role="button" data-slide="next">
+            <%= inline_svg_pack_tag 'media/icons/chevron-right.svg', class: 'icon icon-xl' %>
+          </a>
+        </div>
+      </div>
+    <% end %>
+
     <div class="flexbox flexbox-50-50 flexbox-between-center">
       <div>
-        <%= link_to properties_path, class: 'link text-muted mb-3' do %>
-          <%= inline_svg_pack_tag 'media/icons/arrow-left.svg', class: 'mr-2' %>
-          voltar atrás
-        <% end %>
-        <div class="flexbox flexbox-between-center">
+        <div class="flexbox flexbox-between-center mb-5">
+          <%= render Static::Button.new(type: :back) %>
+          <div class="d-flex">
+            <% unless @property.active_contract %>
+              <%= render Static::Button.new(
+                type: 'delete round',
+                to: property_path(@property),
+                method: :delete,
+                class: 'ml-1',
+                tooltip: t('component.buttons.tooltips.delete_property')
+              )%>
+            <% end %>
+            <%= render Static::Button.new(
+              type: 'edit round',
+              to: edit_property_path(@property),
+              class: 'ml-1',
+              tooltip: t('component.buttons.tooltips.edit_property')
+            )%>
+            <%= render Static::Button.new(
+              type: 'round comment',
+              class: 'ml-1',
+              tooltip: t('component.buttons.tooltips.view_comments'),
+              data: {
+                reflex: 'click->Comments#toggle_modal',
+                commentable_id: @property.id,
+                commentable_type: @property.class.to_s
+              }
+            ) %>
+            <% unless @property.active_contract %>
+              <%= render Static::Button.new(
+                type: 'add round',
+                to: new_property_contract_path(@property),
+                class: 'ml-1',
+                tooltip: t('component.buttons.tooltips.add_a_contract')
+              )%>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="flexbox flexbox-between-center mt-3">
           <div>
             <div class="flexbox flexbox-start-center">
               <h1><%= @property.name %> <span class="small text-muted">(<%= @property.code %>)</span></h1>
               <h6 class="mb-0 ml-2 badge bg-primary"><%= @property.status %></h6>
             </div>
-          </div>
-
-          <div class="btn-group">
-            <% unless @property.active_contract %>
-              <%= link_to property_path(@property), class: 'btn btn-sm btn-danger' do %>
-                Apagar
-                <%= inline_svg_pack_tag 'media/icons/trash.svg' %>
-              <% end %>
-            <% end %>
-            <%= link_to edit_property_path(@property), class: 'btn btn-sm btn-warning' do %>
-              Editar
-              <%= inline_svg_pack_tag 'media/icons/pencil.svg' %>
-            <% end %>
-            <%= render Comments::ModalToggleComponent.new(commentable: @property, class: 'btn btn-sm btn-white') do %>
-              <span class="d-none d-lg-inline-block">Comentários</span>
-              <%= inline_svg_pack_tag 'media/icons/chat-left-text.svg' %>
-            <% end %>
-            <% unless @property.active_contract %>
-              <%= link_to new_property_contract_path(@property), class: 'btn btn-sm btn-secondary' do %>
-                Adicionar Contrato
-                <%= inline_svg_pack_tag 'media/icons/plus.svg', class: 'icon icon-md' %>
-              <% end %>
-            <% end %>
           </div>
         </div>
       </div>
@@ -64,103 +76,94 @@
       <%= @property.full_address %>
     </p>
 
-    <%= render Properties::DescriptionComponent.new(property: @property) %>
-  </section>
-
-  <section class="row">
-    <div class="col-12 col-lg-4 mb-4">
-      <article class="cell pb-3 h-100">
-        <h2 class="h6">Detalhes</h2>
-        <hr>
-        <div class="row">
-          <div class="col-6">
-            <dl>
-              <dt>Pertence a:</dt>
-              <dd><%= @property.owner_name %> (<%= @property.owner_type %>)</dd>
-            </dl>
-          </div>
-          <div class="col-6">
-            <dl>
-              <dt>Criada por:</dt>
-              <dd><%= @property.creator_name %></dd>
-            </dl>
-          </div>
-          <div class="col-6">
-            <dl>
-            <dt>Gerida por:</dt>
-            <dd><%= @property.manager_name %></dd>
-            </dl>
-          </div>
+    <%= render Properties::Description.new(property: @property) %>
+    <article class="my-7 h-100">
+      <h2 class="h6">Detalhes</h2>
+      <hr>
+      <div class="row">
+        <div class="col-6">
+          <dl>
+            <dt>Pertence a:</dt>
+            <dd><%= @property.owner_name %> (<%= @property.owner_type %>)</dd>
+          </dl>
         </div>
-      </article>
-    </div>
-    <div class="col-12 col-lg-4 mb-4">
-      <article class="cell pb-3 h-100">
-        <h2 class="h6">Valor da Propriedade</h2>
-        <hr>
-        <div class="row">
-          <div class="col-6">
-            <dl>
-              <dt>Market Value:</dt>
-              <dd><%= humanized_money_with_symbol @property.market_value %></dd>
-            </dl>
-          </div>
-          <div class="col-6">
-            <dl>
-              <dt>Valor de Renda:</dt>
-              <dd><%= humanized_money_with_symbol @property.default_rent %></dd>
-            </dl>
-          </div>
-          <div class="col-6">
-            <dl>
-              <dt>Renda Actual:</dt>
-              <dd><%= humanized_money_with_symbol @property.active_contract_rent_amount %></dd>
-            </dl>
-          </div>
-          <div class="col-6">
-            <dl>
-              <dt>Valor de Encargos:</dt>
-              <dd><%= humanized_money_with_symbol @property.default_charges %></dd>
-            </dl>
-          </div>
+        <div class="col-6">
+          <dl>
+            <dt>Criada por:</dt>
+            <dd><%= @property.creator_name %></dd>
+          </dl>
         </div>
-      </article>
-    </div>
-    <div class="col-12 col-lg-4 mb-4">
-      <article class="cell pb-3 h-100">
-        <h2 class="h6">Contratos</h2>
-        <hr>
-        <div class="row">
-          <div class="col-6">
-            <dl>
-              <dt>Nr de Contratos:</dt>
-              <dd><%= @property.contracts_count %></dd>
-            </dl>
-          </div>
-          <div class="col-6">
-            <dl>
-              <dt>Contrato Ativo?</dt>
-              <dd>
-                <%= @property.rented? ? 'Sim' : 'Não' %>
-                <%= link_to('ver contrato', contract_path(@property.active_contract), class: 'pl-2 small') if @property.rented? %>
-              </dd>
-            </dl>
-          </div>
-          <div class="col-6">
-            <dl>
-              <dt>Renda Actual:</dt>
-              <dd><%= humanized_money_with_symbol @property.active_contract_rent_amount %></dd>
-            </dl>
-          </div>
-          <div class="col-6">
-            <dl>
-              <dt>Valor de Encargos:</dt>
-              <dd><%= humanized_money_with_symbol @property.default_charges %></dd>
-            </dl>
-          </div>
+        <div class="col-6">
+          <dl>
+          <dt>Gerida por:</dt>
+          <dd><%= @property.manager_name %></dd>
+          </dl>
         </div>
-      </article>
-    </div>
+      </div>
+    </article>
+    <article class="my-7 h-100">
+      <h2 class="h6">Valor da Propriedade</h2>
+      <hr>
+      <div class="row">
+        <div class="col-6">
+          <dl>
+            <dt>Market Value:</dt>
+            <dd><%= humanized_money_with_symbol @property.market_value %></dd>
+          </dl>
+        </div>
+        <div class="col-6">
+          <dl>
+            <dt>Valor de Renda:</dt>
+            <dd><%= humanized_money_with_symbol @property.default_rent %></dd>
+          </dl>
+        </div>
+        <div class="col-6">
+          <dl>
+            <dt>Renda Actual:</dt>
+            <dd><%= humanized_money_with_symbol @property.active_contract_rent_amount %></dd>
+          </dl>
+        </div>
+        <div class="col-6">
+          <dl>
+            <dt>Valor de Encargos:</dt>
+            <dd><%= humanized_money_with_symbol @property.default_charges %></dd>
+          </dl>
+        </div>
+      </div>
+    </article>
+    <article class="mt-7 mb-3 h-100">
+      <h2 class="h6">Contratos</h2>
+      <hr>
+      <div class="row">
+        <div class="col-6">
+          <dl>
+            <dt>Nr de Contratos:</dt>
+            <dd><%= @property.contracts_count %></dd>
+          </dl>
+        </div>
+        <div class="col-6">
+          <dl>
+            <dt>Contrato Ativo?</dt>
+            <dd>
+              <%= @property.rented? ? 'Sim' : 'Não' %>
+              <%= link_to('ver contrato', contract_path(@property.active_contract), class: 'pl-2 small') if @property.rented? %>
+            </dd>
+          </dl>
+        </div>
+        <div class="col-6">
+          <dl>
+            <dt>Renda Actual:</dt>
+            <dd><%= humanized_money_with_symbol @property.active_contract_rent_amount %></dd>
+          </dl>
+        </div>
+        <div class="col-6">
+          <dl>
+            <dt>Valor de Encargos:</dt>
+            <dd><%= humanized_money_with_symbol @property.default_charges %></dd>
+          </dl>
+        </div>
+      </div>
+        </article>
   </section>
   <div
     style="width: 100%; height: 300px;"

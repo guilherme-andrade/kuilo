@@ -1,0 +1,32 @@
+<%= component_controller do %>
+  <%= render Static::SectionHeader.new(title: @options[:title], subtitle: @options[:subtitle]) %>
+  <div class="row">
+    <div class="col-6">
+      <%= reflex_input :name, label: t('components.contacts.form.legal_name_label'), placeholder:  t('components.contacts.form.legal_name_placeholder') %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <%= reflex_input :email, as: :email, label: t('components.contacts.form.email_label'), placeholder: t('components.contacts.form.email_placeholder') %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-10">
+      <%= input_group attribute: :phone, label: t('components.address.form.phone_label') do %>
+        <%= reflex_input :phone_country_code, as: :phone_country_code, label: false, wrapper: false, style: 'width: 33%; flex-grow: 0' %>
+        <%= reflex_input :phone_number, as: :phone_number, label: false, wrapper: false, style: 'width: auto;' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <%= reflex_input :government_id, label: t('components.contacts.form.government_id_label'), placeholder: t('components.contacts.form.government_id_placeholder') %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <%= reflex_input :vat_number, label: t('components.contacts.form.vat_number_label'), placeholder: t('components.contacts.form.vat_number_placeholder') %>
+    </div>
+  </div>
+  <%= reflex_submit t('globals.save_changes'), class: 'btn btn-primary' %>
+<% end %>

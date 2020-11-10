@@ -35,7 +35,7 @@ export default class extends Controller {
    */
 
   beforeReflex (element, reflex, noop, reflexId) {
-    // document.body.classList.add('wait')
+    // this._addLoaderFor(element)()
   }
 
   reflexSuccess (element, reflex, noop, reflexId) {
@@ -44,9 +44,22 @@ export default class extends Controller {
 
   reflexError (element, reflex, error, reflexId) {
     // show error message etc...
+    // setTimeout(this._removeLoaderFor(element), 100000)
   }
 
   afterReflex (element, reflex, noop, reflexId) {
-    // document.body.classList.remove('wait')
+    // setTimeout(this._removeLoaderFor(element), 100000)
+  }
+
+  _addLoaderFor(element) {
+    return () => this._loaderTarget(element).classList.add('loading')
+  }
+
+  _removeLoaderFor(element) {
+    return () => this._loaderTarget(element).classList.remove('loading')
+  }
+
+  _loaderTarget(element) {
+    return document.querySelector(element.dataset.loaderTarget);
   }
 }

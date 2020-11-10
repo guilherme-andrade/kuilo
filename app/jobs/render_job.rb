@@ -6,6 +6,6 @@ class RenderJob < ApplicationJob
     cable.send(mutation, mutation_payload)
     cable_ready.broadcast
 
-    RenderCleanupJob.set(wait: cleanup_after).perform_later(to: to, id: id) if cleanup_after
+    RenderCleanupJob.set(wait: cleanup_after.seconds).perform_later(to: to, id: id) if cleanup_after
   end
 end

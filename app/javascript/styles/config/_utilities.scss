@@ -19,3 +19,15 @@
   object-fit: cover;
   object-position: center;
 }
+
+.loading {
+  &::before {
+    @extend .spinner-border, .text-primary, .my-3, .mx-auto;
+
+    content: '';
+  }
+}
+
+.border-dashed {
+  border: 2px dashed $border-color !important;
+}

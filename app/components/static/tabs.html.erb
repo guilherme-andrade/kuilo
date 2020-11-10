@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs cell-tabs">
+  <% @tabs.each do |tab| %>
+    <li class="nav-item">
+      <%= active_link_to tab[:text], tab[:path], class: 'nav-link', active: :exact %>
+    </li>
+  <% end %>
+</ul>

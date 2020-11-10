@@ -1,17 +1,32 @@
-  <% if toast.success? %>
-    <div id="<%= toast.id %>" data-controller="toast" class="toast show d-flex align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-body">
-        <%= toast.body %>
-      </div>
-      <%# <button type="button" class="btn-close btn-close-white ml-auto mr-2" data-dismiss="toast" aria-label="Close"></button> %>
-    </div>
-  <% end %>
+<% if toast.success? %>
+  <div id="<%= toast.id %>" data-controller="toast" data-reflex-permanent class="toast show d-flex align-items-center text-white bg-primary border-0 pl-3" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+    <%= inline_svg_pack_tag 'media/icons/check-circle.svg', class: 'text-white icon-lg' %>
 
-  <% if toast.error? %>
-    <div id="<%= toast.id %>" data-controller="toast" class="toast show d-flex align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-body">
-        <%= toast.body %>
-      </div>
-      <%# <button type="button" class="btn-close btn-close-white ml-auto mr-2" data-dismiss="toast" aria-label="Close"></button> %>
+    <div class="toast-body">
+      <%= toast.body %>
     </div>
-  <% end %>
+    <%# <button type="button" class="btn-close btn-close-white ml-auto mr-2" data-dismiss="toast" aria-label="Close"></button> %>
+  </div>
+<% end %>
+
+<% if toast.error? %>
+  <div id="<%= toast.id %>" data-controller="toast" data-reflex-permanent class="toast show d-flex align-items-center text-white bg-danger border-0 pl-3" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+    <%= inline_svg_pack_tag 'media/icons/exclamation-circle.svg', class: 'text-white icon-lg' %>
+
+    <div class="toast-body">
+      <%= toast.body %>
+    </div>
+    <%# <button type="button" class="btn-close btn-close-white ml-auto mr-2" data-dismiss="toast" aria-label="Close"></button> %>
+  </div>
+<% end %>
+
+<% if toast.warning? %>
+  <div id="<%= toast.id %>" data-controller="toast" data-reflex-permanent class="toast show d-flex align-items-center text-white bg-warning border-0 pl-3" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+    <%= inline_svg_pack_tag 'media/icons/exclamation-triangle.svg', class: 'text-white icon-lg' %>
+
+    <div class="toast-body">
+      <%= toast.body %>
+    </div>
+    <%# <button type="button" class="btn-close btn-close-white ml-auto mr-2" data-dismiss="toast" aria-label="Close"></button> %>
+  </div>
+<% end %>

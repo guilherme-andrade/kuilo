@@ -13,6 +13,8 @@
     "bootstrap": "^5.0.0-alpha1",
     "bootstrap-icons": "^1.0.0",
     "choices.js": "^9.0.1",
+    "croppie": "^2.6.5",
+    "dropzone": "^5.7.2",
     "flatpickr": "^4.6.6",
     "lodash": "^4.17.20",
     "mapbox-gl": "^1.12.0",

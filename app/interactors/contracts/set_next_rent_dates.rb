@@ -6,8 +6,8 @@ class Contracts::SetNextRentDates < ApplicationInteractor
   delegate :not_active?, :start_date, :end_date, to: :contract, prefix: true
 
   def call
-    context.fail! 'Contract not active' if contract_not_active?
-    context.fail! 'Next month\'s rent has already been issued.' if next_month_rent_issued?
+    context.fail! message: 'contract_not_active' if contract_not_active?
+    context.fail! message: 'next_rent_issued' if next_month_rent_issued?
 
     build_rent_with_dates
   end

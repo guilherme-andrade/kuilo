@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="col-10 pl-4">
-        <%= render Contracts::TableComponent.new(contracts: @contracts, query: @query) %>
+        <%= render Contracts::Table.new(contracts: @contracts, query: @query) %>
         <%= will_paginate @contracts, list_classes: %w(pagination justify-content-end) %>
       </div>
     </div>

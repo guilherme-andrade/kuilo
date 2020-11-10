@@ -1,0 +1,2 @@
+class UserSubscriber < ApplicationSubscriber
+end

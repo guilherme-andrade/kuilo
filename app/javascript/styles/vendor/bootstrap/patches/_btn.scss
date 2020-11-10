@@ -14,9 +14,14 @@ $btn-round-size-sm: 27px;
     border-radius: 50%;
     flex-shrink: 0;
 
-    &-sm {
+    &.btn-sm {
       width: $btn-round-size-sm;
       height: $btn-round-size-sm;
+
+      &.signal::after {
+        top: 3px;
+        right: 3px;
+      }
     }
   }
 }

@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :organizations, through: :memberships, inverse_of: :members
   has_many :transactions, foreign_key: :creator_id
   has_many :comments
-  has_many :notifications, as: :recipient
+  has_many :notifications, through: :memberships
 
   accepts_nested_attributes_for :memberships
 

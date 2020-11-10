@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EnterprisesController < OrganizationController
+class EnterprisesController < TenantController
   before_action :find_enterprise, except: %i[index new create]
 
   def index

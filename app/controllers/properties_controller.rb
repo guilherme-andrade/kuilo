@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PropertiesController < OrganizationController
+class PropertiesController < TenantController
   before_action :set_property_class
   before_action :find_property, except: %i[index new create]
 
@@ -46,7 +46,7 @@ class PropertiesController < OrganizationController
     else
       flash[:error] = 'Something went wrong'
     end
-    redirect_to @propertys_path
+    redirect_to properties_path
   end
 
   private
@@ -58,7 +58,7 @@ class PropertiesController < OrganizationController
       :default_invoice_description, :default_charges_description, :owner_id, :owner_type,
       :description, :cover_photo, :enterprise_id,
       photos: [],
-      address_attributes: %i[street door floor city country zip_code]
+      address_attributes: %i[street door floor city country_code zip_code]
     )
   end
 

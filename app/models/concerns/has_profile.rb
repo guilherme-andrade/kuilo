@@ -4,14 +4,12 @@ module HasProfile
   extend ActiveSupport::Concern
 
   included do
-    include HasAddress
-    include HasBankAccounts
-    include HasContact
+    include HasAddress, HasBankAccount, HasContact
 
     def build_profile
       build_contact
       build_address
-      bank_accounts.build
+      build_bank_account
     end
 
     def profile_complete?

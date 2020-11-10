@@ -6,6 +6,8 @@ class OrganizationMember < ApplicationRecord
   by_role = send(:sanitize_sql_array, ['case role when \':admin\' then 0 else 1 end', ROLES])
   default_scope -> { order(by_role).order(created_at: :asc) }
 
+  has_many :notifications, as: :recipient
+
   belongs_to :organization, inverse_of: :memberships
   belongs_to :user, inverse_of: :memberships
 
@@ -16,7 +18,7 @@ class OrganizationMember < ApplicationRecord
 
   before_validation :set_owner_role, on: :create
 
-  delegate :avatar, :name, :email, to: :user, prefix: true
+  delegate :avatar, :name, :email, to: :user
   delegate :owner, :memberships, to: :organization, prefix: true
 
   validates :user_id, uniqueness: { scope: :organization_id }

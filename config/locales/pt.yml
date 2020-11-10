@@ -1,60 +1,236 @@
 ---
 pt:
+  alerts:
+    changes_saved_successfully: Changes saved successfully
+    could_not_save_record: Could not save record
+    could_not_update_organization: Could not update organization
+    organization_updated: Organization updated
+  component:
+    buttons:
+      tooltips:
+        add_a_contract: Add a contract
+        create_next_rent: Create next rent
+        delete_contract: Delete contract
+        delete_property: Delete property
+        edit_contract: Edit contract
+        edit_property: Edit property
+        view_comments: View comments
+  components:
+    address:
+      form:
+        city_label: Cidade
+        city_placeholder: e.g. Lisboa
+        country_label: Pais
+        country_placeholder: e.g. Portugal
+        door_label: Lado/Porta
+        door_placeholder: e.g. 122
+        floor_label: Andar
+        floor_placeholder: e.g. 4
+        phone_label: Telefone
+        street_label: Rua
+        street_placeholder: e.g. Avenida de Roma 100
+        zip_code_label: Codigo Postal
+        zip_code_placeholder: e.g. 1000-005
+    bank_account:
+      form:
+        bank_name_label: Banco
+        bank_name_placeholder: e.g. Santander
+        iban_label: IBAN
+        iban_placeholder: e.g. PT 0303...
+        name_label: Nome do Titular
+        name_placeholder: e.g. Nome da sua empresa
+        number_label: Numero de Conta
+        number_placeholder: e.g. 0303....
+        swift_label: SWIFT/BIC
+        swift_placeholder: e.g. STDER
+    contacts:
+      form:
+        email_label: Email
+        email_placeholder: e.g. email@empresa.com
+        government_id_label: Numero de Identificacao
+        government_id_placeholder: e.g. 343243232
+        legal_name_label: Nome Legal
+        legal_name_placeholder: e.g. A sua Empresa, lda.
+        phone_label: Numero de telefone
+        phone_placeholder: e.g. 21 323 121 123
+        vat_number_label: Contribuinte
+        vat_number_placeholder: e.g. 332 322 233
+      status_labels:
+        activated: Ativo
+        cancelled: Cancelado
+        confirmed: Confirmado
+        in_negotiation: Em negociações
+        in_notice: A Terminar
+        signed: Assinado
+        terminated: Terminado
+    organizations:
+      form:
+        address_section_help: Address section help
+        default_rent_due_day_label: Default rent due day label
+        default_rent_issuing_day_label: Default rent issuing day label
+        details_subtitle: Details subtitle
+        details_title: Details title
+        logo_hint: Logo hint
+        logo_label: Logo label
+        name_label: Name label
+        name_placeholder: Name placeholder
+        address: Morada
+        address_subtitle: Esta morada sera usada em faturacao.
+        address_title: Morada da Empresa
+        bank_account: Conta Bancaria
+        bank_account_subtitle: Deve inserir os detalhes da conta bancaria partilhada com os seus clientes em faturas.
+        bank_account_title: Conta Bancaria de Recebimentos
+        contact: Contactos
+        contact_subtitle: Deve inserir os detalhes de contacto usados para apoio ao cliente.
+        contact_title: Contactos para apoio ao cliente.
+        details: Detalhes
+        details_subtitle: Quanto mais melhor.
+        details_title: Detalhes da tua empresa
+      members_table:
+        add_member: Adicionar Membro
+        customize: Customizar
+        manage: Gerir
+        members: Membros
+  datetime:
+    distance_in_words:
+      about_x_days:
+        one: "~ 1 dias"
+        other: "~ %{count} dias"
+      about_x_months:
+        one: "~ 1 mês"
+        other: "~ %{count} meses"
+      about_x_years:
+        one: 1 ano
+        other: "%{count} anos"
+  devise:
+    confirmations:
+      new:
+        resend_confirmation_instructions: Resend confirmation instructions
+    mailer:
+      confirmation_instructions:
+        action: Action
+        greeting: Greeting
+        instruction: Instruction
+      email_changed:
+        greeting: Greeting
+        message: Message
+      password_change:
+        greeting: Greeting
+        message: Message
+      reset_password_instructions:
+        action: Action
+        greeting: Greeting
+        instruction: Instruction
+        instruction_2: Instruction 2
+        instruction_3: Instruction 3
+      unlock_instructions:
+        action: Action
+        greeting: Greeting
+        instruction: Instruction
+        message: Message
+    passwords:
+      edit:
+        change_my_password: Change my password
+        change_your_password: Change your password
+        confirm_new_password: Confirm new password
+        new_password: New password
+      new:
+        forgot_your_password: Forgot your password
+        send_me_reset_password_instructions: Send me reset password instructions
+    registrations:
+      edit:
+        are_you_sure: Are you sure
+        cancel_my_account: Cancel my account
+        currently_waiting_confirmation_for_email: Currently waiting confirmation for
+          email
+        leave_blank_if_you_don_t_want_to_change_it: Leave blank if you don t want
+          to change it
+        title: Title
+        unhappy: Unhappy
+        update: Update
+        we_need_your_current_password_to_confirm_your_changes: We need your current
+          password to confirm your changes
+      new:
+        sign_up: Sign up
+    sessions:
+      new:
+        sign_in: Sign in
+    shared:
+      links:
+        back: Back
+        didn_t_receive_confirmation_instructions: Didn t receive confirmation instructions
+        didn_t_receive_unlock_instructions: Didn t receive unlock instructions
+        forgot_your_password: Forgot your password
+        sign_in: Sign in
+        sign_in_with_provider: Sign in with provider
+        sign_up: Sign up
+      minimum_password_length: Minimum password length
+    unlocks:
+      new:
+        resend_unlock_instructions: Resend unlock instructions
+  emails:
+    a_contract_is_now_activated: Contrato activado!
+    a_contract_is_now_cancelled: Um contrato foi cancelado.
+    a_contract_is_now_confirmed: Contrato Confirmado!
+    a_contract_is_now_in_negotiation: Negociações Iniciadas!
+    a_contract_is_now_in_notice: Um contrato está a terminar.
+    a_contract_is_now_signed: Contrato Assinado!
+    a_contract_is_now_terminated: Um contrato terminou.
+    click_here_to_view: Clique aqui para ver.
+    greeting: Olá %{recipient},
+    manage_rents: Gerir Rendas
+    next_rents_created: Criadas rendas do próximo mês
+    someone_mentioned_you_in_a_comment: "**%{author}** mencionou o seu nome num comentário,
+      veja abaixo:"
+    the_rents_for_next_month_have_been_created: 'Um total de **%{rents_count} renda(s)**
+      foram criadas para o próximo mês. Veja abaixo a lista:'
+    view_comment: Ver Comentário
+    you_were_mentioned: Alguém o mencionou.
+  errors:
+    messages:
+      not_saved: Not saved
+  globals:
+    add: Add
+    comments: Comments
+    customize: Customizar
+    delete: Delete
+    edit: Edit
+    general: Geral
+    go_back: Go back
+    manage: Gerir
+    members: Membros
+    moments_ago: Moments ago
+    save_changes: Save changes
+    select_a_country: Selecione um pais
+    settings: Definições
+  notifications:
+    contract_activated: O contrato da **%{property_name} - %{property_code}** está
+      agora **ativo**!
+    contract_cancelled: As negociações com **%{customer_name}** pela propriedade **%{property_name}
+      - %{property_code}** foram **canceladas**.
+    contract_confirmed: O sinal **%{customer_name}** pela propriedade **%{property_name}
+      - %{property_code}** foi recebido e eu seu contrato está agora **confirmado**!
+    contract_in_negotiation: Iniciou negociações com **%{customer_name}** pela propriedade
+      **%{property_name} - %{property_code}.**
+    contract_in_notice: O contrato da **%{property_name} - %{property_code}** está
+      a **terminar**.
+    contract_signed: O contrato da **%{property_name} - %{property_code}** foi **assinado**!
+    contract_terminated: O contrato da propriedade **%{p - operty_name}(%{property_code}
+      terminou**.
+    new_comment: "%{author_name} fez um comentário sobre [%{commentable_name}](%{url})."
+    new_comment_mentioning_you: "%{author_name} mencionou-te num [comentário](%{url})."
+    new_notification: New notification
+    next_rents_created:
+      message: Message
+  number:
+    nth:
+      ordinalized: "%{number},"
   properties:
     status_labels:
       available: Disponível
-      ooo: Indisponível
       occupied: Ocupada
+      ooo: Indisponível
   rents:
     status_labels:
       paid: paga
       unpaid: por pagar
-  contracts:
-    status_labels:
-      in_negotiation: 'Em negociações'
-      signed: 'Assinado'
-      confirmed: 'Confirmado'
-      activated: 'Ativo'
-      in_notice: 'A Terminar'
-      terminated: 'Terminado'
-      cancelled: 'Cancelado'
-  number:
-    nth:
-      ordinalized: '%{number},'
-  notifications:
-    contract_in_negotiation: Iniciou negociações com **%{customer_name}** pela propriedade **%{property_name} - %{property_code}.**
-    contract_in_notice: O contrato da **%{property_name} - %{property_code}** está a **terminar**.
-    contract_activated: O contrato da **%{property_name} - %{property_code}** está agora **ativo**!
-    contract_signed: O contrato da **%{property_name} - %{property_code}** foi **assinado**!
-    contract_terminated: O contrato da propriedade **%{p - operty_name}(%{property_code} terminou**.
-    contract_cancelled: As negociações com **%{customer_name}** pela propriedade **%{property_name} - %{property_code}** foram **canceladas**.
-    contract_confirmed: O sinal **%{customer_name}** pela propriedade **%{property_name} - %{property_code}** foi recebido e eu seu contrato está agora **confirmado**!
-    new_comment: '%{author_name} fez um comentário sobre [%{commentable_name}](%{url}).'
-    new_comment_mentioning_you: '%{author_name} mencionou-te num [comentário](%{url}).'
-  emails:
-    click_here_to_view: Clique aqui para ver.
-    a_contract_is_now_in_negotiation: Negociações Iniciadas!
-    a_contract_is_now_in_notice: Um contrato está a terminar.
-    a_contract_is_now_activated: Contrato activado!
-    a_contract_is_now_signed: Contrato Assinado!
-    a_contract_is_now_terminated: Um contrato terminou.
-    a_contract_is_now_cancelled: Um contrato foi cancelado.
-    a_contract_is_now_confirmed: Contrato Confirmado!
-    you_were_mentioned: Alguém o mencionou.
-    greeting: Olá %{recipient},
-    someone_mentioned_you_in_a_comment: '**%{author}** mencionou o seu nome num comentário, veja abaixo:'
-    view_comment: Ver Comentário
-    next_rents_created: Criadas rendas do próximo mês
-    the_rents_for_next_month_have_been_created: 'Um total de **%{rents_count} renda(s)** foram criadas para o próximo mês. Veja abaixo a lista:'
-    manage_rents: Gerir Rendas
-  datetime:
-    distance_in_words:
-      about_x_months:
-        one: "~ 1 mês"
-        other: "~ %{count} meses"
-      about_x_days:
-        one: "~ 1 dias"
-        other: "~ %{count} dias"
-      about_x_years:
-        one: "1 ano"
-        other: "%{count} anos"

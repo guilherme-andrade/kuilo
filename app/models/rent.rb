@@ -3,12 +3,12 @@
 class Rent < ApplicationRecord
   include BelongsToOrganization
   include HasComments
-
-  STATUSES = %i[unpaid paid].freeze
+  include HasStatus
+  include TriggersNotifications
 
   belongs_to :contract
 
-  enum status: STATUSES
+  status :unpaid, :paid
 
   monetize :amount_cents
   monetize :charges_cents

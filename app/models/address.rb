@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
 class Address < ApplicationRecord
-  belongs_to :addressable, polymorphic: true, autosave: true
+  LOCATION_ATTRIBUTES = %i[street zip_code city country_code].freeze
+
+  belongs_to :addressable, polymorphic: true, autosave: false
 
   geocoded_by :full_address
   before_validation :geocode
 
+  validates(*LOCATION_ATTRIBUTES, presence: true)
+
   def full_address
-    "#{street}, #{zip_code} - #{city} (#{state}), #{country}"
+    "#{street}, #{zip_code} - #{city}, #{country}"
   end
 
   def coordinates
@@ -15,10 +19,12 @@ class Address < ApplicationRecord
   end
 
   def country
-    IsoCountryCodes.find(country_code).name if country_code
+    @country ||= ISO3166::Country[country_code].yield_self do |iso_country|
+      iso_country&.translation(I18n.locale.to_s) || iso_country&.name
+    end
   end
 
   def location_attributes
-    attributes.slice('street', 'zip_code', 'city', 'state', 'country_code').symbolize_keys
+    attributes.slice(*LOCATION_ATTRIBUTES.map(&:to_s))
   end
 end

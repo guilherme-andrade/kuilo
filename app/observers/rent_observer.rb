@@ -1,2 +1,0 @@
-class RentObserver < ApplicationObserver
-end

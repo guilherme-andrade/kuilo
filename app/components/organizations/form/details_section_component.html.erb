@@ -1,0 +1,20 @@
+<%= component_controller do %>
+  <%= render Static::SectionHeader.new(title: @options[:title], subtitle: @options[:subtitle]) %>
+  <div class="row">
+    <div class="col-8">
+      <%= reflex_input(:name, label: t('components.organizations.form.name_label'), placeholder: t('components.organizations.form.name_placeholder')) %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 col-sm-5 col-lg-4">
+      <%= reflex_input(:default_rent_due_day, as: :day, label: t('components.organizations.form.default_rent_due_day_label')) %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 col-sm-5 col-lg-4">
+      <%= reflex_input(:default_rent_issuing_day, as: :day, label: t('components.organizations.form.default_rent_issuing_day_label')) %>
+    </div>
+  </div>
+  <%= reflex_input :logo, label: t('components.organizations.form.logo_label'), as: :attachments, hint: t('components.organizations.form.logo_hint') %>
+  <%= reflex_submit t('globals.save_changes'), class: 'btn btn-primary' %>
+<% end %>

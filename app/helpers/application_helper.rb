@@ -30,7 +30,7 @@ module ApplicationHelper
 
   def phone_country_codes
     label_method = ->(code) { "#{IsoCountryCodes.find(code).name} (#{IsoCountryCodes.find(code).calling})"}
-    value_method = ->(code) { "#{IsoCountryCodes.find(code).calling}" }
+    value_method = ->(code) { IsoCountryCodes.find(code).calling.to_s }
     IsoCountryCodes.for_select.map do |(_, code)|
       [label_method.call(code), code, { label: value_method.call(code) }]
     end

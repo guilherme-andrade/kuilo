@@ -1,2 +1,0 @@
-class UserObserver < ApplicationObserver
-end

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'head' %>
+
+  <body class="dashboard">
+    <%= render Comments::ModalComponent.new(commentable_type: @commentable_type, commentable_id: @commentable_id) if @show_comments_modal %>
+    <header class="dashboard-header">
+      <%= render Application::Navbar.new %>
+    </header>
+    <section class="dashboard-body">
+      <main class="dashboard-main">
+        <%= render 'flashes' %>
+        <%= render Static::Container.new class: 'mt-6' do %>
+          <%= render Organizations::Currents::Tabs.new %>
+          <%= yield %>
+        <% end %>
+      </main>
+    </section>
+    </div>
+  </body>
+</html>

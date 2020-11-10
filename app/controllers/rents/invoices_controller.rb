@@ -1,4 +1,4 @@
-class Rents::InvoicesController < OrganizationController
+class Rents::InvoicesController < TenantController
   layout 'pdf'
 
   def show

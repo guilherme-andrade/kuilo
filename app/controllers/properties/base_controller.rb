@@ -1,4 +1,4 @@
-class Properties::BaseController < OrganizationController
+class Properties::BaseController < TenantController
   before_action :find_property
 
   def find_property
