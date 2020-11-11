@@ -1,3 +1,13 @@
 .input-group {
+  &-pill {
+    & > *:first-child {
+      border-top-left-radius: $rounded-pill;
+      border-bottom-left-radius: $rounded-pill;
+    }
 
+    & > *:last-child {
+      border-top-right-radius: $rounded-pill;
+      border-bottom-right-radius: $rounded-pill;
+    }
+  }
 }

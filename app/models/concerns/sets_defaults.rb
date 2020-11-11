@@ -10,7 +10,7 @@ module SetsDefaults
 
   def apply_default_values
     self.class.defaults.each do |attribute, param|
-      next unless send(attribute).nil?
+      next unless has_attribute?(attribute) && send(attribute).nil?
 
       value = param.respond_to?(:call) ? param.call(self) : param
       send("#{attribute}=", value)

@@ -96,7 +96,7 @@ class Contract < ApplicationRecord
   after_commit :notify_of_status_change, if: :saved_change_to_status?
 
   before_validation do
-    update_attribute(:status, :activated) if (start_date..end_date).cover?(Time.zone.today) && !active?
+    # update_attribute(:status, :activated) if (start_date..end_date).cover?(Time.zone.today) && !active?
   end
 
   def name
@@ -159,7 +159,9 @@ class Contract < ApplicationRecord
   end
 
   def property_availability
-    errors.add(:base, 'this property is occupied') unless property.available?
+    return if property.available? || property.current_contract == self
+
+    errors.add(:base, 'this property is occupied')
   end
 
   def active?
@@ -176,7 +178,7 @@ class Contract < ApplicationRecord
 
   def notify_of_status_change
     recipients = organization.admins.merge(User.where(id: manager.id))
-
+    byebug
     ContractStatusChangedNotification.with(notifiable: self).deliver_later(recipients)
   end
 end

@@ -14,7 +14,6 @@ module HasStatus
 
       _define_status_validations(status_keys)
       _define_status_default(status_keys)
-      _define_before_status_change_callbacks(status_keys)
       _define_after_status_change_callbacks(status_keys)
     end
 
@@ -29,30 +28,22 @@ module HasStatus
       default :status, status_keys.first
     end
 
-    def _define_before_status_change_callbacks(status_keys)
-      status_keys.each do |status_key|
-        before_commit if: proc { status_changed? && status_change&.last&.to_sym == status_key } do
-          callback = self.class.send(:_before_status_change_callback_for, status_key)
-          send(callback) if respond_to?(callback, true)
-        end
-      end
-    end
-
     def _define_after_status_change_callbacks(status_keys)
       status_keys.each do |status_key|
-        after_commit if: proc { saved_change_to_status? && status == status_key } do
+        should_call_callback = proc { |record|
+          record.status_previously_changed? &&
+            record.status_previous_change.last.to_s == status_key.to_s
+        }
+
+        after_commit if: should_call_callback do
           callback = self.class.send(:_after_status_change_callback_for, status_key)
-          send(callback) if respond_to?(callback, true)
+          broadcast(callback, self)
         end
       end
     end
 
     def _after_status_change_callback_for(status_key)
       "after_status_change_to_#{status_key}"
-    end
-
-    def _before_status_change_callback_for(status_key)
-      "before_status_change_to_#{status_key}"
     end
   end
 end

@@ -2,9 +2,14 @@
 pt:
   alerts:
     changes_saved_successfully: Changes saved successfully
+    could_not_create_next_rent: Could not create next rent
     could_not_save_record: Could not save record
     could_not_update_organization: Could not update organization
+    next_rent_created_successfully: Next rent created successfully
     organization_updated: Organization updated
+    rent_is_now_paid: Rent is now paid
+    rent_marked_as_unpaid: Rent marked as unpaid
+    something_went_wrong: Something went wrong
   component:
     buttons:
       tooltips:
@@ -63,34 +68,101 @@ pt:
         in_notice: A Terminar
         signed: Assinado
         terminated: Terminado
+    contracts:
+      page:
+        account_manager: Account manager
+        charges_amount: Charges amount
+        client_details: Client details
+        deposit_amount: Deposit amount
+        details: Details
+        duration: Duration
+        email: Email
+        ends_on: Ends on
+        invoice_amount: Invoice amount
+        invoicing_frequency: Invoicing frequency
+        name: Name
+        net_rent: Net rent
+        next_rent_date: Next rent date
+        pending_amounts: Pending amounts
+        phone_number: Phone number
+        property_of: Property of
+        renegotiation: Renegotiation
+        total_rent: Total rent
+        values: Values
+    new_organization:
+      title: Title
+    organization:
+      members_table:
+        add_member: Add member
+        customize: Customize
+        manage: Manage
+        members: Members
+    organization_form:
+      address: Address
+      address_subtitle: Address subtitle
+      address_title: Address title
+      bank_account: Bank account
+      bank_account_subtitle: Bank account subtitle
+      bank_account_title: Bank account title
+      contact: Contact
+      contact_subtitle: Contact subtitle
+      contact_title: Contact title
+      details: Details
+      details_subtitle: Details subtitle
+      details_title: Details title
     organizations:
       form:
+        address: Morada
+        address_section: Address section
         address_section_help: Address section help
+        address_subtitle: Esta morada sera usada em faturacao.
+        address_title: Morada da Empresa
+        bank_account: Conta Bancaria
+        bank_account_section: Bank account section
+        bank_account_section_help: Bank account section help
+        bank_account_subtitle: Deve inserir os detalhes da conta bancaria partilhada
+          com os seus clientes em faturas.
+        bank_account_title: Conta Bancaria de Recebimentos
+        contact: Contactos
+        contact_section: Contact section
+        contact_section_help: Contact section help
+        contact_subtitle: Deve inserir os detalhes de contacto usados para apoio ao
+          cliente.
+        contact_title: Contactos para apoio ao cliente.
         default_rent_due_day_label: Default rent due day label
         default_rent_issuing_day_label: Default rent issuing day label
-        details_subtitle: Details subtitle
-        details_title: Details title
+        details: Detalhes
+        details_subtitle: Quanto mais melhor.
+        details_title: Detalhes da tua empresa
+        invoicing_section: Invoicing section
+        invoicing_section_help: Invoicing section help
         logo_hint: Logo hint
         logo_label: Logo label
         name_label: Name label
         name_placeholder: Name placeholder
-        address: Morada
-        address_subtitle: Esta morada sera usada em faturacao.
-        address_title: Morada da Empresa
-        bank_account: Conta Bancaria
-        bank_account_subtitle: Deve inserir os detalhes da conta bancaria partilhada com os seus clientes em faturas.
-        bank_account_title: Conta Bancaria de Recebimentos
-        contact: Contactos
-        contact_subtitle: Deve inserir os detalhes de contacto usados para apoio ao cliente.
-        contact_title: Contactos para apoio ao cliente.
-        details: Detalhes
-        details_subtitle: Quanto mais melhor.
-        details_title: Detalhes da tua empresa
+        name_section: Name section
+        name_section_help: Name section help
       members_table:
         add_member: Adicionar Membro
         customize: Customizar
         manage: Gerir
         members: Membros
+    sidebar:
+      contracts: Contracts
+      customers: Customers
+      dashboard: Dashboard
+      inbox: Inbox
+      properties: Properties
+      rents: Rents
+  contracts:
+    status_labels:
+      activated: Ativo
+      cancelled: Cancelado
+      confirmed: Confirmado
+      in_negotiation: Em negociações
+      in_notice: A Terminar
+      signed: Assinado
+      terminated: Terminado
   datetime:
     distance_in_words:
       about_x_days:
@@ -189,6 +261,8 @@ pt:
   errors:
     messages:
       not_saved: Not saved
+  frequencies:
+    every: Every
   globals:
     add: Add
     comments: Comments
@@ -202,6 +276,7 @@ pt:
     moments_ago: Moments ago
     save_changes: Save changes
     select_a_country: Selecione um pais
+    select_one: Select one
     settings: Definições
   notifications:
     contract_activated: O contrato da **%{property_name} - %{property_code}** está
@@ -230,6 +305,7 @@ pt:
       available: Disponível
       occupied: Ocupada
       ooo: Indisponível
+      contract_confirmed: Contracto Confirmado
   rents:
     status_labels:
       paid: paga

@@ -3,7 +3,7 @@ module Properties::Helpers::Labels
     available: 'bg-success',
     occupied: 'bg-danger',
     ooo: 'bg-muted'
-  }.with_indifferent_access.freeze
+  }.with_indifferent_access
 
   def label_class_for_property(property)
     label_class_for_status(property.status)

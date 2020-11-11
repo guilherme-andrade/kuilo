@@ -1,8 +1,8 @@
-<%= reflex_tag 'shown.bs.dropdown->load_notifications', :li, class: 'nav-item mr-4 dropdown', data: { reflex_root: '#notifications-dropdown-menu-content' } do %>
+<%= reflex_tag 'shown.bs.dropdown->load_notifications', :li, class: 'nav-item dropright no-caret', data: { reflex_root: '#notifications-dropdown-menu-content' } do %>
   <a class="nav-link dropdown-toggle btn-light btn-round btn-round-sm no-caret <%= 'signal-notification' if current_user.notifications.unread.any? %>" href="#" id="notifications-dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
     <%= inline_svg_pack_tag 'media/icons/bell-fill.svg', class: 'icon icon-sm icon-black stretched-link' %>
   </a>
-  <div class="dropdown-menu py-0 mt-3 dropdown-menu-right dropdown-menu-xl position-absolute" id="notifications-dropdown-menu" aria-labelledby="#notifications-dropdown">
+  <div class="dropdown-menu py-0 mb-3 dropdown-menu-right dropdown-menu-xl position-absolute" id="notifications-dropdown-menu" aria-labelledby="#notifications-dropdown" data-offset="2rem">
     <ul class="list-unstyled" id="notifications-dropdown-menu-content">
       <%= component_controller do %>
         <li>

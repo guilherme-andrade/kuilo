@@ -1,3 +1,3 @@
 class ApplicationComponent < ViewComponent::Base
-  include ComponentHelpers
+  include ViewComponent::ViewHelpers
 end

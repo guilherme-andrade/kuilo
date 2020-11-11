@@ -1,0 +1,145 @@
+<%= render layout do |dashboard| %>
+  <%= dashboard.with(:sidebar_extension) { render sidebar_extension } %>
+
+  <div class="cell">
+    <div class="d-flex justify-content-between mb-4">
+      <div class="input-group input-group-pill w-50">
+        <span class="input-group-text bg-light">
+          <%= icon 'search' %>
+        </span>
+        <%= reflex_tag 'input->search', :input, '', class: 'form-control form-control-sm bg-light'  %>
+      </div>
+
+      <div class="btn-group d-flex">
+        <div class="dropdown">
+          <button type="button" class="btn btn-sm btn-white dropdown-toggle" data-toggle="dropdown" data-display="static" aria-expanded="false">
+            <%= icon('aspect-ratio-fill', class: 'icon-md mr-2') %>
+            Tipologias
+          </button>
+
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Property', 'Todos', class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Properties::Apartment', 'Apartamentos', class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Properties::Office', 'Escritórios', class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Properties::Warehouse',  'Armazéns', class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Properties::Garage', 'Garagens', class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Properties::House',  'Casas', class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Properties::Room', 'Quartos', class: 'dropdown-item' %>
+            </li>
+          </ul>
+        </div>
+
+        <%= link_to new_property_path, class: 'btn btn-sm btn-white' do %>
+          <%= icon('plus-circle', class: 'icon-md mr-2') %>
+          Adicionar
+        <% end %>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between mb-5">
+      <div class="btn-group">
+        <%= reflex_filter_tag :button, :status, :available, class: 'btn btn-white' do %>
+          <span class="signal signal-success mr-1"></span>
+          Disponivel
+        <% end %>
+
+        <%= reflex_filter_tag :button, :status, :contract_confirmed, class: 'btn btn-white' do %>
+          <span class="signal signal-warning mr-1"></span>
+          Contrato Confirmado
+        <% end %>
+
+        <%= reflex_filter_tag :button, :status, :occupied, class: 'btn btn-white' do %>
+          <span class="signal signal-danger mr-1"></span>
+          Ocupado
+        <% end %>
+
+        <%= reflex_filter_tag :button, :status, :ooo, class: 'btn btn-white' do %>
+          <span class="signal signal-medium mr-1"></span>
+          Indisponível
+        <% end %>
+      </div>
+
+      <div class="dropdown">
+        <button type="button" class="btn btn-sm btn-round btn-light dropdown-toggle no-caret" data-toggle="dropdown" data-display="static" aria-expanded="false">
+          <%= icon('sort-alpha-up', class: 'icon-md') %>
+        </button>
+
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li>
+            <%= reflex_tag(:sort_properties, :button, 'Newest', class: 'dropdown-item', data: { sort: :created_at }) %>
+          </li>
+          <li>
+            <%= reflex_tag(:sort_properties, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :market_value_cents }) %>
+          </li>
+          <li>
+            <%= reflex_tag(:sort_properties, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :code }) %>
+          </li>
+          <li>
+            <%= reflex_tag(:sort_properties, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :typology }) %>
+          </li>
+          <li>
+            <%= reflex_tag(:sort_properties, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :market_value_cents }) %>
+          </li>
+          <li>
+            <%= reflex_tag(:sort_properties, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :default_rent_cents }) %>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <%= loader %>
+
+      <% if properties.empty? %>
+        <p>No properties found.</p>
+      <% else %>
+        <% properties.each do |property| %>
+          <article class="text-dark mb-4 w-100 flexbox flexbox-between-center">
+            <div class="flexbox flexbox-start-center">
+              <%= image_tag property.enterprise.cover_photo, class: 'rounded object-cover', width: 100, height: 100 %>
+
+              <div class="pl-3">
+                <h1 class="h4 mb-0"><%= property.code %></h1>
+                <p class="mb-2"><%= property.full_address %></p>
+
+                <div class="d-flex">
+                  <span class="badge bg-light text-dark mr-2">
+                    <%= icon 'aspect-ratio-fill', class: 'icon-xs' %>
+                    <strong><%= property.typology %></strong>
+                  </span>
+                  <%= label_for_property property %>
+                </div>
+              </div>
+            </div>
+
+            <div class="flexbox flexbox-between-center text-right">
+              <div class="ml-5">
+                <p class="small mb-0 text-muted">Valor de mercado</p>
+                <p class="small font-weight-bold text-black mb-0"><%= humanized_money_with_symbol property.market_value %></p>
+              </div>
+              <div class="ml-5">
+                <p class="small mb-0 text-muted">Valor de Renda</p>
+                <p class="small font-weight-bold text-black mb-0"><%= humanized_money_with_symbol property.default_rent %></p>
+              </div>
+            </div>
+          </article>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= will_paginate properties, list_classes: %w(pagination justify-content-end) %>
+  </div>
+<% end %>

@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class ApplicationFinder
-end
+## An application
+class ApplicationFinder < Finder::Base; end

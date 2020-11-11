@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 class Property < ApplicationRecord
-  include HasAddress, BelongsToOrganization, HasComments, TriggersNotifications, ActiveSupport::NumberHelper, HasStatus
+  include HasAddress
+  include BelongsToOrganization
+  include HasComments
+  include TriggersNotifications
+  include HasStatus
+  include ActiveSupport::NumberHelper
 
   TYPES           = %w[Apartment House Garage Office Room Warehouse].freeze
   TYPOLOGIES      = %i[property].freeze
@@ -13,12 +18,15 @@ class Property < ApplicationRecord
   belongs_to :manager, class_name: 'User', optional: true
 
   has_many :contracts, inverse_of: :property
-  has_one :active_contract, -> { Contract.active }, class_name: 'Contract', inverse_of: :occupied_property
+  has_one :current_contract, -> { Contract.active }, class_name: 'Contract', inverse_of: :occupied_property
 
-  status :available, :occupied, :ooo, :available_soon
+  status :available, :occupied, :ooo, :available_soon, :contract_confirmed
 
   counter_culture :organization
   counter_culture :enterprise
+  counter_culture :enterprise,
+                  column_name: proc { |property| property.available? ? 'available_properties_count' : nil },
+                  column_names: { available => :available_properties_count }
 
   monetize :market_value_cents
   monetize :default_rent_cents
@@ -43,7 +51,7 @@ class Property < ApplicationRecord
   delegate :contact_name, to: :owner, prefix: true, allow_nil: true
   delegate :name, to: :manager, prefix: true
   delegate :name, to: :creator, prefix: true
-  delegate :rent_amount, to: :active_contract, prefix: true, allow_nil: true
+  delegate :rent_amount, to: :current_contract, prefix: true, allow_nil: true
 
   has_one_attached :cover_photo
   has_many_attached :photos
@@ -80,7 +88,7 @@ class Property < ApplicationRecord
   end
 
   def rented?
-    active_contract.present?
+    current_contract.present?
   end
 
   def unavailabilities

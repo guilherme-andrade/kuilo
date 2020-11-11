@@ -25,7 +25,7 @@
         <div class="flexbox flexbox-between-center mb-5">
           <%= render Static::Button.new(type: :back) %>
           <div class="d-flex">
-            <% unless @property.active_contract %>
+            <% unless @property.current_contract %>
               <%= render Static::Button.new(
                 type: 'delete round',
                 to: property_path(@property),
@@ -50,7 +50,7 @@
                 commentable_type: @property.class.to_s
               }
             ) %>
-            <% unless @property.active_contract %>
+            <% unless @property.current_contract %>
               <%= render Static::Button.new(
                 type: 'add round',
                 to: new_property_contract_path(@property),
@@ -120,7 +120,7 @@
         <div class="col-6">
           <dl>
             <dt>Renda Actual:</dt>
-            <dd><%= humanized_money_with_symbol @property.active_contract_rent_amount %></dd>
+            <dd><%= humanized_money_with_symbol @property.current_contract_rent_amount %></dd>
           </dl>
         </div>
         <div class="col-6">
@@ -146,14 +146,14 @@
             <dt>Contrato Ativo?</dt>
             <dd>
               <%= @property.rented? ? 'Sim' : 'Não' %>
-              <%= link_to('ver contrato', contract_path(@property.active_contract), class: 'pl-2 small') if @property.rented? %>
+              <%= link_to('ver contrato', contract_path(@property.current_contract), class: 'pl-2 small') if @property.rented? %>
             </dd>
           </dl>
         </div>
         <div class="col-6">
           <dl>
             <dt>Renda Actual:</dt>
-            <dd><%= humanized_money_with_symbol @property.active_contract_rent_amount %></dd>
+            <dd><%= humanized_money_with_symbol @property.current_contract_rent_amount %></dd>
           </dl>
         </div>
         <div class="col-6">

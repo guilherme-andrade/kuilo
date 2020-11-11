@@ -1,5 +1,5 @@
 .no-caret {
   &::after {
-    display: none;
+    display: none !important;
   }
 }

@@ -1,5 +1,5 @@
 class FormComponent < ReflexComponent
-  include FormHelpers
+  include ViewComponentReflex::Form
 
   attr_reader :record
 

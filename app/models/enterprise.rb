@@ -26,8 +26,8 @@ class Enterprise < ApplicationRecord
   delegate :name, to: :manager, prefix: true
   delegate :name, to: :creator, prefix: true
 
-  default :creator_id, (proc { |p| p&.organization&.owner_id })
-  default :manager_id, (proc { |p| p&.creator_id })
+  default :creator_id, (proc { |e| e&.organization&.owner_id })
+  default :manager_id, (proc { |e| e&.creator_id })
 
   def properties_market_value_sum_cents
     properties.sum(:market_value_cents)

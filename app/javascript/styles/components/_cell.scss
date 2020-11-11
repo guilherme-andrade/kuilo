@@ -1,7 +1,7 @@
 .cell {
   background: $white;
   box-shadow: $box-shadow;
-  border-radius: $border-radius;
+  border-radius: $border-radius-lg;
   padding: $spacer * 1.5 $spacer * 2 $spacer * 2;
   z-index: 1;
   position: relative;

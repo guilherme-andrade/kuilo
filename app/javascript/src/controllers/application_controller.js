@@ -35,7 +35,7 @@ export default class extends Controller {
    */
 
   beforeReflex (element, reflex, noop, reflexId) {
-    // this._addLoaderFor(element)()
+    this.showLoader(element)
   }
 
   reflexSuccess (element, reflex, noop, reflexId) {
@@ -48,18 +48,22 @@ export default class extends Controller {
   }
 
   afterReflex (element, reflex, noop, reflexId) {
-    // setTimeout(this._removeLoaderFor(element), 100000)
+    this.removeLoader(element)
   }
 
-  _addLoaderFor(element) {
-    return () => this._loaderTarget(element).classList.add('loading')
+  showLoader(element) {
+    const loader = document.querySelector(`[data-loader="${element.dataset.key}"]`)
+
+    if (loader) {
+      loader.classList.remove('d-none')
+    }
   }
 
-  _removeLoaderFor(element) {
-    return () => this._loaderTarget(element).classList.remove('loading')
-  }
+  removeLoader(element) {
+    const loader = document.querySelector(`[data-loader="${element.dataset.key}"]`)
 
-  _loaderTarget(element) {
-    return document.querySelector(element.dataset.loaderTarget);
+    if (loader) {
+      loader.classList.add('d-none')
+    }
   }
 }

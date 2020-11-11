@@ -1,0 +1,61 @@
+<%= sidebar_extension_title t('component.sidebar.enterprises'), 'building' %>
+<%= sidebar_extension_subtitle t('component.sidebar.select_the_enterprise') %>
+
+<% @enterprises.each do |enterprise| %>
+  <div class="flexbox flexbox-between-center mb-3">
+    <div class="flexbox flexbox-start-center">
+      <%= image_tag enterprise.cover_photo, class: 'rounded object-cover mr-2', width: 60, height: 60 %>
+      <div>
+        <h1 class="small mb-0"><%= enterprise.name %></h1>
+        <span class="badge badge-sm bg-light text-dark">
+          <%= icon 'building', class: 'icon-xs' %>
+          <strong><%= enterprise.available_properties_count %></strong>/
+          <%= enterprise.properties_count %>
+        </span>
+      </div>
+    </div>
+
+    <div>
+      <div class="btn-group">
+        <div class="dropdown">
+          <button type="button" class="btn btn-round btn-white rounded btn-sm dropdown-toggle no-caret" data-toggle="dropdown" data-display="static" aria-expanded="false">
+            <%= icon('three-dots') %>
+          </button>
+
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Property', 'Todos', class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Properties::Apartment', 'Apartamentos', class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Properties::Office', 'Escritórios', class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Properties::Warehouse',  'Armazéns', class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Properties::Garage', 'Garagens', class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= reflex_filter_tag :button,:type, 'Properties::House',  'Casas', class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= reflex_filter_tag :button, :type, 'Properties::Room', 'Quartos', class: 'dropdown-item' %>
+            </li>
+          </ul>
+        </div>
+
+        <%= reflex_filter_tag :button, :enterprise_id, enterprise.id, class: 'btn btn-round btn-light btn-sm rounded' do %>
+          <%= icon 'chevron-right' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= reflex_tag :open_enterprise_form, :button, class: 'btn btn-white border-dashed py-2 w-100 rounded' do %>
+  <%= icon 'plus', class: 'icon icon-lg' %>
+<% end %>
+

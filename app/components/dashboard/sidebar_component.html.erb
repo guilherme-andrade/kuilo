@@ -1,0 +1,40 @@
+<nav class="dashboard-sidebar">
+  <ul class="dashboard-sidebar-nav">
+    <li class="dashboard-sidebar-item">
+      <%= link_to root_path, class: 'dashboard-sidebar-brand' do %>
+        <%= inline_svg_pack_tag 'media/images/logo.svg', class: 'icon icon-xl' %>
+      <% end %>
+    </li>
+    <li class="dashboard-sidebar-item">
+      <%= sidebar_link_to current_organization_path, 'columns-gap', tip: t('components.sidebar.dashboard') %>
+    </li>
+    <li class="dashboard-sidebar-item">
+      <%= sidebar_link_to 'inbox_path', 'inbox', tip: t('components.sidebar.inbox') %>
+    </li>
+    <li class="dashboard-sidebar-item">
+      <%= sidebar_link_to 'customers_path', 'person', tip: t('components.sidebar.customers') %>
+    </li>
+    <li class="dashboard-sidebar-item">
+      <%= sidebar_link_to properties_path, 'building', tip: t('components.sidebar.properties') %>
+    </li>
+    <li class="dashboard-sidebar-item">
+      <%= sidebar_link_to contracts_path, 'briefcase', tip: t('components.sidebar.contracts') %>
+    </li>
+    <li class="dashboard-sidebar-item">
+      <%= sidebar_link_to rents_path, 'receipt', tip: t('components.sidebar.rents') %>
+    </li>
+  </ul>
+  <ul class="dashboard-sidebar-nav">
+    <% if user_signed_in? %>
+      <li class="dashboard-sidebar-item">
+        <%= sidebar_link_to rents_path, 'bell-fill', class: ' btn-light btn-round btn-round-sm' %>
+      </li>
+
+      <li class="dashboard-sidebar-item">
+        <%= sidebar_link_to rents_path, class: 'dashboard-sidebar-link dashboard-sidebar-link-basic', tip: t('components.sidebar.visit_profile') do %>
+          <%= avatar_image_tag(current_user) %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

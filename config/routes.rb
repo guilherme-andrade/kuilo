@@ -32,15 +32,6 @@ Rails.application.routes.draw do
   resources :properties do
     scope module: 'properties' do
       resources :contracts
-
-      collection do
-        get 'apartments', to: 'apartments#index'
-        get 'warehouses', to: 'warehouses#index'
-        get 'houses', to: 'houses#index'
-        get 'offices', to: 'offices#index'
-        get 'rooms', to: 'rooms#index'
-        get 'garages', to: 'garages#index'
-      end
     end
   end
 

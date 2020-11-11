@@ -1,20 +1,14 @@
-<ul class="nav flex-column list-group">
-  <li class="list-group-item">
-    <%= active_link_to current_query_url(status_eq: property_statuses[:available], anchor: 'properties-table'), class: 'list-group-link' do %>
-      <span class="signal signal-success mr-1"></span>
-      Disponível
-    <% end %>
-  </li>
-  <li class="list-group-item">
-    <%= active_link_to current_query_url(status_eq: property_statuses[:occupied], anchor: 'properties-table'), class: 'list-group-link' do %>
-      <span class="signal signal-danger mr-1"></span>
-      Ocupado
-    <% end %>
-  </li>
-  <li class="list-group-item">
-    <%= active_link_to current_query_url(status_eq: property_statuses[:ooo], anchor: 'properties-table'), class: 'list-group-link' do %>
-      <span class="signal signal-medium mr-1"></span>
-      Indisponível
-    <% end %>
-  </li>
-</ul>
+<div class="btn-group">
+  <%= active_link_to current_query_url(status_eq: property_statuses[:available], anchor: 'properties-table'), class: 'btn btn-white' do %>
+    <span class="signal signal-success mr-1"></span>
+    Disponível
+  <% end %>
+  <%= active_link_to current_query_url(status_eq: property_statuses[:occupied], anchor: 'properties-table'), class: 'btn btn-white' do %>
+    <span class="signal signal-danger mr-1"></span>
+    Ocupado
+  <% end %>
+  <%= active_link_to current_query_url(status_eq: property_statuses[:ooo], anchor: 'properties-table'), class: 'btn btn-white' do %>
+    <span class="signal signal-medium mr-1"></span>
+    Indisponível
+  <% end %>
+</div>

@@ -1,0 +1,47 @@
+<div id="toast-root" aria-live="polite" aria-atomic="true" style="position: fixed; z-index: 1060; padding: 2rem; right: 0; bottom: 0;">
+  <%= component_controller do %>
+    <% if flash[:success] %>
+      <div data-controller="toast" data-reflex-permanent class="toast show d-flex align-items-center text-white bg-primary border-0 pl-3" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+        <%= icon 'check-circle', class: 'text-white icon-md' %>
+
+        <div class="toast-body">
+          <%= flash[:success] %>
+        </div>
+        <%# <button type="button" class="btn-close btn-close-white ml-auto mr-2" data-dismiss="toast" aria-label="Close"></button> %>
+      </div>
+    <% end %>
+
+    <% if flash[:notice] %>
+      <div data-controller="toast" data-reflex-permanent class="toast show d-flex align-items-center text-white bg-info border-0 pl-3" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+        <%= icon 'check-circle', class: 'text-white icon-md' %>
+
+        <div class="toast-body">
+          <%= flash[:notice] %>
+        </div>
+        <%# <button type="button" class="btn-close btn-close-white ml-auto mr-2" data-dismiss="toast" aria-label="Close"></button> %>
+      </div>
+    <% end %>
+
+    <% if flash[:error] %>
+      <div data-controller="toast" data-reflex-permanent class="toast show d-flex align-items-center text-white bg-danger border-0 pl-3" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+        <%= icon 'exclamation-circle', class: 'text-white icon-md' %>
+
+        <div class="toast-body">
+          <%= flash[:error]  %>
+        </div>
+        <%# <button type="button" class="btn-close btn-close-white ml-auto mr-2" data-dismiss="toast" aria-label="Close"></button> %>
+      </div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div data-controller="toast" data-reflex-permanent class="toast show d-flex align-items-center text-white bg-warning border-0 pl-3" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+        <%= icon 'exclamation-triangle', class: 'text-white icon-md' %>
+
+        <div class="toast-body">
+          <%= flash[:alert] %>
+        </div>
+        <%# <button type="button" class="btn-close btn-close-white ml-auto mr-2" data-dismiss="toast" aria-label="Close"></button> %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

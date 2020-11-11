@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'head' %>
+
+  <%= component_controller(:body) do %>
+    <%= render(flashes) %>
+
+    <%= content_tag(:div, class: dashboard_class) do %>
+      <%= page_reflex_tag(:toggle_sidebar_extension, :button, icon('chevron-right'), class: toggle_class) %>
+
+      <%= content_tag(:aside, class: %w[dashboard-aside]) do %>
+        <%= render(sidebar) %>
+        <% if extended? %>
+          <%= sidebar_extension %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag(:section, class: %w[dashboard-body]) do %>
+        <%= content_tag(:main, class: %w[dashboard-main]) do %>
+          <%= @content %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</html>

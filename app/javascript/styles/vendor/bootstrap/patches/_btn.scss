@@ -3,6 +3,9 @@ $btn-round-size-sm: 27px;
 
 .btn {
   font-family: $headings-font-family;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &-round {
     padding: 0;
