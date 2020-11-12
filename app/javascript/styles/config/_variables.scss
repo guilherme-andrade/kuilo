@@ -24,3 +24,5 @@ $object-fits: (
   none: 'none',
   'scale-down': 'scale-down'
 ) !default;
+
+$cubic-bezier: cubic-bezier(.57,.21,.69,1.25);

@@ -1,16 +1,69 @@
+@keyframes display {
+  to {
+    display: block;
+  }
+
+  from {
+    display: none;
+  }
+}
+
+@keyframes await-animations {
+  from {
+    display: block;
+  }
+
+  to {
+    display: none;
+  }
+}
+
 .sidepane {
   position: fixed;
   top: 0;
   right: 0;
   height: 100vh;
-  width: 500px;
+  width: 100vw;
+  z-index: 1000;
+  display: none;
+
+  &.show {
+    display: block;
+
+    .sidepane-backdrop {
+      animation: fadeIn .2s $cubic-bezier;
+    }
+
+    .sidepane-dialog {
+      animation: slideIn .2s $cubic-bezier;
+    }
+  }
 
   &-backdrop {
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     height: 100%;
     width: 100%;
     background: rgba($black, 0.5);
+  }
+
+  &-dialog {
+    z-index: 1050;
+    position: absolute;
+    top: $spacer / 2;
+    right: - $spacer;
+    height: calc(100vh - #{$spacer});
+    width: 700px;
+    background: $white;
+    box-shadow: $box-shadow;
+    border-radius: $spacer * 2;
+    padding: $spacer * 2;
+  }
+
+  &-close {
+    position: absolute;
+    top: $spacer;
+    right: $spacer * 1.5;
   }
 }

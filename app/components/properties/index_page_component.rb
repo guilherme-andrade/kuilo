@@ -15,8 +15,36 @@ class Properties::IndexPageComponent < ReflexComponent
     @properties = PropertiesFinder.find(query.merge(scope: Property.includes(:enterprise, :address))).records
   end
 
+  def show_sidepane
+    @show_sidepane = !@show_sidepane
+    @sidepane = element.dataset.sidepane
+  end
+
+  def close_sidepane
+    @show_sidepane = false
+    @sidepane = nil
+  end
+
+  def show_sidepane?
+    @show_sidepane
+  end
+
+  def show_sidebar_extension?
+    @show_sidebar_extension
+  end
+
   def toggle_sidebar_extension
     @show_sidebar_extension = !@show_sidebar_extension
+  end
+
+  def sidepane
+    case @sidepane
+    when 'new_property'
+
+    when 'new_enterprise'
+    when 'property'
+    end
+    'asdasdasd'
   end
 
   def sidebar_extension
@@ -56,7 +84,14 @@ class Properties::IndexPageComponent < ReflexComponent
   end
 
   def layout_context
-    super.merge(extended: @show_sidebar_extension)
+    super.merge(
+      extended: @show_sidebar_extension,
+      sidepane_context: {
+        show: show_sidepane?,
+        page_reflex_attributes: component_reflex_attributes,
+        content: sidepane
+      }
+    )
   end
 
   def label_class_for_property(property)

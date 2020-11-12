@@ -1,16 +1,24 @@
 class Dashboard::LayoutComponent < ReflexComponent
   include ViewComponentReflex::Layout
 
-  with_content_areas :sidebar_extension, :modal, :flashes
+  with_content_areas :sidebar_extension, :modal, :flashes, :sidepane
 
   def extended?
     @extended
+  end
+
+  def sidepane?
+    @sidepane.present?
   end
 
   def dashboard_class
     %w[dashboard dashboard-horizontal].tap do |classes|
       classes << 'extended' if extended?
     end
+  end
+
+  def sidepane
+    Application::SidepaneComponent.new(@sidepane_context)
   end
 
   def toggle_class

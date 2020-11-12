@@ -31,3 +31,12 @@
 .border-dashed {
   border: 2px dashed $border-color !important;
 }
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

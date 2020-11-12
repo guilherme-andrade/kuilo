@@ -1,5 +1,6 @@
 class ReflexComponent < ViewComponentReflex::Component
   include ViewComponent::ViewHelpers
+  include CableReady::Broadcaster
 
   def component_reflex_attributes
     init_key unless @key
@@ -14,5 +15,11 @@ class ReflexComponent < ViewComponentReflex::Component
     content_tag(:div, class: 'flexbox flexbox-center-center loader d-none', data: { loader: key } ) do
       content_tag(:span, '', class: 'loading')
     end
+  end
+
+  def broadcast
+    cable = cable_ready['StimulusReflex::Channel']
+    yield(cable)
+    cable_ready.broadcast
   end
 end

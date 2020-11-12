@@ -1,5 +1,5 @@
 <%= render layout do |dashboard| %>
-  <%= dashboard.with(:sidebar_extension) { render sidebar_extension } %>
+  <%= dashboard.with(:sidebar_extension) { render sidebar_extension } if show_sidebar_extension? %>
 
   <div class="cell">
     <div class="d-flex justify-content-between mb-4">
@@ -100,14 +100,14 @@
       </div>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3 animated-group">
       <%= loader %>
 
       <% if properties.empty? %>
         <p>No properties found.</p>
       <% else %>
         <% properties.each do |property| %>
-          <article class="text-dark mb-4 w-100 flexbox flexbox-between-center">
+          <article class="animated-group-item text-dark mb-4 w-100 flexbox flexbox-between-center">
             <div class="flexbox flexbox-start-center">
               <%= image_tag property.enterprise.cover_photo, class: 'rounded object-cover', width: 100, height: 100 %>
 

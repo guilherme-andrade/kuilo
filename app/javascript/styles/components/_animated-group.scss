@@ -1,0 +1,14 @@
+
+.animated-group {
+  & > * {
+    opacity: 0;
+    animation: lightFadeInRight 0.2s $cubic-bezier;
+    animation-fill-mode: forwards;
+
+    @for $i from 1 through 25 {
+    &:nth-child(#{$i}n) {
+        animation-delay: #{$i * 0.05}s;
+      }
+    }
+  }
+}

@@ -1,9 +1,14 @@
 class Properties::SidebarExtensionComponent < ReflexComponent
   include Dashboard::Helpers
+  include ViewComponent::WithContext
+  include ViewComponentReflex::LayoutComponent
 
   def initialize(page_reflex_attributes:)
     @page_reflex_attributes = page_reflex_attributes
-    @enterprises = Enterprise.includes(:cover_photo_attachment)
+  end
+
+  def enterprises
+    @enterprises ||= Enterprise.includes(:cover_photo_attachment)
   end
 
   def enterprise_cards

@@ -2,9 +2,8 @@
 <html>
   <%= render 'head' %>
 
-  <%= component_controller(:body) do %>
+  <%= component_controller(:body, data: { controller: 'dashboard/layout animations', action: 'cable-ready:after-morph@document->animations#animate' }) do %>
     <%= render(flashes) %>
-
     <%= content_tag(:div, class: dashboard_class) do %>
       <%= page_reflex_tag(:toggle_sidebar_extension, :button, icon('chevron-right'), class: toggle_class) %>
 
@@ -21,5 +20,6 @@
         <% end %>
       <% end %>
     <% end %>
+    <%= render(sidepane) %>
   <% end %>
 </html>

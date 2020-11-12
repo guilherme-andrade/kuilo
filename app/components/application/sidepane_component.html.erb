@@ -1,0 +1,17 @@
+<%= component_controller(:div, class: wrapper_class) do %>
+  <%= page_reflex_tag :close_sidepane, :div, '', class: 'sidepane-backdrop' %>
+
+  <aside class="sidepane-dialog">
+    <%= page_reflex_tag :close_sidepane, :button, icon('x', class: 'icon icon-lg'), class: 'btn btn-round bg-light sidepane-close' %>
+
+    <header class="sidepane-header">
+      <%= @header %>
+    </header>
+    <section class="sidepane-content">
+      <%= @content %>
+    </section>
+    <footer class="sidepane-footer">
+      <%= @footer %>
+    </footer>
+  </aside>
+<% end %>

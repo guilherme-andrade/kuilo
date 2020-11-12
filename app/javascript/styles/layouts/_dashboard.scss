@@ -42,7 +42,7 @@ $dashboard-sidebar-extension-width: $dashboard-sidebar-width-extended - $dashboa
     width: $dashboard-sidebar-width;
     border-radius: $spacer * 2;
     background: $white;
-    transition: all .2s cubic-bezier(.57,.21,.69,1.25);
+    transition: all .2s $cubic-bezier;
     box-shadow: $box-shadow;
 
     &-toggle {
@@ -51,9 +51,9 @@ $dashboard-sidebar-extension-width: $dashboard-sidebar-width-extended - $dashboa
       position: fixed;
       top: $spacer * 5;
       left: $dashboard-sidebar-width;
-      z-index: 1000;
+      z-index: 1;
       padding: 4px;
-      transform: all .2s cubic-bezier(.57,.21,.69,1.25);
+      transform: all .2s $cubic-bezier;
 
       &:hover {
         box-shadow: $box-shadow;
@@ -68,10 +68,12 @@ $dashboard-sidebar-extension-width: $dashboard-sidebar-width-extended - $dashboa
   &-main {
     flex-grow: 1;
     padding: 0 0 $spacer * 4;
-    transition: all .2s cubic-bezier(.57,.21,.69,1.25);
+    transition: all .2s $cubic-bezier;
   }
 
   &-sidebar {
+    @extend .no-scrollbar;
+
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -79,6 +81,7 @@ $dashboard-sidebar-extension-width: $dashboard-sidebar-width-extended - $dashboa
     position: absolute;
     top: 0;
     width: $dashboard-sidebar-width;
+    overflow-y: scroll;
 
     &-nav {
       display: flex;
@@ -89,6 +92,8 @@ $dashboard-sidebar-extension-width: $dashboard-sidebar-width-extended - $dashboa
     }
 
     &-extension {
+      @extend .no-scrollbar;
+
       position: absolute;
       top: 0;
       left: $dashboard-sidebar-width;
@@ -127,7 +132,7 @@ $dashboard-sidebar-extension-width: $dashboard-sidebar-width-extended - $dashboa
         border-radius: $border-radius;
         background: $light;
         transform: scale(0);
-        transition: transform .2s cubic-bezier(.57,.21,.69,1.25);
+        transition: transform .2s $cubic-bezier;
         left: 0;
         top: 0;
       }
