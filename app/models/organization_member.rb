@@ -3,7 +3,7 @@
 class OrganizationMember < ApplicationRecord
   ROLES = { employee: 0, admin: 1, guest: 2 }.freeze
 
-  by_role = send(:sanitize_sql_array, ['case role when \':admin\' then 0 else 1 end', ROLES])
+  by_role = Arel.sql(send(:sanitize_sql_array, ['case role when \':admin\' then 0 else 1 end', ROLES]))
   default_scope -> { order(by_role).order(created_at: :asc) }
 
   has_many :notifications, as: :recipient

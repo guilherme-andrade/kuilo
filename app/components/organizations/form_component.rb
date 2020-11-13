@@ -1,9 +1,6 @@
 class Organizations::FormComponent < ReflexComponent
-  def initialize(organization:)
-    @organization = organization
-  end
-
   def before_render
+    @organization = current_organization
     @organization.build_address
     @organization.build_contact
     @organization.build_bank_account

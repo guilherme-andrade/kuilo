@@ -1,6 +1,5 @@
 class Application::SidepaneComponent < ReflexComponent
-  include ViewComponent::WithContext
-  include ViewComponentReflex::LayoutComponent
+  include ViewComponentReflex::Layout
 
   with_content_areas :header, :footer
 
@@ -11,6 +10,6 @@ class Application::SidepaneComponent < ReflexComponent
   end
 
   def show?
-    @show
+    @content.present?
   end
 end

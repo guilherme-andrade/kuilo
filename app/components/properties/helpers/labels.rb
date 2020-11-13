@@ -2,7 +2,8 @@ module Properties::Helpers::Labels
   STATUS_LABEL_COLORS = {
     available: 'bg-success',
     occupied: 'bg-danger',
-    ooo: 'bg-muted'
+    ooo: 'bg-muted',
+    contract_confirmed: 'bg-warning',
   }.with_indifferent_access
 
   def label_class_for_property(property)
@@ -17,6 +18,6 @@ module Properties::Helpers::Labels
     class_name = label_class_for_property(property)
     text = I18n.t(['properties.status_labels.', property.status].join)
 
-    return content_tag(:span, text, class: ['badge', class_name])
+    content_tag(:span, text, class: ['badge', class_name])
   end
 end

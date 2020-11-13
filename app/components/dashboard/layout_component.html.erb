@@ -2,16 +2,14 @@
 <html>
   <%= render 'head' %>
 
-  <%= component_controller(:body, data: { controller: 'dashboard/layout animations', action: 'cable-ready:after-morph@document->animations#animate' }) do %>
+  <%= layout_component_controller(:body, data: { controller: 'app animations', action: 'cable-ready:after-morph@document->animations#animate' }) do %>
     <%= render(flashes) %>
     <%= content_tag(:div, class: dashboard_class) do %>
-      <%= page_reflex_tag(:toggle_sidebar_extension, :button, icon('chevron-right'), class: toggle_class) %>
+      <%= page_reflex_tag(:toggle_sidebar_extension, :button, icon('chevron-right'), class: toggle_class, data: { component: 'Properties::SidebarExtensionComponent' }) %>
 
       <%= content_tag(:aside, class: %w[dashboard-aside]) do %>
-        <%= render(sidebar) %>
-        <% if extended? %>
-          <%= sidebar_extension %>
-        <% end %>
+        <%= sidebar %>
+        <%= sidebar_extension %>
       <% end %>
 
       <%= content_tag(:section, class: %w[dashboard-body]) do %>
@@ -20,6 +18,6 @@
         <% end %>
       <% end %>
     <% end %>
-    <%= render(sidepane) %>
+    <%= sidepane %>
   <% end %>
 </html>

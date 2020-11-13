@@ -1,6 +1,6 @@
 module ViewComponentReflex::Form::ReflexHelpers
   def component_controller(&blk)
-    super(:form, class: 'fade show') { blk.call }
+    super(:form, capture(&blk), class: 'fade show')
   end
 
   def update_field

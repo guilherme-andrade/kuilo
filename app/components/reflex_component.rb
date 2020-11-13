@@ -3,7 +3,7 @@ class ReflexComponent < ViewComponentReflex::Component
   include CableReady::Broadcaster
 
   def component_reflex_attributes
-    init_key unless @key
+    init_key if @key.blank?
     {
       controller: self.class.stimulus_controller,
       key: key,
@@ -21,5 +21,9 @@ class ReflexComponent < ViewComponentReflex::Component
     cable = cable_ready['StimulusReflex::Channel']
     yield(cable)
     cable_ready.broadcast
+  end
+
+  def init_key
+    @key = Digest::SHA2.hexdigest(self.class.name)
   end
 end

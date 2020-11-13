@@ -1,6 +1,4 @@
-<%= render layout do |dashboard| %>
-  <%= dashboard.with(:sidebar_extension) { render sidebar_extension } if show_sidebar_extension? %>
-
+<%= component_controller do %>
   <div class="cell">
     <div class="d-flex justify-content-between mb-4">
       <div class="input-group input-group-pill w-50">
@@ -42,7 +40,7 @@
           </ul>
         </div>
 
-        <%= link_to new_property_path, class: 'btn btn-sm btn-white' do %>
+        <%= page_reflex_tag(:toggle_sidepane, :button, class: 'btn btn-sm btn-white', data: { component: 'Organizations::FormComponent' }) do %>
           <%= icon('plus-circle', class: 'icon-md mr-2') %>
           Adicionar
         <% end %>
@@ -79,22 +77,22 @@
 
         <ul class="dropdown-menu dropdown-menu-right">
           <li>
-            <%= reflex_tag(:sort_properties, :button, 'Newest', class: 'dropdown-item', data: { sort: :created_at }) %>
+            <%= reflex_tag(:sort, :button, 'Newest', class: 'dropdown-item', data: { sort: :created_at }) %>
           </li>
           <li>
-            <%= reflex_tag(:sort_properties, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :market_value_cents }) %>
+            <%= reflex_tag(:sort, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :market_value_cents }) %>
           </li>
           <li>
-            <%= reflex_tag(:sort_properties, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :code }) %>
+            <%= reflex_tag(:sort, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :code }) %>
           </li>
           <li>
-            <%= reflex_tag(:sort_properties, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :typology }) %>
+            <%= reflex_tag(:sort, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :typology }) %>
           </li>
           <li>
-            <%= reflex_tag(:sort_properties, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :market_value_cents }) %>
+            <%= reflex_tag(:sort, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :market_value_cents }) %>
           </li>
           <li>
-            <%= reflex_tag(:sort_properties, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :default_rent_cents }) %>
+            <%= reflex_tag(:sort, :button, 'asdasdas', class: 'dropdown-item', data: { sort: :default_rent_cents }) %>
           </li>
         </ul>
       </div>

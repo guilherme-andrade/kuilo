@@ -10,7 +10,7 @@ module ViewComponentReflex::Form::FormHelpers
       template += content_tag(:div, class: 'input-group') do
         template = ''
         template += label(attribute, content) if label && attribute
-        template += blk.call
+        template += capture(&blk)
         template.html_safe
       end
       template.html_safe
@@ -20,9 +20,7 @@ module ViewComponentReflex::Form::FormHelpers
   def wrapper(**options, &blk)
     default_options = { class: 'mb-5' }
 
-    content_tag(:div, combine_options(default_options, options)) do
-      blk.call
-    end
+    content_tag(:div, capture(&blk), combine_options(default_options, options))
   end
 
   def label(attribute, content, **options)

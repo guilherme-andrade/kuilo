@@ -3,12 +3,8 @@ module ViewComponentReflex::WithLayout
     base.extend ClassMethods
   end
 
-  def layout
-    layout_component_class.new(layout_context)
-  end
-
   def layout_key
-    @layout_key ||= Digest::SHA2.hexdigest(self.class.name)
+    @layout_key ||= SecureRandom.hex
   end
 
   def layout_context
@@ -33,6 +29,7 @@ module ViewComponentReflex::WithLayout
   module ClassMethods
     def layout(component)
       define_method(:layout_component_class) { component }
+      include [component.to_s, 'Methods'].join.safe_constantize
     end
   end
 end

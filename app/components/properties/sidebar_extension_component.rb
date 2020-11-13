@@ -1,18 +1,9 @@
 class Properties::SidebarExtensionComponent < ReflexComponent
   include Dashboard::Helpers
-  include ViewComponent::WithContext
-  include ViewComponentReflex::LayoutComponent
-
-  def initialize(page_reflex_attributes:)
-    @page_reflex_attributes = page_reflex_attributes
-  end
+  include ViewComponentReflex::Layout
 
   def enterprises
     @enterprises ||= Enterprise.includes(:cover_photo_attachment)
-  end
-
-  def enterprise_cards
-    render Properties::SidebarExtension::EnterpriseComponent.with_collection(@enterprises)
   end
 
   def reflex_filter_tag(tag, filter_name, value, content = nil, options = {}, &blk)
@@ -21,7 +12,7 @@ class Properties::SidebarExtensionComponent < ReflexComponent
     opts = opts.deeper_merge(data: { filter: filter_name, filter_name.to_sym => value })
 
     if blk
-      reflex_tag(:filter, tag, **opts) { blk.call }
+      reflex_tag(:filter, tag, capture(&blk), **opts)
     else
       reflex_tag(:filter, tag, content, **opts)
     end
