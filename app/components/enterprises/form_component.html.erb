@@ -1,0 +1,20 @@
+
+<%= component_controller do %>
+  <div class="row">
+    <div class="col-10">
+      <%= form title: t('components.enterprise_form.manage_enterprise'), subtitle: t('components.enterprise_form.fill_in_the_following_fields_to_create_a_enterprise') do %>
+
+        <%= fieldset title: t('components.enterprise_form'), subtitle: t('components.enterprise_form') do %>
+          <%= reflex_input :name, placeholder: t('enterprise.placeholders.name') %>
+          <%= reflex_input :manager, as: :association, collection: User.all, include_blank: true, prompt: t('globals.none') %>
+          <%= reflex_input :cover_photo, as: :file %>
+        <% end %>
+
+        <%= render_with_context Contacts::NestedFormComponent, record: enterprise_contact, title: t('components.enterprise_form'), subtitle: t('components.enterprise_form') %>
+        <%= render_with_context Addresses::NestedFormComponent, record: enterprise_address, title: t('components.enterprise_form'), subtitle: t('components.enterprise_form') %>
+
+        <%= reflex_submit class: 'btn btn-primary', icon: 'check-circle' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

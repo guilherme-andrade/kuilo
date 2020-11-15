@@ -53,7 +53,7 @@ $dashboard-sidebar-extension-width: $dashboard-sidebar-width-extended - $dashboa
       left: $dashboard-sidebar-width;
       z-index: 1;
       padding: 4px;
-      transform: all .2s $cubic-bezier;
+      transition: all .2s $cubic-bezier;
 
       &:hover {
         box-shadow: $box-shadow;

@@ -1,6 +1,5 @@
-class Properties::SidebarExtensionComponent < ReflexComponent
+class Properties::SidebarExtensionComponent < ApplicationComponent
   include Dashboard::Helpers
-  include ViewComponentReflex::Layout
 
   def enterprises
     @enterprises ||= Enterprise.includes(:cover_photo_attachment)
@@ -12,9 +11,9 @@ class Properties::SidebarExtensionComponent < ReflexComponent
     opts = opts.deeper_merge(data: { filter: filter_name, filter_name.to_sym => value })
 
     if blk
-      reflex_tag(:filter, tag, capture(&blk), **opts)
+      page_reflex_tag(:filter, tag, capture(&blk), **opts)
     else
-      reflex_tag(:filter, tag, content, **opts)
+      page_reflex_tag(:filter, tag, content, **opts)
     end
   end
 

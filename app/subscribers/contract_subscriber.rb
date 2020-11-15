@@ -9,7 +9,6 @@ class ContractSubscriber < ApplicationSubscriber
 
   def after_status_change_to_confirmed(record)
     @record = record
-    byebug
 
     property.update(status: :contract_confirmed)
     property.contracts.where.not(id: record.id).update(status: :cancelled)
@@ -18,7 +17,7 @@ class ContractSubscriber < ApplicationSubscriber
 
   def after_status_change_to_activated(record)
     @record = record
-    byebug
+
     property.update(
       status: :occupied,
       current_contract_start_date: record.start_date,

@@ -1,4 +1,4 @@
-class Contracts::Form < ReflexComponent
+class Contracts::Form < ApplicationComponent
   def initialize(contract:)
     @contract = contract
     @use_existing_customer = false

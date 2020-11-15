@@ -1,4 +1,4 @@
-class Contracts::Table::ContractComponent < ReflexComponent
+class Contracts::Table::ContractComponent < ApplicationComponent
   include Contracts::Helpers::Labels
   include DateFormatHelper
 

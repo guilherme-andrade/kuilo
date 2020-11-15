@@ -356,6 +356,8 @@ GEM
       rack
       rails (>= 5.2)
       redis
+    store_schema (1.1.1)
+      activerecord (>= 5.1.0)
     terminal-table (2.0.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     thor (1.0.1)
@@ -459,6 +461,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   stimulus_reflex (~> 3.2)
+  store_schema
   turbolinks (~> 5)
   tzinfo-data
   validates_timeliness

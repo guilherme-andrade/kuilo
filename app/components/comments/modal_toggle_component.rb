@@ -1,4 +1,4 @@
-class Comments::ModalToggleComponent < ReflexComponent
+class Comments::ModalToggleComponent < ApplicationComponent
   def initialize(commentable:, **options)
     @commentable = commentable
     @options = options

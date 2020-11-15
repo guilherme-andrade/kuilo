@@ -1,8 +1,19 @@
 .trix-button {
   @extend .btn, .btn-white, .bg-white, .border-0, .border-medium;
 
+  font-size: 0 !important;
+
   &-group {
     @extend .btn-group, .border-0, .rounded;
+  }
+}
+
+.trix-button-group {
+  @extend .btn-group;
+
+  .trix-button.trix-button--icon {
+    height: $spacer * 1.5 !important;
+    width: $spacer * 1.5 !important;
   }
 }
 

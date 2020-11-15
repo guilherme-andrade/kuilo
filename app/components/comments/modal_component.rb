@@ -1,4 +1,4 @@
-class Comments::ModalComponent < ReflexComponent
+class Comments::ModalComponent < ApplicationComponent
   include ImageHelper
 
   def initialize(commentable_type:, commentable_id:)
@@ -19,7 +19,7 @@ class Comments::ModalComponent < ReflexComponent
   def create_comment
     attrs = comment_params.merge(commentable_type: @commentable_type, commentable_id: @commentable_id)
     if current_user.comments.create!(attrs)
-      toast(success: 'Comentário adicionado')
+      render_toast(success: 'Comentário adicionado')
     end
   end
 

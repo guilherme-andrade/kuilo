@@ -7,7 +7,7 @@ module ViewComponentReflex::Form::LocationInputs
 
     default_options = { class: ['form-select'], data: input_reflex_data_attributes }
 
-    country_select('', attribute, select_options, combine_options(default_options, options))
+    country_select('', _input_name_for(attribute), select_options, combine_options(default_options, options))
   end
 
   def city_select(attribute, **options)

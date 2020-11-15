@@ -1,4 +1,2 @@
-class Dashboard::SidebarExtensionComponent < ReflexComponent
-  include ViewComponent::WithContext
-  include ViewComponentReflex::Layout
+class Dashboard::SidebarExtensionComponent < ApplicationComponent
 end

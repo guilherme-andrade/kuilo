@@ -1,4 +1,4 @@
-class Contracts::Table < ReflexComponent
+class Contracts::Table < ApplicationComponent
   def initialize(query:, contracts:)
     @contracts = contracts
     @query = query

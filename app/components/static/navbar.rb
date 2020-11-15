@@ -1,2 +1,2 @@
-class Static::Navbar < ReflexComponent
+class Static::Navbar < ApplicationComponent
 end

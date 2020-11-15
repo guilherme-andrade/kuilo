@@ -1,4 +1,4 @@
-class Organizations::Currents::MembersTable < ReflexComponent
+class Organizations::Currents::MembersTable < ApplicationComponent
   include ImageHelper
 
   def initialize(organization:)
@@ -26,7 +26,7 @@ class Organizations::Currents::MembersTable < ReflexComponent
 
     close_form
     reload_memberships
-    flash(success: 'Convite enviado com sucesso')
+    render_flash(success: 'Convite enviado com sucesso')
   end
 
   def change_role

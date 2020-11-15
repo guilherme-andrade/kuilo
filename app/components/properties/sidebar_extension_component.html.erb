@@ -5,7 +5,7 @@
   <% enterprises.each do |enterprise| %>
     <div class="flexbox flexbox-between-center mb-3">
       <div class="flexbox flexbox-start-center">
-        <%= image_tag enterprise.cover_photo, class: 'rounded object-cover mr-2', width: 60, height: 60 %>
+        <%= attachment_image_tag enterprise.cover_photo, class: 'rounded object-cover mr-2', width: 60, height: 60 %>
         <div>
           <h1 class="small mb-0"><%= enterprise.name %></h1>
           <span class="badge badge-sm bg-light text-dark">
@@ -55,7 +55,7 @@
       </div>
     </div>
   <% end %>
-  <%= page_reflex_tag :show_sidepane, :button, icon('plus', class: 'icon icon-lg'), class: 'btn btn-white border-dashed py-2 w-100 rounded', data: { component: 'Properties::PropertySidepaneComponent' } %>
+  <%= app_reflex_tag :show_sidepane, :button, icon('plus', class: 'icon icon-lg'), class: 'btn btn-white border-dashed py-2 w-100 rounded', data: { component: 'Enterprises::NewComponent' } %>
 </div>
 
 

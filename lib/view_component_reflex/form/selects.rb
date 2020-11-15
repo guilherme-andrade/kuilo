@@ -3,13 +3,27 @@ module ViewComponentReflex::Form::Selects
     default_options = { class: ['form-select'], selected: @record.send(attribute), data: input_reflex_data_attributes }
     collection = options.delete(:collection)
 
-    option_tags = if defined?(ActiveRecord::Collection) && collection.is_a?(ActiveRecord::Collection)
-                    options_from_collection_for_select collection, :name, :id, @record.send(attribute)
+    option_tags = if collection.all? { |r| r.class.ancestors.include? ActiveRecord::Base }
+                    options_from_collection_for_select collection, :id, :name, @record.send(attribute)
                   else
                     options_for_select collection, @record.send(attribute)
                   end
 
-    select_tag(attribute, option_tags, combine_options(default_options, options))
+    select_tag(_input_name_for(attribute), option_tags, combine_options(default_options, options))
+  end
+
+  def association_select(attribute, **options)
+    attribute = [attribute, :id].join('_')
+    default_options = { class: ['form-select'], selected: @record.send(attribute), data: input_reflex_data_attributes }
+    collection = options.delete(:collection)
+
+    option_tags = if collection.all? { |r| r.class.ancestors.include? ActiveRecord::Base }
+                    options_from_collection_for_select collection, :id, :name, @record.send(attribute)
+                  else
+                    options_for_select collection, @record.send(attribute)
+                  end
+
+    select_tag(_input_name_for(attribute), option_tags, combine_options(default_options, options))
   end
 
   def dropdown_select(attribute, **options)

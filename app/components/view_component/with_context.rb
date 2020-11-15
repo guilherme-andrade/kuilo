@@ -11,6 +11,10 @@ module ViewComponent::WithContext
       _contextualize
     end
 
+    def render_with_context(component_class, additional_context = {}, &blk)
+      render component_class.new(context.deeper_merge(additional_context)) { capture(&blk) }
+    end
+
     private
 
     def _contextualize

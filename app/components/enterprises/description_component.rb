@@ -1,4 +1,4 @@
-class Enterprises::DescriptionComponent < ReflexComponent
+class Enterprises::DescriptionComponent < ApplicationComponent
   def initialize(enterprise:)
     @enterprise = enterprise
     @editing = false

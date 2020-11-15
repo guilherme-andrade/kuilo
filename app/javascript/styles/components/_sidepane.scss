@@ -32,6 +32,12 @@
 
     .sidepane-backdrop {
       animation: fadeIn .2s $cubic-bezier;
+      cursor: pointer;
+      transition: background .2s $cubic-bezier;
+
+      &:hover {
+        background: rgba($black, 0.4);
+      }
     }
 
     .sidepane-dialog {
@@ -45,10 +51,12 @@
     right: 0;
     height: 100%;
     width: 100%;
-    background: rgba($black, 0.5);
+    background: rgba($black, 0.8);
   }
 
   &-dialog {
+    @extend .no-scrollbar;
+
     z-index: 1050;
     position: absolute;
     top: $spacer / 2;
@@ -58,12 +66,71 @@
     background: $white;
     box-shadow: $box-shadow;
     border-radius: $spacer * 2;
-    padding: $spacer * 2;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: $spacer * 4;
+      border-top-left-radius: $spacer * 2;
+      border-top-right-radius: $spacer * 2;
+      z-index: 2;
+      background: linear-gradient(to bottom, rgba($white, 1) 0%, rgba($white, .7) 50%, rgba($white, 0) 100%);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: $spacer * 4;
+      border-bottom-left-radius: $spacer * 2;
+      border-bottom-right-radius: $spacer * 2;
+      z-index: 2;
+      background: linear-gradient(to top, rgba($white, 1) 0%, rgba($white, .7) 50%, rgba($white, 0) 100%);
+    }
+  }
+
+  &-content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    padding: $spacer * 3 $spacer * 3 $spacer * 8;
+    border-radius: $spacer * 2;
+  }
+
+  &-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $spacer * 4;
+    border-top-left-radius: $spacer * 2;
+    border-top-right-radius: $spacer * 2;
+    z-index: 3;
+    background: linear-gradient(to bottom, rgba($white, 1) 0%, rgba($white, .7) 50%, rgba($white, 0) 100%);
+  }
+
+  &-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: $spacer * 4;
+    border-bottom-left-radius: $spacer * 2;
+    border-bottom-right-radius: $spacer * 2;
+    z-index: 3;
+    background: linear-gradient(to top, rgba($white, 1) 0%, rgba($white, .7) 50%, rgba($white, 0) 100%);
   }
 
   &-close {
     position: absolute;
     top: $spacer;
     right: $spacer * 1.5;
+    z-index: 10;
   }
 }

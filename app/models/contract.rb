@@ -178,7 +178,6 @@ class Contract < ApplicationRecord
 
   def notify_of_status_change
     recipients = organization.admins.merge(User.where(id: manager.id))
-    byebug
     ContractStatusChangedNotification.with(notifiable: self).deliver_later(recipients)
   end
 end

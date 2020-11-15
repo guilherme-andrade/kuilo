@@ -9,8 +9,35 @@ module ViewComponent::ViewHelpers
     include ImageHelper
   end
 
+  def attachment_image_tag(attachment, **options)
+    if attachment&.attached?
+      image_tag attachment, options
+    else
+      image_pack_tag 'media/images/logo.png', options
+    end
+  end
+
   def icon(name, options = {})
     inline_svg_pack_tag ['media/icons/', name, '.svg'].join, options
+  end
+
+  def flashes
+    content = ''
+
+    @flash.to_h.each do |key, content|
+      content_tag(:div, class: "alert alert-#{key} alert-dismissable", role: 'alert') do
+        [
+          content_tag(:span, icon('x'), class: 'close', data: { dismiss: 'alert'}),
+          flash[:success]
+        ].join.html_safe
+      end
+    end
+
+    content_tag(:div, id: 'flash-root') { content }
+  end
+
+  def flash(**flashes)
+    @flash = flashes
   end
 
   def current_organization
@@ -33,7 +60,7 @@ module ViewComponent::ViewHelpers
     session['warden.user.user.key'].first.first
   end
 
-  def flash(**flashes)
+  def render_flash(**flashes)
     return if flashes.empty?
 
     FlashRenderer.render(
@@ -44,7 +71,7 @@ module ViewComponent::ViewHelpers
     )
   end
 
-  def toast(**toasts)
+  def render_toast(**toasts)
     return if toasts.empty?
 
     ToastRenderer.render(

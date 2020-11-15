@@ -1,4 +1,4 @@
-class Organizations::FormComponent < ReflexComponent
+class Organizations::FormComponent < ApplicationComponent
   def before_render
     @organization = current_organization
     @organization.build_address

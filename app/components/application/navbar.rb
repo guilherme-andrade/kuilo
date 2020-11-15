@@ -1,2 +1,2 @@
-class Application::Navbar < ReflexComponent
+class Application::Navbar < ApplicationComponent
 end

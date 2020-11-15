@@ -1,8 +1,8 @@
 <%= content_tag(:div, class: wrapper_class) do %>
-  <%= page_reflex_tag :hide_sidepane, :div, '', class: 'sidepane-backdrop' %>
+  <%= app_reflex_tag :hide_sidepane, :div, '', class: 'sidepane-backdrop' %>
 
   <aside class="sidepane-dialog">
-    <%= page_reflex_tag :hide_sidepane, :button, icon('x', class: 'icon icon-lg'), class: 'btn btn-round bg-light sidepane-close' %>
+    <%= app_reflex_tag :hide_sidepane, :button, icon('x', class: 'icon icon-lg'), class: 'btn btn-round bg-light sidepane-close' %>
 
     <header class="sidepane-header">
       <%= @header %>

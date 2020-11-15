@@ -1,6 +1,4 @@
-class Application::FlashesComponent < ReflexComponent
-  include ViewComponent::WithContext
-
+class Application::FlashesComponent < ApplicationComponent
   def flash
     @flash || {}
   end

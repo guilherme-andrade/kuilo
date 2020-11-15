@@ -1,3 +1,2 @@
-class Properties::PropertySidepaneComponent < ReflexComponent
-  include ViewComponentReflex::Layout
+class Properties::PropertySidepaneComponent < ApplicationComponent
 end

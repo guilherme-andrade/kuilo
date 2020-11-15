@@ -1,31 +1,10 @@
 <%= component_controller do %>
-  <%= render Static::SectionHeader.new(title: @options[:title], subtitle: @options[:subtitle]) %>
-
-  <div class="row">
-    <div class="col-6">
-      <%= reflex_input :street, label: t('components.address.form.street_label'), placeholder: t('components.address.form.street_placeholder') %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-2">
-      <%= reflex_input :floor, label: t('components.address.form.floor_label'), placeholder: t('components.address.form.floor_placeholder') %>
-    </div>
-    <div class="col-2">
-      <%= reflex_input :door, label: t('components.address.form.door_label'), placeholder: t('components.address.form.door_placeholder') %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-3">
-      <%= reflex_input :zip_code, label: t('components.address.form.zip_code_label'), placeholder: t('components.address.form.zip_code_placeholder') %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-3">
-      <%= reflex_input :city, as: :city, label: t('components.address.form.city_label'), placeholder: t('components.address.form.city_placeholder') %>
-    </div>
-    <div class="col-5">
-      <%= reflex_input :country_code, as: :country, label: t('components.address.form.country_label'), placeholder: t('components.address.form.country_placeholder'), input_html: { class: 'form-select' } %>
-    </div>
-  </div>
-  <%= reflex_submit t('globals.save_changes'), class: 'btn btn-primary' %>
+  <%= fieldset title: @title, subtitle: @subtitle do%>
+    <%= reflex_input :street, label: t('components.address.form.street_label'), placeholder: t('components.address.form.street_placeholder') %>
+    <%= reflex_input :floor, label: t('components.address.form.floor_label'), placeholder: t('components.address.form.floor_placeholder') %>
+    <%= reflex_input :door, label: t('components.address.form.door_label'), placeholder: t('components.address.form.door_placeholder') %>
+    <%= reflex_input :zip_code, label: t('components.address.form.zip_code_label'), placeholder: t('components.address.form.zip_code_placeholder') %>
+    <%= reflex_input :country_code, as: :country, label: t('components.address.form.country_label'), placeholder: t('components.address.form.country_placeholder'), input_html: { class: 'form-select' } %>
+    <%= reflex_input :city, as: :city, label: t('components.address.form.city_label'), placeholder: t('components.address.form.city_placeholder') %>
+  <% end %>
 <% end %>

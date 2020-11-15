@@ -1,4 +1,4 @@
-class Rents::Table::Rent < ReflexComponent
+class Rents::Table::Rent < ApplicationComponent
   include Rents::Helpers::Labels
   include DateFormatHelper
 

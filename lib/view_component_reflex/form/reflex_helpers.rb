@@ -1,34 +1,17 @@
 module ViewComponentReflex::Form::ReflexHelpers
   def component_controller(&blk)
-    super(:form, capture(&blk), class: 'fade show')
-  end
-
-  def update_field
-    name = element.name || element.dataset.name
-    value = element.value || element.dataset.value
-
-    @record.assign_attributes(name => value)
-
-    @record.save if element.dataset.save
-  end
-
-  def save
-    if @record.save
-      toast(success: t('alerts.changes_saved_successfully'))
-    else
-      toast(error: t('alerts.could_not_save_record'))
-    end
+    super(:div) { capture(&blk) }
   end
 
   def reflex_submit(content = 'Submit', **options)
-    if @loading && options[:class]
-      options[:class].concat ' loading'
-    elsif @loading
-      options[:class] = 'loading'
-    end
+    content.prepend icon(options[:icon], class: 'icon icon-sm mr-2') if options[:icon]
 
     content_tag :div, class: 'mt-7' do
-      [reflex_tag('click->save', :button, content, options), error_tags(@record.errors.full_messages)].join.html_safe
+      tag = reflex_tag('click->save', :button, content, options) do
+        content.html_safe
+      end
+
+      [tag, error_tags(@record.errors.full_messages)].join.html_safe
     end
   end
 
@@ -49,11 +32,17 @@ module ViewComponentReflex::Form::ReflexHelpers
     end
   end
 
+  def file_input_reflex_data_attributes(controller: nil)
+    reflex_data_attributes('change->upload_file').tap do |attributes|
+      attributes[:controller] = [attributes[:controller], controller].join(' ') if controller
+    end
+  end
+
   # rubocop:disable Metrics/AbcSize
   def _reflex_input_content(attribute, **options)
     input_method = ViewComponentReflex::Form::INPUT_MAPPINGS[attribute_type(attribute, options)]
     nodes = []
-    nodes << label(attribute, options.delete(:label), options.delete(:label_options) || {}) if options.dig(:label)
+    nodes << label(attribute, options.delete(:label), options.delete(:label_options) || {}) unless options.dig(:label) == false
     nodes << send(input_method, attribute, options) if input_method
     nodes << hint(options.delete(:hint)) if options.dig(:hint)
     nodes << error(attribute) if @record.errors[attribute].any?

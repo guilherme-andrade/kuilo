@@ -2,10 +2,10 @@
 <html>
   <%= render 'head' %>
 
-  <%= layout_component_controller(:body, data: { controller: 'app animations', action: 'cable-ready:after-morph@document->animations#animate' }) do %>
+  <%= layout_component_controller(:body, style: (sidepane_present? ? 'position: fixed;' : '') , container: { data: { controller: 'app animations', action: 'cable-ready:after-morph@document->animations#animate' } }) do %>
     <%= render(flashes) %>
     <%= content_tag(:div, class: dashboard_class) do %>
-      <%= page_reflex_tag(:toggle_sidebar_extension, :button, icon('chevron-right'), class: toggle_class, data: { component: 'Properties::SidebarExtensionComponent' }) %>
+      <%= app_reflex_tag(:toggle_sidebar_extension, :button, icon('chevron-right'), class: toggle_class, data: { component: 'Properties::SidebarExtensionComponent' }) %>
 
       <%= content_tag(:aside, class: %w[dashboard-aside]) do %>
         <%= sidebar %>

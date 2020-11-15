@@ -40,7 +40,7 @@
           </ul>
         </div>
 
-        <%= page_reflex_tag(:toggle_sidepane, :button, class: 'btn btn-sm btn-white', data: { component: 'Organizations::FormComponent' }) do %>
+        <%= app_reflex_tag(:toggle_sidepane, :button, class: 'btn btn-sm btn-white', data: { component: 'Properties::NewComponent' }) do %>
           <%= icon('plus-circle', class: 'icon-md mr-2') %>
           Adicionar
         <% end %>
@@ -107,7 +107,7 @@
         <% properties.each do |property| %>
           <article class="animated-group-item text-dark mb-4 w-100 flexbox flexbox-between-center">
             <div class="flexbox flexbox-start-center">
-              <%= image_tag property.enterprise.cover_photo, class: 'rounded object-cover', width: 100, height: 100 %>
+              <%= attachment_image_tag property&.enterprise&.cover_photo, class: 'rounded object-cover', width: 100, height: 100 %>
 
               <div class="pl-3">
                 <h1 class="h4 mb-0"><%= property.code %></h1>
@@ -116,7 +116,7 @@
                 <div class="d-flex">
                   <span class="badge bg-light text-dark mr-2">
                     <%= icon 'aspect-ratio-fill', class: 'icon-xs' %>
-                    <strong><%= property.typology %></strong>
+                    <strong><%= t("property.types.#{property.type.split('::').last.underscore}") %></strong>
                   </span>
                   <%= label_for_property property %>
                 </div>
@@ -132,6 +132,8 @@
                 <p class="small mb-0 text-muted">Valor de Renda</p>
                 <p class="small font-weight-bold text-black mb-0"><%= humanized_money_with_symbol property.default_rent %></p>
               </div>
+              <%= app_reflex_tag :show_sidepane, :button, icon('arrows-angle-expand'), class: 'btn btn-round btn-light ml-3', data: { component: 'Properties::EditComponent', context: { id: property.id } } %>
+              <%= app_reflex_tag :show_sidepane, :button, icon('pencil'), class: 'btn btn-round btn-black ml-1', data: { component: 'Properties::EditComponent', context: { id: property.id } } %>
             </div>
           </article>
         <% end %>

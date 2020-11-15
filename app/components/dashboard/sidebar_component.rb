@@ -1,4 +1,4 @@
-class Dashboard::SidebarComponent < ReflexComponent
+class Dashboard::SidebarComponent < ApplicationComponent
   def sidebar_link_to(path, icon_name = nil, **options, &blk)
     default_options = { class: 'dashboard-sidebar-link', data: { toggle: 'tooltip' }, title: options.delete(:tip) }
 

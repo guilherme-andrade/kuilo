@@ -11,7 +11,7 @@ module ViewComponentReflex::Form::PhoneInputs
   def phone_number_input(attribute, **options)
     default_options = { class: ['form-control'], data: input_reflex_data_attributes }
 
-    phone_field_tag(attribute, record.send(attribute), combine_options(default_options, options))
+    phone_field_tag(_input_name_for(attribute), record.send(attribute), combine_options(default_options, options))
   end
 
   def phone_country_code_select(attribute, **options)

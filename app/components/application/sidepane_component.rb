@@ -1,6 +1,4 @@
-class Application::SidepaneComponent < ReflexComponent
-  include ViewComponentReflex::Layout
-
+class Application::SidepaneComponent < ApplicationComponent
   with_content_areas :header, :footer
 
   def wrapper_class

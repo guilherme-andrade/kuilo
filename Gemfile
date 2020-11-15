@@ -48,6 +48,7 @@ gem 'sentry-raven'
 gem 'sidekiq'
 gem 'simple_form'
 gem 'stimulus_reflex', '~> 3.2'
+gem 'store_schema'
 gem 'turbolinks', '~> 5'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'validates_timeliness'

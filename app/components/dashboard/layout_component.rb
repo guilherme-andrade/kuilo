@@ -1,6 +1,4 @@
-class Dashboard::LayoutComponent < ReflexComponent
-  include ViewComponentReflex::Layout
-
+class Dashboard::LayoutComponent < LayoutComponent
   with_layout_areas sidebar_extension: Dashboard::SidebarExtensionComponent,
                     sidepane: Application::SidepaneComponent,
                     sidebar: Dashboard::SidebarComponent

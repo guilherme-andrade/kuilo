@@ -1,4 +1,4 @@
-class Organizations::SectionedFormComponent < ReflexComponent
+class Organizations::SectionedFormComponent < ApplicationComponent
   def initialize(organization:)
     @organization = organization
     @active_tab = tabs.first
