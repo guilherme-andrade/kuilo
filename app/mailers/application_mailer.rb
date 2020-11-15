@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationMailer < ActionMailer::Base
+  track user: -> { params[:recipient] }, open: true, click: true
   prepend_view_path 'app/mailers/views'
   default from: "Guilherme Andrade <#{ENV['SENDGRID_SENDER_EMAIL']}>"
   layout 'mailer'

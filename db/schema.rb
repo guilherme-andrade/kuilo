@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_09_110546) do
+ActiveRecord::Schema.define(version: 2020_11_15_024403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -62,6 +62,16 @@ ActiveRecord::Schema.define(version: 2020_10_09_110546) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
+  end
+
+  create_table "ahoy_messages", force: :cascade do |t|
+    t.string "user_type"
+    t.bigint "user_id"
+    t.text "to"
+    t.string "mailer"
+    t.text "subject"
+    t.datetime "sent_at"
+    t.index ["user_type", "user_id"], name: "index_ahoy_messages_on_user_type_and_user_id"
   end
 
   create_table "bank_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -121,11 +131,11 @@ ActiveRecord::Schema.define(version: 2020_10_09_110546) do
     t.string "rent_amount_currency", default: "EUR", null: false
     t.integer "rent_charges_cents", default: 0, null: false
     t.string "rent_charges_currency", default: "EUR", null: false
-    t.integer "taxation_type", default: 0
+    t.string "taxation_type", default: ""
     t.text "charges_description"
     t.text "invoice_description"
     t.integer "invoicing_frequency_value", default: 1
-    t.integer "invoicing_frequency_unit", default: 0
+    t.string "invoicing_frequency_unit", default: ""
     t.integer "deposit_rent_multiplier", default: 2
     t.boolean "deposit_paid", default: false
     t.datetime "created_at", precision: 6, null: false
@@ -223,7 +233,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_110546) do
     t.bigint "default_charges_cents"
     t.string "default_charges_currency", default: "EUR", null: false
     t.string "type"
-    t.integer "typology"
+    t.string "typology", default: ""
     t.jsonb "characteristics"
     t.integer "contracts_count", default: 0
     t.text "default_invoice_description"

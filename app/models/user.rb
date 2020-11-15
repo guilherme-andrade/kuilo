@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :transactions, foreign_key: :creator_id
   has_many :comments
   has_many :notifications, through: :memberships
+  has_many :received_emails, class_name: 'Ahoy::Message', as: :user
 
   accepts_nested_attributes_for :memberships
 

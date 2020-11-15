@@ -34,7 +34,7 @@ class NotificationsMailer < ApplicationMailer
 
   def find_notifiable
     @notification = params[:record]
-    @recipient  = params[:recipient]
-    @notifiable = @notification.notifiable
+    @recipient    = params[:recipient]
+    @notifiable   = @notification.notifiable
   end
 end

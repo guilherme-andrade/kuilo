@@ -9,6 +9,7 @@ gem 'active_link_to'
 gem 'activerecord-multi-tenant'
 gem 'activerecord-session_store'
 gem 'acts_as_living'
+gem 'ahoy_email'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bullet'
 gem 'cloudinary'
